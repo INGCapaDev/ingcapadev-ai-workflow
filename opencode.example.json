@@ -1,0 +1,133 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "agent": {
+    "ingcapa-dev-orchestrator": {
+      "description": "INGCapaDev Orchestrator - classifies, routes, delegates, owns handoff state",
+      "mode": "primary",
+      "model": "openai/gpt-5.6-sol",
+      "variant": "low",
+      "permission": {
+        "task": {
+          "*": "deny",
+          "sub-explore": "allow",
+          "sub-apply": "allow",
+          "sub-verify": "allow",
+          "sub-review-standards": "allow",
+          "sub-review-plan": "allow"
+        }
+      },
+      "prompt": "{file:./prompts/capa/orchestrator.md}"
+    },
+    "sub-explore": {
+      "description": "Read-only Capa exploration specialist",
+      "hidden": true,
+      "mode": "subagent",
+      "model": "openai/gpt-5.6-terra",
+      "variant": "medium",
+      "permission": {
+        "edit": "deny",
+        "bash": {
+          "*": "ask",
+          "git status": "allow",
+          "git status --short": "allow",
+          "git status --porcelain": "allow",
+          "git diff": "allow",
+          "git diff --stat": "allow",
+          "git log --oneline": "allow",
+          "git rev-parse --show-toplevel": "allow",
+          "git rev-parse --is-inside-work-tree": "allow"
+        },
+        "task": "deny"
+      },
+      "prompt": "{file:./prompts/capa/sub-explore.md}"
+    },
+    "sub-apply": {
+      "description": "One approved Capa implementation slice",
+      "hidden": true,
+      "mode": "subagent",
+      "model": "openai/gpt-5.6-luna",
+      "variant": "xhigh",
+      "permission": {
+        "task": "deny"
+      },
+      "prompt": "{file:./prompts/capa/sub-apply.md}"
+    },
+    "sub-verify": {
+      "description": "Read-only Capa verification specialist",
+      "hidden": true,
+      "mode": "subagent",
+      "model": "openai/gpt-5.6-terra",
+      "variant": "medium",
+      "permission": {
+        "edit": "deny",
+        "bash": {
+          "*": "ask",
+          "git status": "allow",
+          "git status --short": "allow",
+          "git status --porcelain": "allow",
+          "git diff": "allow",
+          "git diff --stat": "allow",
+          "git log --oneline": "allow",
+          "git rev-parse --show-toplevel": "allow",
+          "git rev-parse --is-inside-work-tree": "allow"
+        },
+        "task": "deny"
+      },
+      "prompt": "{file:./prompts/capa/sub-verify.md}"
+    },
+    "sub-review-standards": {
+      "description": "Read-only Capa standards review axis",
+      "hidden": true,
+      "mode": "subagent",
+      "model": "openai/gpt-5.6-terra",
+      "variant": "medium",
+      "permission": {
+        "edit": "deny",
+        "bash": "deny",
+        "task": "deny"
+      },
+      "prompt": "{file:./prompts/capa/sub-review-standards.md}"
+    },
+    "sub-review-plan": {
+      "description": "Read-only Capa plan-conformance review axis",
+      "hidden": true,
+      "mode": "subagent",
+      "model": "openai/gpt-5.6-sol",
+      "variant": "low",
+      "permission": {
+        "edit": "deny",
+        "bash": "deny",
+        "task": "deny"
+      },
+      "prompt": "{file:./prompts/capa/sub-review-plan.md}"
+    }
+  },
+  "mcp": {
+    "engram": {
+      "command": ["engram", "mcp", "--tools=agent"],
+      "type": "local",
+      "description": "Install: https://github.com/Gentleman-Programming/engram"
+    },
+    "context7": {
+      "enabled": true,
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp",
+      "headers": {
+        "CONTEXT7_API_KEY": "YOUR_CONTEXT7_API_KEY_HERE"
+      },
+      "description": "Sign up: https://context7.com"
+    }
+  },
+  "permission": {
+    "read": {
+      "*": "allow",
+      "*.env": "deny",
+      "*.env.*": "deny",
+      "*.env.example": "allow"
+    },
+    "bash": {
+      "git commit *": "deny",
+      "git push *": "deny"
+    }
+  }
+}

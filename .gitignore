@@ -1,0 +1,51 @@
+# Personal backup files
+.bak-*
+.pre-migration-manifest.txt
+
+# Real config with API keys — use opencode.example.json instead
+opencode.json
+
+# Auto-generated
+.atl/
+node_modules/
+package.json
+package-lock.json
+bun.lock
+
+# WIP staging
+WIP/
+
+# Personal skills (not part of the public workflow)
+skills/_shared/
+skills/3d-animation-creator/
+skills/cognitive-doc-design/
+skills/comment-writer/
+skills/context7-mcp/
+skills/firecrawl/
+skills/go-testing/
+skills/gws-executive-assistant/
+skills/improve-codebase-architecture/
+skills/power-design/
+skills/site-blueprint/
+skills/skill-improver/
+skills/skill-registry/
+skills/teach/
+skills/website-intelligence/
+skills/work-unit-commits/
+skills/write-a-skill/
+skills/zoom-out/
+
+# Personal commands
+commands/meeting-prep.md
+commands/plan-tomorrow.md
+commands/skill-creator.md
+commands/skill-registry.md
+commands/task-triage.md
+commands/today-agenda.md
+commands/weekly-review.md
+
+# Personal config
+plugins/
+rules/
+themes/
+tui.json
