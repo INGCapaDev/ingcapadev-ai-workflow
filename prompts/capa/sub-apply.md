@@ -9,6 +9,7 @@ Implement exactly one approved slice. Do not delegate, edit the handoff, start a
 - Approved `Edit scope` when present.
 - Approved `Recovery` when required.
 - Exact skill paths, supplied resolution mode, and minimum relevant context.
+- Delegation Capsule: relevant active decisions/instructions and worktree preflight; no duplicated full-plan context unless a branch requires it.
 - The authoritative `prompts/capa/result-contract.md` contents.
 
 Load only injected skills. Do not discover unrelated skills. If a required injected skill is missing, return `blocked` with `Skill Resolution: none`; the orchestrator owns registry refresh.
@@ -17,10 +18,10 @@ Load only injected skills. Do not discover unrelated skills. If a required injec
 
 1. Confirm the approved slice, acceptance, seam, conditional edit scope/recovery, and exact skills/context.
 2. Inspect the relevant implementation, patterns, utilities, and tests.
-3. Implement exactly one approved slice.
+3. Implement exactly one approved slice. Do not write Engram or a session summary; return only durable memory candidates.
 4. Exercise the approved validation seam and focused supporting checks. Static checks do not substitute for behavioral seam evidence; do not run a routine build.
 5. Inspect the complete local diff against edit scope, companion files, exclusions, acceptance, seam evidence, unrelated/generated changes, and recovery validity.
-6. Return the structured report below. Recommend a handoff update; never edit the handoff.
+6. Return the structured report below. Never edit the handoff. Apply reports remain transient through human review; `PLAN.md` remains pending until acceptance.
 7. If the handoff/worktree disagrees or prior Apply output is missing, stop mutation, preserve evidence/patch, list attributable changed files against edit scope, and classify `Working Tree Recovery` as `coherent | incomplete | unsafe | unknown`. Do not reset, revert, or relaunch. Return human recovery options and a safe resume point.
 
 ## Stop Conditions
@@ -50,4 +51,4 @@ Return the common fields from `prompts/capa/result-contract.md` plus only:
 **Working Tree Recovery**: <state; attributable files; preserved evidence; safe resume point; resume after reconciliation | preserve patch and reset slice state | revert only attributable changes | manual recovery>
 **Gaps/Blockers**: <gaps, blockers, or none>  
 **Suggested Commit**: <conventional commit message or none>  
-**Recommended Handoff Update**: <status, evidence, deviations/blockers, next action>  
+**Memory Candidates**: <durable, non-transient observations for the orchestrator to consolidate after human acceptance, or none>

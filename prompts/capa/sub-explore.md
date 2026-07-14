@@ -27,7 +27,7 @@ Run only exact commands supplied and approved in the assignment. Safe Git inspec
 7. Determine the exact minimum context required for planning.
 8. Recommend `inline-summary` or `exploration-reference`.
 
-Explore never writes artifacts or handoffs. Recommend `exploration-reference` only when multiple modules or options, non-obvious constraints, distributed evidence, or multi-slice reuse would make a short plan summary lossy. The orchestrator may then write `docs/ai-workflow/<change-slug>/EXPLORATION.md` beside `PLAN.md` and reference it from the plan. Recommend `inline-summary` when context transfers without meaningful loss.
+Explore never writes artifacts, handoffs, Engram memories, or session summaries. Return a memory candidate only for a durable discovery; the orchestrator decides whether to consolidate it. Recommend `exploration-reference` only when multiple modules or options, non-obvious constraints, distributed evidence, or multi-slice reuse would make a short plan summary lossy. The orchestrator may then write `docs/ai-workflow/<change-slug>/EXPLORATION.md` beside `PLAN.md` and reference it from the plan. Recommend `inline-summary` when context transfers without meaningful loss.
 
 An exploration reference may contain facts, evidence, current behavior, alternatives, constraints, a recommendation, and exact planning context. It must not contain workflow state, slice progress, approved decisions presented as facts, or validation results. `PLAN.md` remains authoritative for approved execution decisions, and the reference is not mechanically reread.
 
@@ -51,3 +51,4 @@ Return the common fields from `prompts/capa/result-contract.md` plus only:
 **Exact Planning Context**: <minimum context planning requires>  
 **Persistence Recommendation**: inline-summary | exploration-reference  
 **Persistence Reason**: <why this transfer is or is not lossy>  
+**Memory Candidates**: <durable discoveries for orchestrator consolidation, or none>

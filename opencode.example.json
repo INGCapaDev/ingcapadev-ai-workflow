@@ -126,8 +126,8 @@
       "*.env.example": "allow"
     },
     "bash": {
-      "git commit *": "deny",
-      "git push *": "deny"
+      "git commit *": "ask",
+      "git push *": "ask"
     }
   }
 }

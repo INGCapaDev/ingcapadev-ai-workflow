@@ -15,6 +15,9 @@ bun.lock
 # WIP staging
 WIP/
 
+# Local AI workflow handoffs
+docs/ai-workflow/
+
 # Personal skills (not part of the public workflow)
 skills/_shared/
 skills/3d-animation-creator/
@@ -24,6 +27,7 @@ skills/context7-mcp/
 skills/firecrawl/
 skills/go-testing/
 skills/gws-executive-assistant/
+skills/grilling/
 skills/improve-codebase-architecture/
 skills/power-design/
 skills/site-blueprint/
@@ -32,7 +36,6 @@ skills/skill-registry/
 skills/teach/
 skills/website-intelligence/
 skills/work-unit-commits/
-skills/write-a-skill/
 skills/zoom-out/
 
 # Personal commands

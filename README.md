@@ -32,7 +32,7 @@ Users interact through four commands:
 - `/verify [scope]` — Independently verify a completed slice
 - `/review <ref>` — Two-axis review from a fixed Git ref
 
-Every delegation starts fresh. The orchestrator classifies work, resolves skills, delegates, and owns the handoff state. The human approves plans, reviews diffs, and controls direction.
+Every delegation starts fresh. The orchestrator classifies work, resolves skills, delegates, and owns plan state. A successful Apply is ready for human diff review; only human acceptance marks a slice complete and advances the plan.
 
 ## Requirements
 
@@ -81,7 +81,7 @@ scripts/
 
 For the best experience, pair this workflow with:
 
-- **Engram** — persistent memory across sessions. The orchestrator uses it to remember decisions, discoveries, and context between sessions.
+- **Engram** — persistent memory across sessions. During Capa delegation, specialists return durable memory candidates and the orchestrator consolidates accepted outcomes after human review.
 - **Context7 MCP** — gives AI agents real-time access to library and framework documentation.
 - **Matt Pocock's skill-writing approach** — if you want to write your own skills, his composable skill pattern fits perfectly with this workflow.
 

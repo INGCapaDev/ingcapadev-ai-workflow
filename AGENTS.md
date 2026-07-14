@@ -33,7 +33,7 @@ Load relevant skills before task-specific work. Use exact paths from the configu
 
 | Context | Skill |
 |---|---|
-| Creating or editing AI skills | `write-a-skill` |
+| Creating or editing AI skills | `writing-great-skills` |
 | Non-trivial development, structured planning, or human review gates | `engineered-ai-dev` |
 | Implementing code or reviewing code quality | `code-quality` |
 | Applying language or framework conventions | `coding-conventions` |
@@ -58,6 +58,10 @@ Call `mem_save` immediately after any of these:
 - User preference or constraint learned.
 
 Use a short searchable verb-led `title`, an appropriate `type`, and `scope: project` unless the observation is personal. Use a stable `topic_key` for an evolving topic; reuse that key when the topic changes, and never overwrite a distinct topic. If the key is unclear, call `mem_suggest_topic_key`; use `mem_update` to correct a known observation.
+
+### Capa Delegation Economy
+
+When Capa delegates, its orchestrator is the sole Engram writer. Specialists do not save memories or session summaries: they return concise `Memory Candidates` for durable discoveries only. The orchestrator consolidates or upserts related candidates with existing observations and saves accepted implementation outcomes only after human review. Do not persist transient Apply progress, evidence, or handoff state.
 
 Structure `content` as:
 
