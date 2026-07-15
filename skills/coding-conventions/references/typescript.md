@@ -9,4 +9,5 @@
 - For typed optional values, check the presence of the containing value or object rather than revalidating a primitive property type.
 - When `0`, `false`, or an empty string is valid, do not use primitive truthiness as a presence check.
 - Use runtime `typeof` checks for `unknown` or genuinely untrusted boundary input, not already typed internal values.
+- Prefer early returns or independent conditionals when they avoid unnecessary `else` branches without duplicating work or reducing readability.
 - Use `kebab-case` filenames unless the project or framework requires another convention.

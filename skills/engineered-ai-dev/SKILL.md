@@ -44,13 +44,21 @@ This skill is standalone for one capable agent. Capa enhances it with routing an
 1. **Clarify:** Inspect relevant code and instructions first. Ask only unresolved questions that materially affect correctness, scope, safety, or acceptance, then stop.
 2. **Explore proportionally:** Keep exploration read-only. Transfer concise findings inline; persist/reference dense or authoritative context only when a short summary would be lossy.
 3. **Plan:** Propose the smallest clear solution following project patterns, reusable utilities, code-quality guidance, and applicable conventions. State request, behavior, in/out/deferred scope, acceptance, constraints, assumptions, and material alternatives.
-4. **Slice by value and dependency:** Prefer independently valuable vertical slices. Put contracts, schemas, or foundations before dependents only when genuinely required; do not invent horizontal foundation phases. Each slice must be coherent and reviewable, not file-by-file, arbitrarily tiny, or mixed.
-5. **Specify each slice:** Include goal, areas, concrete changes, conditional edit scope/recovery, validation seam and expected evidence, risks/assumptions, and suggested conventional commit. Resolve every material slice decision, then ask once for final plan approval and stop.
+4. **Slice by review decision:** Apply the slice-boundary rules below. Resolve every material slice decision, then ask once for final plan approval and stop.
+5. **Specify each slice:** Include outcome, primary review decision, required changes/areas, valid resulting state, validation seam and expected evidence, conditional edit scope/recovery, risks/assumptions, conditional `Why separate`, and suggested conventional commit.
 6. **Persist after approval:** Use [HANDOFF_TEMPLATE.md](./HANDOFF_TEMPLATE.md) at the project convention or `docs/ai-workflow/<change-slug>/PLAN.md`. Add `Relevant Instructions and Skills` as path/name plus when/why to load; never copy skill bodies.
-7. **Implement one slice:** Load relevant instructions/skills, implement only approved work, and gather focused seam evidence plus proportional supporting checks. Do not run routine builds unless requested or required by the approved seam. Apply success means ready for human diff review, not complete.
+7. **Implement one slice:** Load relevant instructions/skills, implement only approved work, and gather focused seam evidence plus proportional supporting checks. Stop and replan remaining work if a second review decision appears or the approved boundary becomes invalid. Do not run routine builds unless requested or required by the approved seam. Apply success means ready for human diff review, not complete.
 8. **Reconcile before presenting:** Inspect the full diff and evidence. Account for every changed file and preserve the result through review without updating plan progress. If plan/worktree state disagrees or an Apply result is missing, preserve evidence, classify recovery, and ask before mutation; never auto-reset, revert, relaunch, or complete the slice.
 9. **Accept and persist once:** Only after explicit human acceptance, mark the slice `complete`, record accepted durable evidence/decisions, advance the current slice, and set the next safe action in one plan update. Consolidate or upsert durable memory then; do not save delegated session summaries or transient Apply state.
 10. **Return control:** Present changed files, decisions, evidence, blockers/deviations, risks, and a conventional commit suggestion. Ask for diff review and stop. Continue only after explicit transition approval.
+
+## Slice Boundary
+
+- Center each slice on one primary human review decision and a valid, merge-safe resulting state; keep all supporting cross-layer work for that decision together. A small coherent feature may remain one slice.
+- Size for one focused review session. Judge cognitive load from behaviors, concepts, contracts, state transitions, risk, context, and evidence; LOC is weak telemetry, never a threshold.
+- Split for independent decisions, distinct risk, rollout, or recovery, materially different evidence, or excessive cognitive load. Routine repository/service/file/layer decomposition does not create phases by itself.
+- Foundations, refactors, cleanup, and live verification are slices only when they independently meet the review-decision and valid-state test. Explore before planning; keep routine validation and cleanup with the outcome.
+- Plan new tests only when the user explicitly requests them or applicable project instructions/context require them. Existing tests may still be selected as validation evidence.
 
 ## Delegation Capsule
 

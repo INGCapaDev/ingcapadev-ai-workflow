@@ -49,30 +49,32 @@ Choose one presentation based on detail; do not keep both.
 
 Use while every field stays brief.
 
-| Slice | Goal | Concrete changes/areas | Validation seam and expected evidence | Edit scope/recovery summary (optional) | Suggested commit | Status |
-|---|---|---|---|---|---|---|
-| 1 |  |  |  |  |  | pending |
+| Slice | Outcome / primary review decision | Required changes/areas and valid resulting state | Validation seam and expected evidence | Edit scope/recovery (conditional) | Risks / Why separate (conditional) | Suggested commit | Status |
+|---|---|---|---|---|---|---|---|
+| 1 |  |  |  |  |  |  | pending |
 
 ### Detailed Slice Plan
 
 Use a summary index plus one block per slice when changes, edit scope, validation seam, or recovery need detail.
 
-| Slice | Goal | Depends on | Status |
+| Slice | Outcome / primary review decision | Depends on | Status |
 |---|---|---|---|
 | 1 |  | none | pending |
 
-#### Slice 1: <Goal>
+#### Slice 1: <Outcome>
 
-- Areas:
-- Concrete changes:
+- Primary review decision:
+- Required changes/areas:
+- Valid resulting state:
 - Edit scope: <primary roots, expected companion files, exclusions; omit when not applicable>
 - Validation seam: <boundary, observable behavior, expected focused evidence; justified `N/A` only without executable behavior>
 - Recovery: <Rollback, Fix-forward, Feature flag, justified `N/A`; omit for low-risk work>
 - Risks/assumptions: <omit when none>
+- Why separate: <only for a non-obvious boundary; state the independent decision, risk/rollout/recovery, evidence, or cognitive-load reason>
 - Suggested conventional commit:
 - Status: pending | complete
 
-Order by real dependency and prefer independently valuable vertical slices. Explain a non-vertical slice only when a real dependency requires it.
+Each slice centers one primary review decision and a valid, merge-safe resulting state; keep its supporting cross-layer work together. A small coherent feature may remain one slice. Split only for independent decisions, distinct risk/rollout/recovery, materially different evidence, or excessive cognitive load. Use `Why separate` only when the boundary is non-obvious.
 
 ## D. Human And Transition Gates
 
