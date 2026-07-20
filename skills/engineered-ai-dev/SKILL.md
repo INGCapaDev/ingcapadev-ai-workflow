@@ -56,6 +56,8 @@ This skill is standalone for one capable agent. Capa enhances it with routing an
 
 - Center each slice on one primary human review decision and a valid, merge-safe resulting state; keep all supporting cross-layer work for that decision together. A small coherent feature may remain one slice.
 - Size for one focused review session. Judge cognitive load from behaviors, concepts, contracts, state transitions, risk, context, and evidence; LOC is weak telemetry, never a threshold.
+- When split signals exist across user-visible contracts, state owners, live implementations, validation seams, risk profiles, or review load, test each candidate contract for independent acceptance, a merge-safe state, evidence, and dependencies before combining it. These signals inform boundaries; none forces a slice by itself.
+- Weigh shared contracts, temporary inconsistency, coupling, and transition overhead against narrower review focus. A shared business outcome alone does not justify combining independently reviewable contracts; when multiple materially different structures remain defensible, resolve the tradeoff with the human.
 - Split for independent decisions, distinct risk, rollout, or recovery, materially different evidence, or excessive cognitive load. Routine repository/service/file/layer decomposition does not create phases by itself.
 - Foundations, refactors, cleanup, and live verification are slices only when they independently meet the review-decision and valid-state test. Explore before planning; keep routine validation and cleanup with the outcome.
 - Reject file-by-file slices, arbitrarily tiny slices, mixed unrelated work, and states that cannot be validated or safely accepted independently.
