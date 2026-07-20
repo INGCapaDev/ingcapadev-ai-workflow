@@ -39,7 +39,7 @@
 
 ### Relevant Instructions And Skills
 
-<For each applicable item, list exact path or skill name and when/why to load it. Do not copy bodies. Omit this section when none apply.>
+<For each applicable item, list exact path or skill name and when/why to load it. Delegations receive resolved paths and may safely identify, request, or investigate missing relevant context. Do not copy bodies. Omit this section when none apply.>
 
 ## C. Approved Plan
 
