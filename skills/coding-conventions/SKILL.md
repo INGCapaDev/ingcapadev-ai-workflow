@@ -15,6 +15,10 @@ This is a convention router, not a code-quality guide. Load only the reference f
 4. Global Capa skills: `code-quality` and `coding-conventions`.
 5. Ecosystem defaults when no stronger convention exists.
 
+## General Engineering Principles
+
+- Write decimal integer literals with contiguous digits, for example `20000`.
+
 ## References
 
 - [TypeScript](references/typescript.md)
