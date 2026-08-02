@@ -11,3 +11,32 @@
 - Use runtime `typeof` checks for `unknown` or genuinely untrusted boundary input, not already typed internal values.
 - Prefer early returns or independent conditionals when they avoid unnecessary `else` branches without duplicating work or reducing readability.
 - Use `kebab-case` filenames unless the project or framework requires another convention.
+- Import directly avoid barrel files.
+- Chaining .map().filter(Boolean) creates an intermediate array and iterates twice. Use .flatMap() to transform and filter in a single pass.
+- Combined multiple array iterations
+
+## Extended rules
+###  Combine Multiple Array Iterations
+
+Multiple .filter() or .map() calls iterate the array multiple times. Combine into one loop.
+
+```ts
+// Incorrect: 3 iterations
+
+const admins = users.filter(u => u.isAdmin)
+const testers = users.filter(u => u.isTester)
+const inactive = users.filter(u => !u.isActive)
+// Correct: 1 iteration
+
+const admins: User[] = []
+const testers: User[] = []
+const inactive: User[] = []
+
+for (const user of users) {
+  if (user.isAdmin) admins.push(user)
+  if (user.isTester) testers.push(user)
+  if (!user.isActive) inactive.push(user)
+}
+```
+
+

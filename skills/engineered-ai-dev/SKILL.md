@@ -36,6 +36,7 @@ This skill is standalone for one capable agent. Capa enhances it with routing an
 | Context is large, dense, reusable, or authoritative | Persist or reference the relevant PRD, `CONTEXT.md`, `EXPLORATION.md`, ADR, issue/URL, or examples without duplication. Do not create artifacts by default. |
 | Monorepo, sensitive boundary, known ownership, or likely expansion | Add `Edit scope`: primary roots, expected companion files, and useful exclusions. |
 | API, schema, data, auth, permissions, deployment, or operational risk | Add concrete `Recovery`: Rollback, Fix-forward, or Feature flag. Do not use `Rollback: revert change`. |
+| The change materially depends on ownership, reuse, abstraction, or cost | Surface the decision and its evidence in the plan; otherwise keep the plan silent. Load the architecture reference only for actual structural work and use the loaded quality guidance for implementation policy. |
 | No executable behavior changes | Record a justified `N/A` validation seam; verification passes only after confirming the justification and absence of executable behavior. |
 | New work changes roadmap, scope, seam, or recovery | Stop. Ask the human to update the current plan before continuation, or keep the approved roadmap and create a separate plan. |
 

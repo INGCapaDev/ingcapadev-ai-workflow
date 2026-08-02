@@ -28,6 +28,14 @@ const requiresAny = (body, alternatives, name) => {
   const normalized = body.toLowerCase();
   check(alternatives.some((terms) => terms.every((term) => normalized.includes(term))), `${name}: missing semantic invariant`);
 };
+const decideCodeShape = ({ improvesClarity, meaningfulDuplication }) =>
+  improvesClarity || meaningfulDuplication ? "extract" : "local";
+const decideStructure = ({ distinctResponsibility, hidesImplementation, shallowWrapper }) =>
+  shallowWrapper || !distinctResponsibility || !hidesImplementation ? "reject" : "seam";
+const hasMaterialCostEvidence = ({ frequency, cardinality, amplification, boundaryCost }) =>
+  frequency === "repeated" || cardinality === "large" || amplification === "amplified" || boundaryCost === "remote";
+const decideCost = (evidence) => (hasMaterialCostEvidence(evidence) ? "address" : "simple");
+const decideBehavior = ({ preservation }) => (preservation === "preserved" ? "preserved" : "gap");
 const coreSkillNames = ["engineered-ai-dev", "code-quality", "coding-conventions"];
 const consequentialTransitions = ["Apply", "Verify", "Standards Review", "Plan Conformance"];
 const requiredSkillsFor = ({ codeInvolved, structuredPlanning = false }) => {
@@ -246,6 +254,7 @@ const workflowSources = {
   "engineered-ai-dev/HANDOFF_TEMPLATE.md": await read("skills/engineered-ai-dev/HANDOFF_TEMPLATE.md"),
   "code-quality/SKILL.md": await read("skills/code-quality/SKILL.md"),
   "coding-conventions/SKILL.md": conventionRoot,
+  "coding-conventions/references/architecture.md": await read("skills/coding-conventions/references/architecture.md"),
 };
 const staleProtocol = [
   /return all common fields exactly once/i,
@@ -261,6 +270,125 @@ for (const name of ["sub-review-standards", "sub-review-plan"]) {
   check(!/critical\s*:\s*unsafe|important\s*:\s*substantial|optional\s*:\s*non-blocking/i.test(promptBodies[name]), `${name}: duplicated severity definition`);
 }
 requiresAny(workflowSources["engineered-ai-dev/SKILL.md"], [["file-by-file", "arbitrarily tiny", "mixed unrelated", "validated", "accepted independently"]], "slice guidance");
+
+const qualityGuidance = workflowSources["code-quality/SKILL.md"];
+const architectureGuidance = workflowSources["coding-conventions/references/architecture.md"];
+requires(qualityGuidance, [
+  "delete before adding",
+  "smallest clear change",
+  "one-use logic",
+  "meaningful duplication",
+  "realistic frequency",
+  "cardinality",
+  "amplification",
+  "boundary cost",
+  "bounded in-memory loop",
+  "material cost",
+  "speculative abstractions",
+  "trivial wrappers",
+  "dead code",
+], "code-quality policy source");
+requires(architectureGuidance, [
+  "only for changes that add or alter a module",
+  "distinct responsibility",
+  "module or layer",
+  "useful seams",
+  "information",
+  "locality",
+  "proportional",
+], "conditional architecture guidance");
+requires(workflowSources["engineered-ai-dev/SKILL.md"], [
+  "materially depends on ownership, reuse, abstraction, or cost",
+  "surface the decision and its evidence",
+  "keep the plan silent",
+  "actual structural work",
+  "loaded quality guidance",
+], "conditional planning guidance");
+requires(promptBodies["sub-apply"], [
+  "complete local diff",
+  "loaded quality guidance",
+  "material decisions or gaps",
+  "ritual checklist",
+  "separate cleanup phase",
+], "sub-apply maintainability reconciliation");
+
+const detailedQualityPolicy = [
+  /one-use logic/i,
+  /meaningful duplication/i,
+  /bounded in-memory loop/i,
+  /realistic frequency/i,
+  /query amplification/i,
+  /speculative abstractions?/i,
+];
+for (const [name, body] of Object.entries(workflowSources)) {
+  if (name === "code-quality/SKILL.md") continue;
+  for (const pattern of detailedQualityPolicy) {
+    check(!pattern.test(body), `${name}: detailed quality policy duplicated: ${pattern}`);
+  }
+  check(!/\b(?:be thorough|do your best|ensure quality|quality checklist)\b/i.test(body), `${name}: no-op quality instruction present`);
+}
+check(!/\b(?:new|mandatory) (?:reviewer|command|phase)\b/i.test(promptBodies["sub-apply"]), "sub-apply: maintainability must not add a lifecycle role");
+
+const focusedMaintainabilityScenarios = [
+  {
+    name: "local one-use logic",
+    actual: decideCodeShape({ improvesClarity: false, meaningfulDuplication: false }),
+    expected: "local",
+  },
+  {
+    name: "meaningful duplication",
+    actual: decideCodeShape({ improvesClarity: false, meaningfulDuplication: true }),
+    expected: "extract",
+  },
+  {
+    name: "shallow wrappers",
+    actual: decideStructure({ distinctResponsibility: true, hidesImplementation: true, shallowWrapper: true }),
+    expected: "reject",
+  },
+  {
+    name: "responsibility boundaries",
+    actual: decideStructure({ distinctResponsibility: true, hidesImplementation: true, shallowWrapper: false }),
+    expected: "seam",
+  },
+  {
+    name: "bounded loops",
+    actual: decideCost({ frequency: "once", cardinality: "bounded", amplification: "none", boundaryCost: "local" }),
+    expected: "simple",
+  },
+  {
+    name: "repeated traversals",
+    actual: decideCost({ frequency: "repeated", cardinality: "large", amplification: "none", boundaryCost: "local" }),
+    expected: "address",
+  },
+  {
+    name: "render recomputation",
+    actual: decideCost({ frequency: "repeated", cardinality: "bounded", amplification: "none", boundaryCost: "local" }),
+    expected: "address",
+  },
+  {
+    name: "query amplification",
+    actual: decideCost({ frequency: "ordinary", cardinality: "large", amplification: "amplified", boundaryCost: "local" }),
+    expected: "address",
+  },
+  {
+    name: "remote I/O",
+    actual: decideCost({ frequency: "ordinary", cardinality: "bounded", amplification: "none", boundaryCost: "remote" }),
+    expected: "address",
+  },
+  {
+    name: "behavior preservation",
+    actual: decideBehavior({ preservation: "preserved" }),
+    expected: "preserved",
+  },
+  {
+    name: "speculative abstractions",
+    actual: decideStructure({ distinctResponsibility: false, hidesImplementation: false, shallowWrapper: false }),
+    expected: "reject",
+  },
+];
+for (const scenario of focusedMaintainabilityScenarios) {
+  check(scenario.actual === scenario.expected, `${scenario.name}: focused maintainability scenario failed`);
+}
 
 const orchestrator = promptBodies.orchestrator;
 check(

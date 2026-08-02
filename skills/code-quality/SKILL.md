@@ -9,11 +9,12 @@ metadata:
 
 # Code Quality
 
-- **Minimize:** Make the smallest clear change that satisfies the approved behavior.
+- **Delete before adding:** Make the smallest clear change that satisfies the approved behavior, and remove avoidable verbosity, duplication, dead code, and fallback logic.
 - **Follow evidence:** Follow established project patterns. If concrete evidence shows a pattern is incorrect, surface it before widening scope or architecture.
 - **Validate boundaries:** Validate external or unknown data when it enters a trusted boundary. Inside that boundary, rely on static types, schemas, framework guarantees, and parsed or validated results.
-- **Reuse first:** Search the project and its libraries before creating generic parsing, formatting, validation, transformation, date, string, array, or async logic.
-- **Keep logic local:** Keep one-use logic inline. Extract only when it improves current clarity or removes meaningful duplication; place justified shared code near its domain or related utility family.
+- **Reuse only when current:** Search the project and its libraries before creating generic parsing, formatting, validation, transformation, date, string, array, or async logic. Keep one-use logic local. Extract only when it improves present clarity or removes meaningful duplication, and place justified shared code near its domain or related utility family.
+- **Use evidence for cost:** Judge traversal, render, query, and I/O work by realistic frequency, cardinality, amplification, and boundary cost before consolidating or optimizing it. A bounded in-memory loop stays simple absent evidence of material cost.
+- **Reject speculative abstraction:** Do not add hypothetical reuse or speculative abstractions; use a helper, wrapper, factory, or fallback only for current required behavior or present simplification.
 
 ## Decision Test
 
@@ -21,8 +22,8 @@ Before adding a guard, fallback, helper, wrapper, factory, or abstraction, test 
 
 - **Reachable:** Add guards or fallbacks only for behavior the current system can reach and requires.
 - **Untrusted:** Add runtime validation only while a value remains outside a validated boundary.
-- **Simpler:** Add helpers or abstractions only when they reduce complexity now.
+- **Simpler:** Add helpers or abstractions only when they reduce complexity now; do not optimize a bounded operation without material evidence.
 
 ## Completion
 
-Remove redundant validation, impossible-state masking, speculative abstractions, trivial wrappers, generic comments, placeholder prose, duplicated utilities, and dead, unrequired, or unrelated code.
+Before success, inspect the complete diff and remove redundant validation, impossible-state masking, trivial wrappers, generic comments, placeholder prose, duplicated utilities, and dead, unrequired, or unrelated code.
