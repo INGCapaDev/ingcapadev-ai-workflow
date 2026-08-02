@@ -39,6 +39,13 @@ Load relevant skills before task-specific work. Use exact paths from the configu
 | Applying language or framework conventions | `coding-conventions` |
 | Google Workspace executive assistance | `gws-executive-assistant` |
 
+## Capa Phase Ownership
+
+- `prompts/capa/orchestrator.md` is the concise enforcement source for code-involvement classification, core-skill resolution, and pre-transition assertions.
+- `engineered-ai-dev` owns the approval-gated lifecycle, slice boundaries, handoff, and human transition rules; Capa routes it rather than duplicating its body.
+- `code-quality` and the root `coding-conventions` skill provide implementation and review guidance. Capa loads them for code-involved work, and applicable convention references are additive to the root router.
+- Commands and specialist prompts consume this ownership; they should not copy the core bootstrap policy or skill bodies.
+
 ## Engram Persistent Memory
 
 Engram survives sessions and compactions. This protocol is mandatory and always active when Engram is available.

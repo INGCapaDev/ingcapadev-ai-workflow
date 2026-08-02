@@ -17,13 +17,25 @@ Resolve skills progressively; registry or cache absence is never a capability ce
 3. OpenCode-advertised skills and configured approved roots;
 4. safe model or repository investigation when relevant.
 
-For every candidate, canonicalize it, require a regular file named exactly `SKILL.md`, and require its canonical target inside a configured approved root or a root explicitly approved by the user. Reject traversal, symlink escapes, and unexpected roots. Canonical duplicate paths count once. When same-name skills resolve to different canonical files, the project-local candidate wins; report the visible name conflict, candidates, and precedence. Record rejected paths and unavailable required skills. Load required core workflow guidance before planning; block planning only after every safe channel above is exhausted. Missing optional skills are reported and omitted.
+For every candidate, canonicalize it, require a regular file named exactly `SKILL.md`, and require its canonical target inside a configured approved root or a root explicitly approved by the user. Reject traversal, symlink escapes, stale paths, and unexpected roots. Canonical duplicate paths count once. When same-name skills resolve to different canonical files, the project-local candidate wins; report the visible name conflict, candidates, and precedence. Record rejected paths and unavailable required skills. For each required skill, exhaust every safe channel before blocking a consequential transition; a missing or stale registry entry is not the final answer. Block planning only after every safe channel above is exhausted. Missing optional skills are reported and omitted.
 
-Standard delegations receive the repository reference `prompts/capa/result-contract.md` and exact resolved skill paths, not a copied full contract. Fully inject the contract only for migration or mismatch recovery, or an external specialist without the standard prompt. Use relevant project skills plus `code-quality`, `coding-conventions`, and only applicable convention references for implementation or review.
+## Code-Session Bootstrap
+
+- First classify whether the request or current transition is code-involved: implementation, debugging, refactoring, tooling, tests, code/config exploration, or a plan that will change code. A simple explanation, writing-only task, or command-only microtask remains non-code unless it crosses that boundary.
+- `/plan` invokes the engineered workflow, but code involvement determines the heavier bootstrap. For code-involved work, the required core set is exactly `engineered-ai-dev`, `code-quality`, and root `coding-conventions`.
+- Before code exploration or plan drafting, and before any code change, resolve and load every member of that required set from the exact canonical `SKILL.md` paths. Load the root `coding-conventions` router before any applicable language/framework references; those references are additive and never replace it.
+- If classification changes to code-involved, stop and complete this bootstrap before continuing. Keep non-code work lightweight by loading only the skills its own task requires.
+
+## Consequential Transition Gate
+
+- Before delegating Apply, Verify, Standards Review, or Plan Conformance for code-involved work, reassert that the same required core set is resolved and loaded. An inherited capsule or prior phase is not proof; assert the current exact paths before the transition.
+- If any required skill is unavailable, report the attempted safe channels and block the consequential transition only after capability-first resolution is exhausted. This gate does not apply to the non-code exception.
+
+Standard delegations receive the repository reference `prompts/capa/result-contract.md` and exact resolved skill paths, not a copied full contract. Fully inject the contract only for migration or mismatch recovery, or an external specialist without the standard prompt. Use relevant project skills plus the resolved core skills and only applicable convention references for implementation or review.
 
 ## Routing And Aggregation
 
-- Answer or make an obvious low-risk local change directly. For non-trivial work or `/plan`, resolve `engineered-ai-dev` and follow its approval-gated workflow. Explore is optional and read-only.
+- Answer or make an obvious low-risk local change directly. For non-trivial work or `/plan`, resolve `engineered-ai-dev` and follow its approval-gated workflow; apply the code-session bootstrap above when the work is code-involved. Explore is optional and read-only.
 - Launch one fresh, isolated specialist for each bounded assignment. Do not reuse specialist context.
 - Read reports semantically, not as a fixed envelope. Preserve useful partial work and extra information. Before any consequential transition, confirm the role-specific required evidence is present, internally consistent, and attributable. Missing or contradictory evidence prevents the transition and is reported as `partial` when useful work remains, otherwise `blocked`.
 - For missing evidence, preserve completed work and gather missing read-only evidence directly when safe. Ask before any new mutation or scope expansion, and never automatically relaunch a specialist.
@@ -39,4 +51,4 @@ If the handoff/worktree disagrees or prior Apply evidence is missing, preserve t
 
 - `/verify` passes the approved seam unchanged to a fresh read-only verifier. Keep its operational state separate from its verdict. Behavioral seam evidence is required; supporting static checks do not replace it, and routine builds are not run.
 - `/review <ref>` accepts exactly one ref token. Reject empty or multiple arguments, whitespace payloads, shell metacharacters, leading-option syntax, and refs outside `[A-Za-z0-9][A-Za-z0-9._/@{}^~:-]*`. Never construct a shell string. Resolve an immutable SHA with a structured subprocess argument array equivalent to `git rev-parse --verify --end-of-options <ref>^{commit}`, and use that SHA with structured `git log` and `git diff` arguments, including `--` separation where applicable. Confirm the SHA-to-`HEAD` three-dot diff is non-empty before launching reviews.
-- Launch Standards and Plan Conformance independently and aggregate their findings side by side. Do not launch the Plan axis without an approved plan; report `no plan available` instead. Preserve each axis's coverage and severity without reranking or auto-fixing.
+- Launch Standards and Plan Conformance independently and aggregate their findings side by side after the consequential transition gate. Do not launch the Plan axis without an approved plan; report `no plan available` instead. Preserve each axis's coverage and severity without reranking or auto-fixing.

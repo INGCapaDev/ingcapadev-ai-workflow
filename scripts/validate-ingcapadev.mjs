@@ -28,6 +28,38 @@ const requiresAny = (body, alternatives, name) => {
   const normalized = body.toLowerCase();
   check(alternatives.some((terms) => terms.every((term) => normalized.includes(term))), `${name}: missing semantic invariant`);
 };
+const coreSkillNames = ["engineered-ai-dev", "code-quality", "coding-conventions"];
+const consequentialTransitions = ["Apply", "Verify", "Standards Review", "Plan Conformance"];
+const requiredSkillsFor = ({ codeInvolved, structuredPlanning = false }) => {
+  if (codeInvolved) return [...coreSkillNames];
+  return structuredPlanning ? ["engineered-ai-dev"] : [];
+};
+const hasExactSkillSet = (required, resolvedAndLoaded) => {
+  const resolved = new Set(resolvedAndLoaded);
+  return required.length === resolvedAndLoaded.length && required.every((name) => resolved.has(name));
+};
+const canEnterTransition = (transition, { codeInvolved, resolvedAndLoaded }) => {
+  if (!codeInvolved || !consequentialTransitions.includes(transition)) return true;
+  return hasExactSkillSet(coreSkillNames, resolvedAndLoaded);
+};
+const simulatedSkillCandidate = (path, options = {}) => ({
+  path,
+  fileName: options.fileName ?? "SKILL.md",
+  approved: options.approved ?? true,
+  stale: options.stale ?? false,
+});
+const resolveFromSafeChannels = (channels) => {
+  const rejected = [];
+  for (const [source, candidate] of channels) {
+    if (!candidate) continue;
+    if (candidate.stale || candidate.fileName !== "SKILL.md" || !candidate.approved) {
+      rejected.push(`${source}:${candidate.path}`);
+      continue;
+    }
+    return { path: candidate.path, source, rejected };
+  }
+  return { path: null, source: null, rejected };
+};
 
 let config;
 try {
@@ -76,6 +108,8 @@ for (const name of ["plan", "continue", "verify", "review"]) {
   const body = await read(`commands/${name}.md`);
   check(body.includes("agent: ingcapa-dev-orchestrator"), `${name}: command agent drift`);
 }
+const planCommand = await read("commands/plan.md");
+requires(planCommand, ["classify code involvement", "core-skill bootstrap", "code exploration", "non-code planning"], "plan command bootstrap entry point");
 
 const promptNames = ["orchestrator", ...specialists];
 const promptBodies = Object.fromEntries(await Promise.all(promptNames.map(async (name) => [name, await read(`prompts/capa/${name}.md`)])));
@@ -104,6 +138,25 @@ requires(promptBodies.orchestrator, [
   "one review axis repair or replace another",
   "human diff review",
 ], "orchestrator");
+requires(promptBodies.orchestrator, [
+  "code-involved",
+  "required core set",
+  "engineered-ai-dev",
+  "code-quality",
+  "root `coding-conventions`",
+  "before code exploration or plan drafting",
+  "load the root `coding-conventions` router before any applicable language/framework references",
+  "those references are additive",
+  "never replace it",
+  "classification changes to code-involved",
+  "simple explanation",
+  "command-only microtask",
+  "before delegating apply, verify, standards review, or plan conformance",
+  "same required core set",
+  "inherited capsule or prior phase is not proof",
+  "capability-first resolution is exhausted",
+  "non-code exception",
+], "code-session bootstrap");
 requires(promptBodies["sub-apply"], ["exactly one approved slice", "validation seam", "recovery", "changed files", "review readiness"], "sub-apply");
 requires(promptBodies["sub-explore"], ["without modifying", "support every material claim", "distributed evidence", "competing alternatives", "non-obvious constraints", "reused across slices"], "sub-explore");
 requires(promptBodies["sub-verify"], ["every behavior", "command or method", "result", "observation", "skipped check", "evidence gap"], "sub-verify");
@@ -111,12 +164,88 @@ for (const name of ["sub-review-standards", "sub-review-plan"]) {
   requires(promptBodies[name], ["result-contract.md", "every critical and important", "at most five", "optional", "findings", "coverage"], name);
 }
 requires(promptBodies["sub-review-plan"], ["no plan available", "recovery"], "sub-review-plan");
+for (const name of specialists) {
+  check(!/required core set|before code exploration or plan drafting|same required core set/i.test(promptBodies[name]), `${name}: duplicated core bootstrap policy`);
+}
+
+const globalInstructions = await read("AGENTS.md");
+requires(globalInstructions, [
+  "capa phase ownership",
+  "orchestrator.md",
+  "core-skill resolution",
+  "engineered-ai-dev",
+  "code-quality",
+  "root `coding-conventions`",
+  "applicable convention references are additive",
+  "should not copy the core bootstrap policy",
+], "global phase ownership");
+
+// Focused deterministic simulations keep the bootstrap contract executable without
+// introducing a second runtime resolver or making the registry authoritative.
+const codePlanSkills = requiredSkillsFor({ codeInvolved: true, structuredPlanning: true });
+check(hasExactSkillSet(coreSkillNames, codePlanSkills), "/plan code session must require the exact core set");
+check(hasExactSkillSet(coreSkillNames, requiredSkillsFor({ codeInvolved: true })), "direct code session must require the exact core set");
+for (const transition of consequentialTransitions) {
+  check(
+    canEnterTransition(transition, { codeInvolved: true, resolvedAndLoaded: coreSkillNames }),
+    `${transition}: code transition requires the exact core set`,
+  );
+  check(
+    !canEnterTransition(transition, { codeInvolved: true, resolvedAndLoaded: ["engineered-ai-dev", "coding-conventions"] }),
+    `${transition}: missing required skill must block the transition`,
+  );
+}
+check(requiredSkillsFor({ codeInvolved: false }).length === 0, "simple non-code work must not load the code-session set");
+check(canEnterTransition("Apply", { codeInvolved: false, resolvedAndLoaded: [] }), "non-code work must keep the consequential gate lightweight");
+check(
+  hasExactSkillSet(["engineered-ai-dev"], requiredSkillsFor({ codeInvolved: false, structuredPlanning: true })),
+  "non-code /plan keeps only the lifecycle skill",
+);
+
+const registryFallback = resolveFromSafeChannels([
+  ["registry", undefined],
+  ["configured approved root", simulatedSkillCandidate("skills/code-quality/SKILL.md")],
+]);
+check(registryFallback.source === "configured approved root", "missing registry must fall back to an approved root");
+const stalePathFallback = resolveFromSafeChannels([
+  ["registry", simulatedSkillCandidate("C:/stale/code-quality/SKILL.md", { stale: true })],
+  ["configured approved root", simulatedSkillCandidate("skills/code-quality/SKILL.md")],
+]);
+check(stalePathFallback.source === "configured approved root" && stalePathFallback.rejected.length === 1, "stale skill path must be rejected before root fallback");
+const missingRequiredSkill = resolveFromSafeChannels([
+  ["injected", undefined],
+  ["registry", undefined],
+  ["advertised skills", undefined],
+  ["configured approved root", undefined],
+  ["safe investigation", undefined],
+]);
+check(missingRequiredSkill.path === null, "missing required skill must remain unresolved after safe channels");
+check(
+  !canEnterTransition("Apply", { codeInvolved: true, resolvedAndLoaded: ["engineered-ai-dev", "coding-conventions"] }),
+  "a consequential transition must block when a required skill is missing",
+);
+
+for (const name of coreSkillNames) {
+  check(await existsFile(join(root, "skills", name, "SKILL.md")), `${name}: canonical project skill path missing`);
+}
+const conventionRoot = await read("skills/coding-conventions/SKILL.md");
+const typeScriptReference = await read("skills/coding-conventions/references/typescript.md");
+const loadedConventionPaths = [
+  "skills/coding-conventions/SKILL.md",
+  "skills/coding-conventions/references/typescript.md",
+];
+check(loadedConventionPaths.includes("skills/coding-conventions/SKILL.md"), "TypeScript loading must retain the root convention router");
+check(loadedConventionPaths.includes("skills/coding-conventions/references/typescript.md"), "TypeScript loading must add its applicable reference");
+check(conventionRoot.includes("contiguous digits") && conventionRoot.includes("20000"), "root conventions must carry contiguous decimal awareness");
+check(typeScriptReference.includes("Use `interface`") && conventionRoot.includes("contiguous digits"), "root-plus-reference loading must preserve both convention layers");
 
 const workflowSources = {
   "result-contract.md": contract,
   ...Object.fromEntries(Object.entries(promptBodies).map(([name, body]) => [`${name}.md`, body])),
   "engineered-ai-dev/SKILL.md": await read("skills/engineered-ai-dev/SKILL.md"),
   "engineered-ai-dev/HANDOFF_TEMPLATE.md": await read("skills/engineered-ai-dev/HANDOFF_TEMPLATE.md"),
+  "code-quality/SKILL.md": await read("skills/code-quality/SKILL.md"),
+  "coding-conventions/SKILL.md": conventionRoot,
 };
 const staleProtocol = [
   /return all common fields exactly once/i,
