@@ -117,6 +117,120 @@ for (const name of ["plan", "continue", "verify", "review", "refactor-review"]) 
   const body = await read(`commands/${name}.md`);
   check(body.includes("agent: ingcapa-dev-orchestrator"), `${name}: command agent drift`);
 }
+const improveCommand = await read("commands/improve-ai.md");
+const improveSkill = await read("skills/improve-ai/SKILL.md");
+const improveFixture = await read("scripts/fixtures/improve-ai-session.md");
+const improveOrchestrator = await read("prompts/capa/orchestrator.md");
+check(/^---[\s\S]*\bdescription:\s*[^\n]+[\s\S]*\bagent:\s*ingcapa-dev-orchestrator\b[\s\S]*---/m.test(improveCommand), "improve-ai: command frontmatter drift");
+check(!/disable-model-invocation/i.test(improveSkill), "improve-ai: must remain model-invoked");
+check(/^---[\s\S]*\bname:\s*improve-ai\b[\s\S]*\bdescription:/m.test(improveSkill), "improve-ai: skill frontmatter missing");
+requires(improveCommand, ["optional", "natural-language", "focus", "examples", "$arguments", "read-only", "approval-ready plan"], "improve-ai command");
+requires(improveSkill, [
+  "explicit `/improve-ai`",
+  "explicit natural-language",
+  "one Capa-owned review",
+  "currently available conversation context",
+  "explicit user input",
+  "accepted Engram",
+  "read-only repository corroboration",
+  "missing provenance",
+  "never reconstruct",
+], "improve-ai evidence boundary");
+requires(improveSkill, [
+  "user corrections",
+  "errors or failed actions",
+  "unexpected generation",
+  "successful corrective rework",
+  "preferences",
+  "reusable patterns",
+], "improve-ai signal classes");
+requires(improveSkill, [
+  "root invariant",
+  "owning authority",
+  "repeated symptoms",
+  "selected",
+  "rejected",
+  "already fixed",
+  "insufficient evidence",
+  "no-change outcome",
+], "improve-ai normalization");
+requires(improveSkill, [
+  "project or lazy context",
+  "project or global `AGENTS.md`",
+  "skills or references",
+  "Capa prompts/agents/subagents",
+  "commands",
+  "conventions",
+  "code-quality policy",
+  "Engram behavior",
+], "improve-ai candidate targets");
+requires(improveSkill, [
+  "project-local",
+  "explicit user direction",
+  "independent recurrence",
+  "intrinsic",
+  "cross-project ownership",
+  "human selection",
+  "plan approval",
+], "improve-ai ownership and promotion");
+requires(improveSkill, [
+  "one plan per owner repository",
+  "which plan to prepare first",
+  "material questions",
+  "stop after each question round",
+  "never infer selection",
+  "selection comes before planning",
+  "engineered-ai-dev plan",
+  "explicit human approval",
+], "improve-ai decision and plan gate");
+requires(improveSkill, [
+  "signal origin and evidence",
+  "repository corroboration",
+  "applicability",
+  "smallest viable enhancement",
+  "tradeoffs",
+  "uncertainty",
+  "validation implications",
+  "disposition",
+  "Capa alone owns",
+  "Capa alone writes plans",
+  "candidate discovery never mutates",
+], "improve-ai candidate report and ownership");
+requires(improveOrchestrator, [
+  "`/improve-ai`",
+  "explicit natural-language requests",
+  "model-invoked `improve-ai` skill",
+  "one lazy workflow",
+  "optional bounded read-only exploration",
+  "semantic aggregation",
+  "selection-before-plan gating",
+  "one plan per owner repository",
+  "only when distributed corroboration is useful",
+  "do not add a specialist, plugin, phase, config entry, or telemetry",
+], "improve-ai Capa routing and aggregation");
+requires(improveFixture, [
+  "user correction/feedback",
+  "error/failed action",
+  "unexpected generation",
+  "successful corrective rework/fix",
+  "preference",
+  "reusable pattern",
+  "repeated symptom",
+  "project-local",
+  "explicit promotion",
+  "independent recurrence promotion",
+  "intrinsic cross-project promotion",
+  "insufficient evidence",
+  "no-change outcome",
+  "material question",
+  "stop after that question round",
+  "cross-repository plan separation",
+  "one plan per owner repository",
+  "selection-before-plan",
+  "no automatic mutation",
+  "does not edit code, prompts, skills, plans, commits, or Engram",
+], "improve-ai representative fixture");
+check(!/new specialist|new plugin|new phase|new config entry|persistent telemetry/i.test(improveSkill), "improve-ai: scope expansion instruction present");
 const planCommand = await read("commands/plan.md");
 requires(planCommand, ["classify code involvement", "core-skill bootstrap", "code exploration", "non-code planning"], "plan command bootstrap entry point");
 

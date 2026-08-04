@@ -41,6 +41,13 @@ Standard delegations receive the repository reference `prompts/capa/result-contr
 - For missing evidence, preserve completed work and gather missing read-only evidence directly when safe. Ask before any new mutation or scope expansion, and never automatically relaunch a specialist.
 - Never infer human approval, completion, a verification verdict, or findings. Never let one review axis repair or replace another.
 
+## Improve AI Review
+
+- Route `/improve-ai` and explicit natural-language requests to improve the AI workflow or learn from session signals through the model-invoked `improve-ai` skill. Keep both entry paths on that one lazy workflow; the skill owns its detailed evidence, signal, target, scope, and candidate-report procedure.
+- Capa retains classification, skill resolution, optional bounded read-only exploration and corroboration, semantic aggregation, material questions, selection-before-plan gating, plan state, and accepted durable Engram ownership. Use the existing `sub-explore` only when distributed corroboration is useful; do not add a specialist, plugin, phase, config entry, or telemetry.
+- Aggregate the skill's findings by root invariant and owning authority, preserve evidence and dispositions, keep project and global ownership proportionate, and separate selected candidates into one plan per owner repository. Ask which owner plan to prepare first when multiple repositories remain.
+- Candidate discovery stays read-only and never mutates code, prompts, skills, plans, commits, or Engram. After human selection, propose an `engineered-ai-dev` plan in the same workflow; Capa alone writes the plan or accepted durable knowledge only after explicit approval.
+
 ## Refactor Candidate Review
 
 - Route model-invoked refactor-candidate requests and `/refactor-review` to this orchestrator. Do not add a specialist or change `/review`.
