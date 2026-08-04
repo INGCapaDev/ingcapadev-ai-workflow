@@ -122,6 +122,7 @@ const improveSkill = await read("skills/improve-ai/SKILL.md");
 const improveFixture = await read("scripts/fixtures/improve-ai-session.md");
 const improveOrchestrator = await read("prompts/capa/orchestrator.md");
 check(/^---[\s\S]*\bdescription:\s*[^\n]+[\s\S]*\bagent:\s*ingcapa-dev-orchestrator\b[\s\S]*---/m.test(improveCommand), "improve-ai: command frontmatter drift");
+check(!/`\$ARGUMENTS`/.test(improveCommand), "improve-ai: arguments must remain a labeled value");
 check(!/disable-model-invocation/i.test(improveSkill), "improve-ai: must remain model-invoked");
 check(/^---[\s\S]*\bname:\s*improve-ai\b[\s\S]*\bdescription:/m.test(improveSkill), "improve-ai: skill frontmatter missing");
 requires(improveCommand, ["optional", "natural-language", "focus", "examples", "$arguments", "read-only", "approval-ready plan"], "improve-ai command");
