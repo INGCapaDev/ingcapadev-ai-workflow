@@ -238,6 +238,7 @@ for (const name of coreSkillNames) {
 }
 const conventionRoot = await read("skills/coding-conventions/SKILL.md");
 const typeScriptReference = await read("skills/coding-conventions/references/typescript.md");
+const reactReference = await read("skills/coding-conventions/references/react.md");
 const loadedConventionPaths = [
   "skills/coding-conventions/SKILL.md",
   "skills/coding-conventions/references/typescript.md",
@@ -255,6 +256,8 @@ const workflowSources = {
   "code-quality/SKILL.md": await read("skills/code-quality/SKILL.md"),
   "coding-conventions/SKILL.md": conventionRoot,
   "coding-conventions/references/architecture.md": await read("skills/coding-conventions/references/architecture.md"),
+  "coding-conventions/references/typescript.md": typeScriptReference,
+  "coding-conventions/references/react.md": reactReference,
 };
 const staleProtocol = [
   /return all common fields exactly once/i,
@@ -312,22 +315,62 @@ requires(promptBodies["sub-apply"], [
   "separate cleanup phase",
 ], "sub-apply maintainability reconciliation");
 
+const typeScriptCostReminder = /realistic frequency/i;
 const detailedQualityPolicy = [
   /one-use logic/i,
   /meaningful duplication/i,
   /bounded in-memory loop/i,
-  /realistic frequency/i,
+  typeScriptCostReminder,
   /query amplification/i,
   /speculative abstractions?/i,
 ];
 for (const [name, body] of Object.entries(workflowSources)) {
   if (name === "code-quality/SKILL.md") continue;
   for (const pattern of detailedQualityPolicy) {
+    if (name === "coding-conventions/references/typescript.md" && pattern === typeScriptCostReminder) continue;
     check(!pattern.test(body), `${name}: detailed quality policy duplicated: ${pattern}`);
   }
   check(!/\b(?:be thorough|do your best|ensure quality|quality checklist)\b/i.test(body), `${name}: no-op quality instruction present`);
 }
 check(!/\b(?:new|mandatory) (?:reviewer|command|phase)\b/i.test(promptBodies["sub-apply"]), "sub-apply: maintainability must not add a lifecycle role");
+
+requires(reactReference, [
+  "distinct responsibility",
+  "materially clarifies orchestration",
+  "appropriate event, effect, server, or data boundary",
+  "concurrent failure",
+  "one synchronization lifecycle",
+  "smallest state that preserves required ui behavior",
+  "boolean or explicit predicate",
+  "ternary when both branches matter",
+], "React prevention-first conventions");
+requires(typeScriptReference, [
+  "validate unknown data once at the nearest boundary",
+  "existing schema validator",
+  "zod when available",
+  "trust typescript internally",
+  "typeof` for primitive narrowing",
+  "schemas or appropriate type guards",
+  "containing object does not prove",
+  "documented package or feature public entrypoints",
+  "do not create new barrel files unless explicitly requested",
+  "small or bounded collections",
+  "cost material",
+], "TypeScript prevention-first conventions");
+
+const rejectedConventionMandates = [
+  ["React broad extraction", reactReference, /contains states, hooks, functions inline/i],
+  ["React unconditional concurrency", reactReference, /use promise\.all for independent async calls/i],
+  ["React single-effect mandate", reactReference, /single `use(?:effect|layouteffect)`.*single cleanup/i],
+  ["React derived-boolean subscription mandate", reactReference, /subscribe to derived boolean state/i],
+  ["React unconditional ternary mandate", reactReference, /use explicit ternary operators.*instead of &&/i],
+  ["TypeScript flatMap mandate", typeScriptReference, /use \.flatmap\(\) to transform and filter/i],
+  ["TypeScript single-loop mandate", typeScriptReference, /combine into one loop/i],
+  ["TypeScript barrel ban fragment", typeScriptReference, /import directly avoid barrel files/i],
+];
+for (const [name, body, pattern] of rejectedConventionMandates) {
+  check(!pattern.test(body), `${name}: rejected blanket mandate present`);
+}
 
 const focusedMaintainabilityScenarios = [
   {
