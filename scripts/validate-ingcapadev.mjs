@@ -9,6 +9,7 @@ const check = (condition, message) => {
   if (!condition) failures.push(message);
 };
 const read = (path) => readFile(join(root, path), "utf8");
+const normalize = (value) => value.toLowerCase().replace(/\s+/g, " ").trim();
 const existsFile = async (path) => {
   try {
     return (await stat(path)).isFile();
@@ -21,12 +22,12 @@ const isInsideRoot = (path) => {
   return pathFromRoot === "" || (!pathFromRoot.startsWith(`..${sep}`) && pathFromRoot !== ".." && !isAbsolute(pathFromRoot));
 };
 const requires = (body, terms, name) => {
-  const normalized = body.toLowerCase();
-  for (const term of terms) check(normalized.includes(term), `${name}: missing semantic invariant: ${term}`);
+  const normalized = normalize(body);
+  for (const term of terms) check(normalized.includes(normalize(term)), `${name}: missing semantic invariant: ${term}`);
 };
 const requiresAny = (body, alternatives, name) => {
-  const normalized = body.toLowerCase();
-  check(alternatives.some((terms) => terms.every((term) => normalized.includes(term))), `${name}: missing semantic invariant`);
+  const normalized = normalize(body);
+  check(alternatives.some((terms) => terms.every((term) => normalized.includes(normalize(term)))), `${name}: missing semantic invariant`);
 };
 const decideCodeShape = ({ improvesClarity, meaningfulDuplication }) =>
   improvesClarity || meaningfulDuplication ? "extract" : "local";
@@ -434,22 +435,77 @@ for (const scenario of focusedMaintainabilityScenarios) {
 }
 
 const orchestrator = promptBodies.orchestrator;
-check(
-  orchestrator.includes("git rev-parse --verify --end-of-options <ref>^{commit}") &&
-    orchestrator.includes("structured subprocess argument array"),
-  "review fixed-point shell-safety structure missing",
-);
-requires(orchestrator, [
-  "accepts exactly one ref token",
-  "empty or multiple arguments",
-  "whitespace payloads",
-  "shell metacharacters",
-  "leading-option syntax",
+const reviewInput = await read("prompts/capa/review-input.md");
+const reviewCommand = await read("commands/review.md");
+requires(reviewInput, [
+  "single source of truth",
+  "committed",
+  "worktree",
+  "combined",
+  "exactly one safe ref token",
+  "missing",
+  "multiple tokens",
+  "whitespace-only",
+  "leading-option",
+  "syntax",
+  "shell",
+  "metacharacters",
   "[a-za-z0-9][a-za-z0-9._/@{}^~:-]*",
-  "never construct a shell string",
-  "including `--` separation where applicable",
-  "sha-to-`head` three-dot diff is non-empty",
-], "review input safety");
+  "structured subprocess argument arrays",
+  "git rev-parse --verify --end-of-options <ref>^{commit}",
+  "basesha",
+  "headsha",
+  "frozen three-dot identity",
+  "changed files",
+  "hunks",
+  "git diff --cached <headsha> --",
+  "git diff --",
+  "git status --porcelain=v1 -z --untracked-files=all",
+  "staged",
+  "unstaged",
+  "combinedworktree",
+  "untrackedexcluded",
+  "explicitly names it and receives approval",
+  "ignored or untracked content automatically",
+  "approved untracked content as a separate layer",
+  "satisfy the non-empty-input gate",
+  "captured tracked-state snapshot",
+  "exact bytes or cryptographic digests",
+  "content-stability",
+  "reported exclusions are frozen",
+  "block delegation",
+  "auto-loop",
+  "mutates",
+  "nothing",
+  "only a successful, non-empty capture",
+], "review-input capture procedure");
+check(
+  orchestrator.includes("prompts/capa/review-input.md") && orchestrator.includes("committed` mode"),
+  "orchestrator review-input consumer missing",
+);
+check(
+  reviewCommand.includes("prompts/capa/review-input.md") && reviewCommand.includes("committed` mode"),
+  "review command review-input consumer missing",
+);
+check(reviewCommand.includes("only Standards and Plan Conformance"), "review command axes changed");
+check(!/git rev-parse|shell metacharacters|leading-option syntax|\[A-Za-z0-9\]/i.test(orchestrator), "orchestrator duplicates review-input safety policy");
+check(!/git rev-parse|shell metacharacters|leading-option syntax|\[A-Za-z0-9\]/i.test(reviewCommand), "review command duplicates review-input safety policy");
+
+const reviewInputScenarios = [
+  ["unsafe or ambiguous input", ["missing or multiple tokens", "leading-option", "shell metacharacters", "blocks capture"]],
+  ["committed capture", ["frozen three-dot identity", "empty committed diff", "blocks delegation"]],
+  ["worktree capture", ["staged", "unstaged", "combinedworktree", "empty input blocks delegation"]],
+  ["combined capture", ["preserve both layers", "same frozen `basesha` and `headsha`"]],
+  ["untracked exclusion", ["untrackedexcluded", "do not read ignored or untracked content automatically"]],
+  ["approved untracked inclusion", ["receives approval", "approved untracked content as a separate layer"]],
+  ["content stability", ["exact bytes or cryptographic digests", "not a content-stability fingerprint"]],
+  ["capture instability", ["reported exclusions are frozen", "require a fresh capture", "do not auto-loop"]],
+];
+for (const [name, terms] of reviewInputScenarios) requires(reviewInput, terms, `review-input scenario: ${name}`);
+check(
+  reviewCommand.includes("only Standards and Plan Conformance") && !/refactor|candidate/i.test(reviewCommand),
+  "/review axes must remain unchanged",
+);
 
 for (const file of ["skills/engineered-ai-dev/SKILL.md", "skills/coding-conventions/SKILL.md"]) {
   const body = await read(file);
