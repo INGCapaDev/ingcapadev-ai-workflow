@@ -113,7 +113,7 @@ for (const name of ["sub-review-standards", "sub-review-plan"]) {
   check(permission?.edit === "deny" && permission?.bash === "deny" && permission?.task === "deny", `${name}: review permissions drift`);
 }
 
-for (const name of ["plan", "continue", "verify", "review"]) {
+for (const name of ["plan", "continue", "verify", "review", "refactor-review"]) {
   const body = await read(`commands/${name}.md`);
   check(body.includes("agent: ingcapa-dev-orchestrator"), `${name}: command agent drift`);
 }
@@ -328,6 +328,9 @@ const detailedQualityPolicy = [
 for (const [name, body] of Object.entries(workflowSources)) {
   if (name === "code-quality/SKILL.md") continue;
   for (const pattern of detailedQualityPolicy) {
+    // The orchestrator must name these bounded review axes and evidence fields;
+    // those labels are routing, not a second copy of the quality policy.
+    if (name === "orchestrator.md" && (pattern === typeScriptCostReminder || pattern.source === "meaningful duplication")) continue;
     if (name === "coding-conventions/references/typescript.md" && pattern === typeScriptCostReminder) continue;
     check(!pattern.test(body), `${name}: detailed quality policy duplicated: ${pattern}`);
   }
@@ -437,6 +440,9 @@ for (const scenario of focusedMaintainabilityScenarios) {
 const orchestrator = promptBodies.orchestrator;
 const reviewInput = await read("prompts/capa/review-input.md");
 const reviewCommand = await read("commands/review.md");
+const refactorSkill = await read("skills/refactor-candidates/SKILL.md");
+const refactorCommand = await read("commands/refactor-review.md");
+const originalRefactorPrompt = await read("scripts/fixtures/refactor-review-original-prompt.md");
 requires(reviewInput, [
   "single source of truth",
   "committed",
@@ -506,6 +512,130 @@ check(
   reviewCommand.includes("only Standards and Plan Conformance") && !/refactor|candidate/i.test(reviewCommand),
   "/review axes must remain unchanged",
 );
+
+check(/^---[\s\S]*\bname:\s*refactor-candidates\b[\s\S]*\bdescription:/m.test(refactorSkill), "refactor-candidates: model-invoked frontmatter missing");
+check(!/disable-model-invocation/i.test(refactorSkill), "refactor-candidates: must remain model-invoked");
+requires(refactorSkill, [
+  "simplification",
+  "deletion",
+  "reuse",
+  "structural/depth",
+  "material",
+  "traversal",
+  "render",
+  "query",
+  "i/o",
+  "route the request to the capa orchestrator",
+  "prompts/capa/orchestrator.md",
+  "prompts/capa/review-input.md",
+  "skills/engineered-ai-dev/skill.md",
+  "skills/code-quality/skill.md",
+  "skills/coding-conventions/skill.md",
+  "prompts/capa/result-contract.md",
+], "refactor-candidates skill");
+requires(refactorCommand, [
+  "agent: ingcapa-dev-orchestrator",
+  "prompts/capa/review-input.md",
+  "`<ref>` => committed",
+  "`worktree` => uncommitted tracked worktree",
+  "`worktree <ref>` => combined",
+  "`worktree` is reserved in command position",
+  "frozen payload unchanged",
+  "read-only",
+  "do not modify code",
+  "plans",
+  "commits",
+], "refactor-review command");
+check(!/git rev-parse|shell metacharacters|leading-option syntax|\[A-Za-z0-9\]/i.test(refactorSkill), "refactor-candidates: duplicates capture safety policy");
+check(!/git rev-parse|shell metacharacters|leading-option syntax|\[A-Za-z0-9\]/i.test(refactorCommand), "refactor-review: duplicates capture safety policy");
+requires(orchestrator, [
+  "refactor candidate review",
+  "explicit uncommitted",
+  "working-tree",
+  "clear named-ref request defaults to `combined`",
+  "current tracked uncommitted changes",
+  "explicit committed-only wording",
+  "ambiguous request asks for clarification and stops",
+  "untracked files are excluded and reported",
+  "explicitly names and approves them",
+  "approved untracked content is allowed only in `worktree` or `combined`",
+  "command scope is exact",
+  "`worktree` is reserved in command position",
+  "before delegation, run the canonical capture",
+  "complete the code-session bootstrap plus the consequential transition gate",
+  "one successful frozen payload",
+  "same payload unchanged",
+  "missing `plan`, `context`, `adr`, local skills, or registry entries remain valid states",
+  "sub-review-standards",
+  "every changed hunk",
+  "fresh `sub-explore`",
+  "meaningful duplication",
+  "current reuse",
+  "ownership",
+  "module depth",
+  "architecture reference only when structural analysis applies",
+  "realistic traversal, render, query, and i/o costs",
+  "frequency",
+  "cardinality",
+  "amplification",
+  "boundary cost",
+  "globally inventories and triages every hunk",
+  "standards covers every hunk",
+  "covered hunks and justified exclusions",
+  "preserve disagreements",
+  "correctness/material performance risks",
+  "optional simplification/deletion/reuse/readability",
+  "architecture deepening",
+  "small safe cleanup",
+  "rejected candidates",
+  "bounded loops without material evidence",
+  "speculation",
+  "shallow wrappers",
+  "non-meaningful duplication",
+  "insufficiently evidenced",
+  "originating axes",
+  "exact changed-hunk or context evidence",
+  "preserved behavior and plan constraints",
+  "smallest safe refactor",
+  "validation seam",
+  "edit-scope implications",
+  "risk/effort",
+  "immutable base/head identity",
+  "per-axis coverage and exclusions",
+  "inline unless it is large, reusable, or explicitly requested",
+  "end with human selection",
+  "reapproved amendment or new slice",
+  "separate new plan",
+  "never create or mutate a plan",
+  "infer approval automatically",
+], "refactor candidate routing and aggregation");
+requiresAny(originalRefactorPrompt, [
+  ["refactor", "diff"],
+  ["code quality", "reuse"],
+  ["loop operations", "high cost operations"],
+], "refactor natural-language fixture");
+const refactorFixtureSurface = `${refactorSkill}\n${refactorCommand}\n${orchestrator}`;
+requires(refactorFixtureSurface, [
+  "verbosity",
+  "responsibility",
+  "readability",
+  "loop",
+  "high-cost",
+], "refactor fixture trigger coverage");
+const refactorReviewScenarios = [
+  ["command committed scope", ["`<ref>` => committed"]],
+  ["command worktree scope", ["`worktree` => uncommitted tracked worktree"]],
+  ["command combined scope", ["`worktree <ref>` => combined"]],
+  ["ambiguous natural language", ["ambiguous request asks for clarification and stops"]],
+  ["bounded-loop rejection", ["bounded loops without material evidence"]],
+  ["material query/render/traversal/I/O candidates", ["realistic traversal, render, query, and i/o costs", "frequency", "cardinality", "amplification", "boundary cost"]],
+  ["global hunk triage", ["globally inventories and triages every hunk", "standards covers every hunk"]],
+  ["axis exclusions", ["covered hunks and justified exclusions", "preserve disagreements"]],
+  ["read-only and no inferred approval", ["read-only", "never create or mutate a plan", "infer approval automatically"]],
+  ["plan transition question", ["reapproved amendment or new slice", "separate new plan"]],
+];
+const refactorReviewScenarioSource = `${refactorCommand}\n${orchestrator}`;
+for (const [name, terms] of refactorReviewScenarios) requires(refactorReviewScenarioSource, terms, `refactor review scenario: ${name}`);
 
 for (const file of ["skills/engineered-ai-dev/SKILL.md", "skills/coding-conventions/SKILL.md"]) {
   const body = await read(file);
