@@ -120,6 +120,7 @@ for (const name of ["plan", "continue", "verify", "review", "refactor-review"]) 
 const improveCommand = await read("commands/improve-ai.md");
 const improveSkill = await read("skills/improve-ai/SKILL.md");
 const improveFixture = await read("scripts/fixtures/improve-ai-session.md");
+const subApplyConformanceFixture = await read("scripts/fixtures/sub-apply-semantic-conformance.md");
 const improveOrchestrator = await read("prompts/capa/orchestrator.md");
 check(/^---[\s\S]*\bdescription:\s*[^\n]+[\s\S]*\bagent:\s*ingcapa-dev-orchestrator\b[\s\S]*---/m.test(improveCommand), "improve-ai: command frontmatter drift");
 check(!/`\$ARGUMENTS`/.test(improveCommand), "improve-ai: arguments must remain a labeled value");
@@ -282,6 +283,35 @@ requires(promptBodies.orchestrator, [
   "non-code exception",
 ], "code-session bootstrap");
 requires(promptBodies["sub-apply"], ["exactly one approved slice", "validation seam", "recovery", "changed files", "review readiness"], "sub-apply");
+requires(promptBodies["sub-apply"], [
+  "active approved decision",
+  "conditional versus absolute meaning",
+  "allowed alternatives",
+  "quantities",
+  "per-assignment cardinality",
+  "other active approved semantics",
+  "material semantic or cardinality contradiction",
+  "cannot report `success`",
+  "shared `partial`/`blocked` semantics",
+  "semantic conformance",
+], "sub-apply semantic conformance criterion");
+const subApplyConformanceScenarios = [
+  [
+    "conditional-to-absolute contradiction",
+    ["conditional approved alternatives", "absolute prohibition", "material semantic contradiction", "partial", "not `success`"],
+  ],
+  [
+    "per-assignment-to-global cardinality contradiction",
+    ["one-per-bounded-assignment", "one-total", "cardinality contradiction", "partial", "not `success`"],
+  ],
+  [
+    "semantically equivalent wording",
+    ["semantically equivalent wording", "same conditional meaning", "same per-assignment cardinality", "acceptable success"],
+  ],
+];
+for (const [name, terms] of subApplyConformanceScenarios) {
+  requires(subApplyConformanceFixture, terms, `sub-apply fixture scenario: ${name}`);
+}
 requires(promptBodies["sub-explore"], ["without modifying", "support every material claim", "distributed evidence", "competing alternatives", "non-obvious constraints", "reused across slices"], "sub-explore");
 requires(promptBodies["sub-verify"], ["every behavior", "command or method", "result", "observation", "skipped check", "evidence gap"], "sub-verify");
 for (const name of ["sub-review-standards", "sub-review-plan"]) {
