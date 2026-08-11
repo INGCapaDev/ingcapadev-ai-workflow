@@ -1,6 +1,6 @@
 # React
 
-- Declare components as `function ComponentName({ ... }: Props)` and use `interface Props` for component props.
+- Declare components as `function ComponentName({ ... }: ComponentProps)` and give prop interfaces descriptive, context-specific names, that identify the component or role they describe.
 - Do not use `React.FC`.
 - Use arrows for concise local handlers and callbacks. Do not add function expressions in JSX merely to avoid arrows.
 - Keep component logic together by default. Extract a component or custom hook when it creates a distinct responsibility, hides a meaningful contract, or materially clarifies orchestration.
