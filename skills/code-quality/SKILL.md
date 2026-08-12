@@ -15,6 +15,8 @@ metadata:
 - **Reuse only when current:** Search the project and its libraries before creating generic parsing, formatting, validation, transformation, date, string, array, or async logic. Keep one-use logic local. Extract only when it improves present clarity or removes meaningful duplication, and place justified shared code near its domain or related utility family.
 - **Use evidence for cost:** Judge traversal, render, query, and I/O work by realistic frequency, cardinality, amplification, and boundary cost before consolidating or optimizing it. A bounded in-memory loop stays simple absent evidence of material cost.
 - **Reject speculative abstraction:** Do not add hypothetical reuse or speculative abstractions; use a helper, wrapper, factory, or fallback only for current required behavior or present simplification.
+- **Preserve established error models:** When a project establishes a Result/error-as-value capability, adapt throwing external providers at the boundary and return, propagate, or map typed errors through fallible contracts without converting Result flows to a `throw`/`catch` chain; otherwise follow the established error-handling model. Explicit framework exception boundaries may cross models.
+  - hint for result pattern available: result-pattern.ts available, Result<T, E> type, or safeTry helper. 
 
 ## Decision Test
 

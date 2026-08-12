@@ -37,19 +37,22 @@ const hasMaterialCostEvidence = ({ frequency, cardinality, amplification, bounda
   frequency === "repeated" || cardinality === "large" || amplification === "amplified" || boundaryCost === "remote";
 const decideCost = (evidence) => (hasMaterialCostEvidence(evidence) ? "address" : "simple");
 const decideBehavior = ({ preservation }) => (preservation === "preserved" ? "preserved" : "gap");
-const coreSkillNames = ["engineered-ai-dev", "code-quality", "coding-conventions"];
+const capabilitySkillNames = ["engineered-ai-dev", "code-quality", "coding-conventions"];
 const consequentialTransitions = ["Apply", "Verify", "Standards Review", "Plan Conformance"];
-const requiredSkillsFor = ({ codeInvolved, structuredPlanning = false }) => {
-  if (codeInvolved) return [...coreSkillNames];
-  return structuredPlanning ? ["engineered-ai-dev"] : [];
+const requiredSkillsFor = ({ lifecycleWork = false, implementationOrQualityReview = false, applicableConventions = false }) => {
+  const required = [];
+  if (lifecycleWork) required.push("engineered-ai-dev");
+  if (implementationOrQualityReview) required.push("code-quality");
+  if (applicableConventions) required.push("coding-conventions");
+  return required;
 };
-const hasExactSkillSet = (required, resolvedAndLoaded) => {
+const hasRequiredSkills = (required, resolvedAndLoaded) => {
   const resolved = new Set(resolvedAndLoaded);
-  return required.length === resolvedAndLoaded.length && required.every((name) => resolved.has(name));
+  return required.every((name) => resolved.has(name));
 };
-const canEnterTransition = (transition, { codeInvolved, resolvedAndLoaded }) => {
-  if (!codeInvolved || !consequentialTransitions.includes(transition)) return true;
-  return hasExactSkillSet(coreSkillNames, resolvedAndLoaded);
+const canEnterTransition = (transition, { requiredSkills, resolvedAndLoaded }) => {
+  if (!consequentialTransitions.includes(transition)) return true;
+  return hasRequiredSkills(requiredSkills, resolvedAndLoaded);
 };
 const simulatedSkillCandidate = (path, options = {}) => ({
   path,
@@ -157,7 +160,7 @@ requires(improveSkill, [
   "no-change outcome",
 ], "improve-ai normalization");
 requires(improveSkill, [
-  "project or lazy context",
+  "project context",
   "project or global `AGENTS.md`",
   "skills or references",
   "Capa prompts/agents/subagents",
@@ -176,8 +179,8 @@ requires(improveSkill, [
   "plan approval",
 ], "improve-ai ownership and promotion");
 requires(improveSkill, [
-  "one plan per owner repository",
-  "which plan to prepare first",
+  "current repository",
+  "do not infer another repository owner",
   "material questions",
   "stop after each question round",
   "never infer selection",
@@ -206,7 +209,7 @@ requires(improveOrchestrator, [
   "optional bounded read-only exploration",
   "semantic aggregation",
   "selection-before-plan gating",
-  "one plan per owner repository",
+  "current repository",
   "only when distributed corroboration is useful",
   "do not add a specialist, plugin, phase, config entry, or telemetry",
 ], "improve-ai Capa routing and aggregation");
@@ -226,15 +229,15 @@ requires(improveFixture, [
   "no-change outcome",
   "material question",
   "stop after that question round",
-  "cross-repository plan separation",
-  "one plan per owner repository",
+  "current repository",
+  "explicitly approved requirement",
   "selection-before-plan",
   "no automatic mutation",
   "does not edit code, prompts, skills, plans, commits, or Engram",
 ], "improve-ai representative fixture");
 check(!/new specialist|new plugin|new phase|new config entry|persistent telemetry/i.test(improveSkill), "improve-ai: scope expansion instruction present");
 const planCommand = await read("commands/plan.md");
-requires(planCommand, ["classify code involvement", "core-skill bootstrap", "code exploration", "non-code planning"], "plan command bootstrap entry point");
+requires(planCommand, ["engineered-ai-dev", "skills required", "lifecycle", "implementation/review", "applicable convention", "non-code planning"], "plan command capability entry point");
 
 const promptNames = ["orchestrator", ...specialists];
 const promptBodies = Object.fromEntries(await Promise.all(promptNames.map(async (name) => [name, await read(`prompts/capa/${name}.md`)])));
@@ -264,24 +267,22 @@ requires(promptBodies.orchestrator, [
   "human diff review",
 ], "orchestrator");
 requires(promptBodies.orchestrator, [
-  "code-involved",
-  "required core set",
+  "current work",
+  "lifecycle work needs `engineered-ai-dev`",
+  "implementation or code-quality review needs `code-quality`",
+  "applicable language or framework conventions need root `coding-conventions`",
+  "their additive references",
   "engineered-ai-dev",
   "code-quality",
   "root `coding-conventions`",
-  "before code exploration or plan drafting",
-  "load the root `coding-conventions` router before any applicable language/framework references",
-  "those references are additive",
-  "never replace it",
-  "classification changes to code-involved",
+  "before exploration, planning, or mutation",
   "simple explanation",
   "command-only microtask",
   "before delegating apply, verify, standards review, or plan conformance",
-  "same required core set",
-  "inherited capsule or prior phase is not proof",
+  "only when requirements, paths, or context changed",
+  "inherited capsule is sufficient for unchanged context",
   "capability-first resolution is exhausted",
-  "non-code exception",
-], "code-session bootstrap");
+], "capability-based skill loading");
 requires(promptBodies["sub-apply"], ["exactly one approved slice", "validation seam", "recovery", "changed files", "review readiness"], "sub-apply");
 requires(promptBodies["sub-apply"], [
   "active approved decision",
@@ -319,42 +320,36 @@ for (const name of ["sub-review-standards", "sub-review-plan"]) {
 }
 requires(promptBodies["sub-review-plan"], ["no plan available", "recovery"], "sub-review-plan");
 for (const name of specialists) {
-  check(!/required core set|before code exploration or plan drafting|same required core set/i.test(promptBodies[name]), `${name}: duplicated core bootstrap policy`);
+  check(!/code-session bootstrap|before code exploration or plan drafting|every member of that required set/i.test(promptBodies[name]), `${name}: duplicated capability-loading policy`);
 }
 
 const globalInstructions = await read("AGENTS.md");
 requires(globalInstructions, [
   "capa phase ownership",
   "orchestrator.md",
-  "core-skill resolution",
+  "applicable-skill resolution",
   "engineered-ai-dev",
   "code-quality",
   "root `coding-conventions`",
-  "applicable convention references are additive",
-  "should not copy the core bootstrap policy",
+  "its references are additive to the root router",
+  "should not copy the capability-loading policy",
 ], "global phase ownership");
 
-// Focused deterministic simulations keep the bootstrap contract executable without
+// Focused deterministic simulations keep capability selection executable without
 // introducing a second runtime resolver or making the registry authoritative.
-const codePlanSkills = requiredSkillsFor({ codeInvolved: true, structuredPlanning: true });
-check(hasExactSkillSet(coreSkillNames, codePlanSkills), "/plan code session must require the exact core set");
-check(hasExactSkillSet(coreSkillNames, requiredSkillsFor({ codeInvolved: true })), "direct code session must require the exact core set");
+const lifecycleSkills = requiredSkillsFor({ lifecycleWork: true });
+const implementationSkills = requiredSkillsFor({ implementationOrQualityReview: true });
+const conventionSkills = requiredSkillsFor({ applicableConventions: true });
+const fullCapabilitySet = requiredSkillsFor({ lifecycleWork: true, implementationOrQualityReview: true, applicableConventions: true });
+check(hasRequiredSkills(["engineered-ai-dev"], lifecycleSkills) && lifecycleSkills.length === 1, "lifecycle work must load engineered-ai-dev only");
+check(hasRequiredSkills(["code-quality"], implementationSkills) && implementationSkills.length === 1, "implementation/review must load code-quality only");
+check(hasRequiredSkills(["coding-conventions"], conventionSkills) && conventionSkills.length === 1, "applicable conventions must load the root router");
 for (const transition of consequentialTransitions) {
-  check(
-    canEnterTransition(transition, { codeInvolved: true, resolvedAndLoaded: coreSkillNames }),
-    `${transition}: code transition requires the exact core set`,
-  );
-  check(
-    !canEnterTransition(transition, { codeInvolved: true, resolvedAndLoaded: ["engineered-ai-dev", "coding-conventions"] }),
-    `${transition}: missing required skill must block the transition`,
-  );
+  check(canEnterTransition(transition, { requiredSkills: fullCapabilitySet, resolvedAndLoaded: fullCapabilitySet }), `${transition}: applicable skills allow transition`);
+  check(canEnterTransition(transition, { requiredSkills: fullCapabilitySet, resolvedAndLoaded: [...fullCapabilitySet, "improve-ai"] }), `${transition}: additional loaded skills allow transition`);
+  check(!canEnterTransition(transition, { requiredSkills: fullCapabilitySet, resolvedAndLoaded: lifecycleSkills }), `${transition}: missing applicable skill must block transition`);
 }
-check(requiredSkillsFor({ codeInvolved: false }).length === 0, "simple non-code work must not load the code-session set");
-check(canEnterTransition("Apply", { codeInvolved: false, resolvedAndLoaded: [] }), "non-code work must keep the consequential gate lightweight");
-check(
-  hasExactSkillSet(["engineered-ai-dev"], requiredSkillsFor({ codeInvolved: false, structuredPlanning: true })),
-  "non-code /plan keeps only the lifecycle skill",
-);
+check(canEnterTransition("Apply", { requiredSkills: [], resolvedAndLoaded: [] }), "work without applicable capabilities remains lightweight");
 
 const registryFallback = resolveFromSafeChannels([
   ["registry", undefined],
@@ -375,11 +370,11 @@ const missingRequiredSkill = resolveFromSafeChannels([
 ]);
 check(missingRequiredSkill.path === null, "missing required skill must remain unresolved after safe channels");
 check(
-  !canEnterTransition("Apply", { codeInvolved: true, resolvedAndLoaded: ["engineered-ai-dev", "coding-conventions"] }),
+  !canEnterTransition("Apply", { requiredSkills: fullCapabilitySet, resolvedAndLoaded: ["engineered-ai-dev", "coding-conventions"] }),
   "a consequential transition must block when a required skill is missing",
 );
 
-for (const name of coreSkillNames) {
+for (const name of capabilitySkillNames) {
   check(await existsFile(join(root, "skills", name, "SKILL.md")), `${name}: canonical project skill path missing`);
 }
 const conventionRoot = await read("skills/coding-conventions/SKILL.md");
@@ -436,6 +431,11 @@ requires(qualityGuidance, [
   "speculative abstractions",
   "trivial wrappers",
   "dead code",
+  "Preserve established error models",
+  "Result/error-as-value capability",
+  "typed errors through fallible contracts",
+  "throw`/`catch` chain",
+  "framework exception boundaries may cross models",
 ], "code-quality policy source");
 requires(architectureGuidance, [
   "only for changes that add or alter a module",
@@ -707,7 +707,7 @@ requires(orchestrator, [
   "command scope is exact",
   "`worktree` is reserved in command position",
   "before delegation, run the canonical capture",
-  "complete the code-session bootstrap plus the consequential transition gate",
+  "complete applicable-skill loading plus the consequential transition gate",
   "one successful frozen payload",
   "same payload unchanged",
   "missing `plan`, `context`, `adr`, local skills, or registry entries remain valid states",

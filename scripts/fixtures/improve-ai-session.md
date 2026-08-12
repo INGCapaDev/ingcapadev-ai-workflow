@@ -43,8 +43,8 @@ This representative fixture contains only evidence that is currently available t
   requires separate corroborated occurrences; intrinsic promotion applies to generic reusable patterns,
   so intrinsic cross-project promotion applies only to reusable workflow behavior,
   AI agent/subagent behavior, project-agnostic skills, and ecosystem conventions or quality rules.
-- The candidates include `project-repo` and `workflow-repo` examples. Cross-repository plan separation
-  keeps one plan per owner repository; ask which owner plan to prepare first when both are selected.
+- Selected changes stay in the current repository. Project/global classification remains evidence-based;
+  a different repository owner requires an explicitly approved requirement.
 
 ## Questions and mutation gate
 

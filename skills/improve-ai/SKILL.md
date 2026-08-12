@@ -46,7 +46,7 @@ outcome when evidence does not justify an enhancement.
 
 ## Target and scope classification
 
-Consider proportionate candidates for project or lazy context, project or global `AGENTS.md`, skills
+Consider proportionate candidates for project context, project or global `AGENTS.md`, skills
 or references, Capa prompts/agents/subagents, commands, conventions, code-quality policy, Engram
 behavior, and explicit no-change outcomes.
 
@@ -56,9 +56,8 @@ cross-project ownership, including generic reusable patterns, AI agent or subage
 project-agnostic skills, and ecosystem conventions or quality rules. Human selection and plan approval
 remain mandatory; a single bad generation is not sufficient evidence by itself for global promotion.
 
-Candidates may span repositories. Group selected changes by owning repository and prepare one plan per
-owner repository. When multiple owners remain, ask which plan to prepare first instead of combining
-plan authority or inferring a destination.
+Prepare selected changes for the current repository. Retain evidence-based project/global
+classification, but do not infer another repository owner or plan destination.
 
 ## Candidate report
 
@@ -70,8 +69,8 @@ no candidate clears the evidence or scope threshold.
 
 ## Human decision and plan gate
 
-Ask only material questions about evidence, behavior, scope, ownership, promotion, validation, or plan
-destination. Stop after each question round. Never infer selection, approval, or a plan destination.
+Ask only material questions about evidence, behavior, scope, ownership, promotion, or validation.
+Stop after each question round. Never infer selection or approval.
 Selection comes before planning: present the candidate choices, record the human selection, then
 propose an engineered-ai-dev plan in the same workflow with its owner, scope, acceptance, validation
 seam, and recovery. Persist a plan only after explicit human approval.

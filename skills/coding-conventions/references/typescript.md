@@ -14,3 +14,4 @@
 - Use `kebab-case` filenames unless the project or framework requires another convention.
 - Preserve documented package or feature public entrypoints. Otherwise prefer direct imports within the ownership boundary, and do not create new barrel files unless explicitly requested.
 - Chained array operations may add traversals and allocations. Keep the clearest semantics for small or bounded collections; consolidate only when realistic frequency, cardinality, allocation, or hot-path evidence makes the cost material.
+- **Model seams accurately:** After boundary validation, trust established internal types and model internal, test, and third-party seams with accurate narrow types; reserve assertions for genuine third-party boundaries TypeScript cannot express instead of using runtime checks or casts to bridge ordinary internal contracts.

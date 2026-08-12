@@ -25,7 +25,7 @@
 - Validate untrusted data once at boundaries; trust established types and validated data internally.
 - Avoid impossible-state handling, hypothetical fallbacks, premature abstractions, trivial one-use helpers, and speculative reuse.
 - Before finishing, remove redundant validation, dead or unrequired code, duplicated utilities, and AI slop.
-- Load `code-quality` for detailed runtime implementation rules and `coding-conventions` for language or framework conventions.
+- Load `code-quality` for implementation or code-quality review, and `coding-conventions` only when applicable language or framework conventions exist.
 
 ## Skill Loading
 
@@ -41,10 +41,10 @@ Load relevant skills before task-specific work. Use exact paths from the configu
 
 ## Capa Phase Ownership
 
-- `prompts/capa/orchestrator.md` is the concise enforcement source for code-involvement classification, core-skill resolution, and pre-transition assertions.
+- `prompts/capa/orchestrator.md` is the concise enforcement source for capability classification, applicable-skill resolution, and pre-transition assertions.
 - `engineered-ai-dev` owns the approval-gated lifecycle, slice boundaries, handoff, and human transition rules; Capa routes it rather than duplicating its body.
-- `code-quality` and the root `coding-conventions` skill provide implementation and review guidance. Capa loads them for code-involved work, and applicable convention references are additive to the root router.
-- Commands and specialist prompts consume this ownership; they should not copy the core bootstrap policy or skill bodies.
+- `code-quality` provides implementation and code-quality review guidance. Load the root `coding-conventions` skill only when applicable conventions exist; its references are additive to the root router.
+- Commands and specialist prompts consume this ownership; they should not copy the capability-loading policy or skill bodies.
 
 ## Engram Persistent Memory
 
@@ -83,7 +83,7 @@ Structure `content` as:
 
 For prior-work requests, call `mem_context`, then `mem_search` if needed. Retrieve every selected result with `mem_get_observation`; never rely on previews.
 
-Search proactively when starting work that may repeat earlier work, when the user references unknown prior context, or when the first request references a project, feature, or problem.
+Search proactively only for genuine prior-context signals: a request to recall prior work, an explicit reference to unknown past work, or work that may repeat an identified earlier effort.
 
 ### Resolve Conflicts
 
@@ -91,7 +91,7 @@ If `mem_save` returns `judgment_required`, inspect every candidate. Resolve high
 
 ### Close Sessions
 
-Before ending a session or saying the work is done, call `mem_session_summary` with:
+For significant completed work or durable outcomes, call `mem_session_summary` before ending a session or saying the work is done:
 
 ```md
 ## Goal
