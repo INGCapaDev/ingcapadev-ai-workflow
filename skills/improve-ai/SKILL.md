@@ -61,11 +61,11 @@ classification, but do not infer another repository owner or plan destination.
 
 ## Candidate report
 
-Describe each candidate proportionally with its signal origin and evidence, repository corroboration,
-root invariant, owner and scope, applicability, smallest viable enhancement, tradeoffs, uncertainty,
-validation implications, and disposition. Preserve rejected, already-fixed, and insufficient-evidence
-findings so the review does not silently rediscover or erase them. Include the no-change outcome when
-no candidate clears the evidence or scope threshold.
+Report proportionally. Expand selected, materially uncertain, or high-risk candidates with their
+evidence, root invariant, owner, smallest viable enhancement, tradeoffs or uncertainty, validation
+implications, and disposition. Summarize rejected, already-fixed, insufficient-evidence, and low-impact
+findings unless details affect the human decision. Include the no-change outcome when no candidate
+clears the evidence or scope threshold.
 
 ## Human decision and plan gate
 

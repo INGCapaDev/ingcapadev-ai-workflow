@@ -37,6 +37,10 @@ const hasMaterialCostEvidence = ({ frequency, cardinality, amplification, bounda
   frequency === "repeated" || cardinality === "large" || amplification === "amplified" || boundaryCost === "remote";
 const decideCost = (evidence) => (hasMaterialCostEvidence(evidence) ? "address" : "simple");
 const decideBehavior = ({ preservation }) => (preservation === "preserved" ? "preserved" : "gap");
+const decideRuntimeHandling = ({ trusted, reachable, required }) => {
+  if (trusted) return "trust";
+  return reachable && required ? "handle" : "fail-fast";
+};
 const capabilitySkillNames = ["engineered-ai-dev", "code-quality", "coding-conventions"];
 const consequentialTransitions = ["Apply", "Verify", "Standards Review", "Plan Conformance"];
 const requiredSkillsFor = ({ lifecycleWork = false, implementationOrQualityReview = false, applicableConventions = false }) => {
@@ -189,14 +193,9 @@ requires(improveSkill, [
   "explicit human approval",
 ], "improve-ai decision and plan gate");
 requires(improveSkill, [
-  "signal origin and evidence",
-  "repository corroboration",
-  "applicability",
-  "smallest viable enhancement",
-  "tradeoffs",
-  "uncertainty",
-  "validation implications",
-  "disposition",
+  "report proportionally",
+  "expand selected",
+  "summarize rejected",
   "Capa alone owns",
   "Capa alone writes plans",
   "candidate discovery never mutates",
@@ -234,6 +233,8 @@ requires(improveFixture, [
   "selection-before-plan",
   "no automatic mutation",
   "does not edit code, prompts, skills, plans, commits, or Engram",
+  "expands selected or materially uncertain findings",
+  "summarizes rejected",
 ], "improve-ai representative fixture");
 check(!/new specialist|new plugin|new phase|new config entry|persistent telemetry/i.test(improveSkill), "improve-ai: scope expansion instruction present");
 const planCommand = await read("commands/plan.md");
@@ -418,24 +419,12 @@ requiresAny(workflowSources["engineered-ai-dev/SKILL.md"], [["file-by-file", "ar
 const qualityGuidance = workflowSources["code-quality/SKILL.md"];
 const architectureGuidance = workflowSources["coding-conventions/references/architecture.md"];
 requires(qualityGuidance, [
-  "delete before adding",
-  "smallest clear change",
-  "one-use logic",
-  "meaningful duplication",
-  "realistic frequency",
-  "cardinality",
-  "amplification",
-  "boundary cost",
-  "bounded in-memory loop",
-  "material cost",
-  "speculative abstractions",
-  "trivial wrappers",
-  "dead code",
-  "Preserve established error models",
-  "Result/error-as-value capability",
-  "typed errors through fallible contracts",
-  "throw`/`catch` chain",
-  "framework exception boundaries may cross models",
+  "minimum solution ladder",
+  "trust contracts",
+  "require reachability",
+  "fix the owner",
+  "extract only for present value",
+  "optimize from evidence",
 ], "code-quality policy source");
 requires(architectureGuidance, [
   "only for changes that add or alter a module",
@@ -522,6 +511,21 @@ for (const [name, body, pattern] of rejectedConventionMandates) {
 }
 
 const focusedMaintainabilityScenarios = [
+  {
+    name: "validated internal contract",
+    actual: decideRuntimeHandling({ trusted: true, reachable: false, required: false }),
+    expected: "trust",
+  },
+  {
+    name: "reachable boundary failure",
+    actual: decideRuntimeHandling({ trusted: false, reachable: true, required: true }),
+    expected: "handle",
+  },
+  {
+    name: "unreachable fallback",
+    actual: decideRuntimeHandling({ trusted: false, reachable: false, required: false }),
+    expected: "fail-fast",
+  },
   {
     name: "local one-use logic",
     actual: decideCodeShape({ improvesClarity: false, meaningfulDuplication: false }),

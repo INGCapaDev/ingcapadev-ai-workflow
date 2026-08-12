@@ -9,23 +9,22 @@ metadata:
 
 # Code Quality
 
-- **Delete before adding:** Make the smallest clear change that satisfies the approved behavior, and remove avoidable verbosity, duplication, dead code, and fallback logic.
-- **Follow evidence:** Follow established project patterns. If concrete evidence shows a pattern is incorrect, surface it before widening scope or architecture.
-- **Validate boundaries:** Validate external or unknown data when it enters a trusted boundary. Inside that boundary, rely on static types, schemas, framework guarantees, and parsed or validated results.
-- **Reuse only when current:** Search the project and its libraries before creating generic parsing, formatting, validation, transformation, date, string, array, or async logic. Keep one-use logic local. Extract only when it improves present clarity or removes meaningful duplication, and place justified shared code near its domain or related utility family.
-- **Use evidence for cost:** Judge traversal, render, query, and I/O work by realistic frequency, cardinality, amplification, and boundary cost before consolidating or optimizing it. A bounded in-memory loop stays simple absent evidence of material cost.
-- **Reject speculative abstraction:** Do not add hypothetical reuse or speculative abstractions; use a helper, wrapper, factory, or fallback only for current required behavior or present simplification.
-- **Preserve established error models:** When a project establishes a Result/error-as-value capability, adapt throwing external providers at the boundary and return, propagate, or map typed errors through fallible contracts without converting Result flows to a `throw`/`catch` chain; otherwise follow the established error-handling model. Explicit framework exception boundaries may cross models.
-  - hint for result pattern available: result-pattern.ts available, Result<T, E> type, or safeTry helper. 
+- **Minimum solution ladder:** After understanding the real flow, stop at the first sufficient option: skip unrequired work; reuse current project code; use the standard library; use the native platform; use an installed dependency; otherwise write the minimum direct custom code. Prefer deletion and clear local code over verbose equivalents.
+- **Trust contracts:** Validate external or unknown data once when it enters a trusted boundary. Inside it, trust static types, schemas, framework guarantees, and validated results. Fail fast on violated internal invariants instead of masking them with defensive checks or fallbacks.
+- **Require reachability:** Add a guard, fallback, retry, recovery path, or error mapping only for reachable required behavior. Preserve security, accessibility, data-loss protection, explicit requirements, and the project's established error model; adapt throwing providers at the boundary and keep Result/error-as-value flows typed except at explicit framework exception boundaries.
+- **Fix the owner:** For a bug, inspect callers and repair the shared owner when that is the smallest correct fix. Follow established project patterns unless evidence shows the pattern itself is wrong.
+- **Extract only for present value:** Keep one-use logic local. Add a helper, wrapper, factory, interface, or shared utility only when it improves clarity now, creates a real boundary, or removes meaningful duplication.
+- **Optimize from evidence:** Keep bounded local work simple. Optimize traversal, render, query, or I/O only when realistic frequency, cardinality, amplification, or boundary cost makes it material.
 
 ## Decision Test
 
-Before adding a guard, fallback, helper, wrapper, factory, or abstraction, test the relevant condition:
+Before adding code or structure, test the relevant condition:
 
-- **Reachable:** Add guards or fallbacks only for behavior the current system can reach and requires.
-- **Untrusted:** Add runtime validation only while a value remains outside a validated boundary.
-- **Simpler:** Add helpers or abstractions only when they reduce complexity now; do not optimize a bounded operation without material evidence.
+- **Required:** Is the behavior part of the current request or an established contract?
+- **Untrusted:** Is the value still outside a validated boundary?
+- **Simpler:** Does the addition reduce current complexity or own a real boundary?
+- **Material:** Is there evidence that the cost matters now?
 
 ## Completion
 
-Before success, inspect the complete diff and remove redundant validation, impossible-state masking, trivial wrappers, generic comments, placeholder prose, duplicated utilities, and dead, unrequired, or unrelated code.
+Before success, inspect the complete diff and remove redundant validation or error handling, impossible-state masking, trivial wrappers, speculative flexibility, generic comments, placeholder prose, duplicated utilities, and dead, unrequired, unrelated, or unnecessarily verbose code.

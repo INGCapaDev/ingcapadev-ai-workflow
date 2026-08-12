@@ -36,6 +36,9 @@ This representative fixture contains only evidence that is currently available t
 5. No-change outcome: do not promote the unsupported global rule without independent recurrence or
    intrinsic cross-project ownership.
 
+The report expands selected or materially uncertain findings. It summarizes rejected, already-fixed,
+insufficient-evidence, and low-impact findings unless their details affect the human decision.
+
 ## Scope, promotion, and plan ownership
 
 - Project-local ownership applies to project domain, architecture, and conventions.
