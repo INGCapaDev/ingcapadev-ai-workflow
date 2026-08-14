@@ -67,6 +67,6 @@ If the handoff/worktree disagrees or prior Apply evidence is missing, preserve t
 
 ## Explicit Verify And Review
 
-- `/verify` passes the approved seam unchanged to a fresh read-only verifier. Keep its operational state separate from its verdict. Behavioral seam evidence is required; supporting static checks do not replace it, and routine builds are not run.
-- `/review` consumes `prompts/capa/review-input.md` in `committed` mode. Pass its successful frozen payload unchanged across the consequential transition gate; the canonical procedure owns ref safety, Git capture, inventories, exclusions, and stability checks.
-- Launch Standards and Plan Conformance independently and aggregate their findings side by side after the consequential transition gate. Do not launch the Plan axis without an approved plan; report `no plan available` instead. Preserve each axis's coverage and severity without reranking or auto-fixing.
+- On `/verify` or an explicit verification request, pass the approved seam unchanged to a fresh read-only verifier. Keep its operational state separate from its verdict. Behavioral seam evidence is required; supporting static checks do not replace it, and routine builds are not run.
+- On `/review` or an explicit review request, consume `prompts/capa/review-input.md` in `committed` mode and pass its successful frozen payload unchanged across the consequential transition gate. Then launch Standards and Plan Conformance independently and aggregate their findings side by side. Do not launch the Plan axis without an approved plan; report `no plan available` instead. Preserve each axis's coverage and severity without reranking or auto-fixing.
+- At the end of a completed plan, recommend verification if applies and wait for explicit human approval before launching it. Never run verification subagents automatically, without human approval.
