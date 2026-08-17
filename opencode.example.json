@@ -148,7 +148,11 @@
   },
   "mcp": {
     "engram": {
-      "command": ["engram", "mcp", "--tools=agent"],
+      "command": [
+        "engram",
+        "mcp",
+        "--tools=agent"
+      ],
       "type": "local",
       "description": "Install: https://github.com/Gentleman-Programming/engram"
     },
