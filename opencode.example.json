@@ -5,7 +5,7 @@
       "description": "INGCapaDev Orchestrator - classifies, routes, delegates, owns handoff state",
       "mode": "primary",
       "model": "openai/gpt-5.6-sol",
-      "variant": "low",
+      "variant": "medium",
       "permission": {
         "task": {
           "*": "deny",
@@ -26,28 +26,6 @@
       "variant": "medium",
       "permission": {
         "edit": "deny",
-        "bash": {
-          "*": "ask",
-          "git status*": "allow",
-          "git branch*": "allow",
-          "git diff*": "allow",
-          "git log*": "allow",
-          "git show*": "allow",
-          "git rev-parse*": "allow",
-          "git ls-files*": "allow",
-          "git ls-tree*": "allow",
-          "git config --get*": "allow",
-          "git remote -v*": "allow",
-          "git stash list*": "allow",
-          "Test-Path*": "allow",
-          "Get-ChildItem*": "allow",
-          "Get-Item*": "allow",
-          "Get-Content*": "allow",
-          "Get-Command*": "allow",
-          "Select-String*": "allow",
-          "git commit *": "ask",
-          "git push *": "ask"
-        },
         "task": "deny"
       },
       "prompt": "{file:./prompts/capa/sub-explore.md}"
@@ -56,31 +34,9 @@
       "description": "One approved Capa implementation slice",
       "hidden": true,
       "mode": "subagent",
-      "model": "openai/gpt-5.6-luna",
-      "variant": "xhigh",
+      "model": "openai/gpt-5.6-sol",
+      "variant": "low",
       "permission": {
-        "bash": {
-          "*": "ask",
-          "git status*": "allow",
-          "git branch*": "allow",
-          "git diff*": "allow",
-          "git log*": "allow",
-          "git show*": "allow",
-          "git rev-parse*": "allow",
-          "git ls-files*": "allow",
-          "git ls-tree*": "allow",
-          "git config --get*": "allow",
-          "git remote -v*": "allow",
-          "git stash list*": "allow",
-          "Test-Path*": "allow",
-          "Get-ChildItem*": "allow",
-          "Get-Item*": "allow",
-          "Get-Content*": "allow",
-          "Get-Command*": "allow",
-          "Select-String*": "allow",
-          "git commit *": "ask",
-          "git push *": "ask"
-        },
         "task": "deny"
       },
       "prompt": "{file:./prompts/capa/sub-apply.md}"
@@ -89,32 +45,10 @@
       "description": "Read-only Capa verification specialist",
       "hidden": true,
       "mode": "subagent",
-      "model": "openai/gpt-5.6-terra",
-      "variant": "medium",
+      "model": "openai/gpt-5.6-luna",
+      "variant": "max",
       "permission": {
         "edit": "deny",
-        "bash": {
-          "*": "ask",
-          "git status*": "allow",
-          "git branch*": "allow",
-          "git diff*": "allow",
-          "git log*": "allow",
-          "git show*": "allow",
-          "git rev-parse*": "allow",
-          "git ls-files*": "allow",
-          "git ls-tree*": "allow",
-          "git config --get*": "allow",
-          "git remote -v*": "allow",
-          "git stash list*": "allow",
-          "Test-Path*": "allow",
-          "Get-ChildItem*": "allow",
-          "Get-Item*": "allow",
-          "Get-Content*": "allow",
-          "Get-Command*": "allow",
-          "Select-String*": "allow",
-          "git commit *": "ask",
-          "git push *": "ask"
-        },
         "task": "deny"
       },
       "prompt": "{file:./prompts/capa/sub-verify.md}"
@@ -123,7 +57,7 @@
       "description": "Read-only Capa standards review axis",
       "hidden": true,
       "mode": "subagent",
-      "model": "openai/gpt-5.6-terra",
+      "model": "openai/gpt-5.6-sol",
       "variant": "medium",
       "permission": {
         "edit": "deny",
@@ -137,42 +71,48 @@
       "hidden": true,
       "mode": "subagent",
       "model": "openai/gpt-5.6-sol",
-      "variant": "low",
+      "variant": "medium",
       "permission": {
         "edit": "deny",
         "bash": "deny",
         "task": "deny"
       },
       "prompt": "{file:./prompts/capa/sub-review-plan.md}"
+    },
+    "explore": {
+      "model": "openai/gpt-5.6-luna",
+      "variant": "xhigh"
+    },
+    "general": {
+      "model": "opencode/deepseek-v4-flash-free",
+      "variant": "max"
+    },
+    "title": {
+      "model": "opencode/deepseek-v4-flash-free"
+    },
+    "summary": {
+      "model": "opencode/deepseek-v4-flash-free"
     }
   },
   "mcp": {
+    "context7": {
+      "enabled": true,
+      "headers": {
+        "CONTEXT7_API_KEY": "YOUR_CONTEXT7_API_KEY_HERE"
+      },
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp"
+    },
     "engram": {
       "command": [
         "engram",
         "mcp",
         "--tools=agent"
       ],
-      "type": "local",
-      "description": "Install: https://github.com/Gentleman-Programming/engram"
-    },
-    "context7": {
-      "enabled": true,
-      "type": "remote",
-      "url": "https://mcp.context7.com/mcp",
-      "headers": {
-        "CONTEXT7_API_KEY": "YOUR_CONTEXT7_API_KEY_HERE"
-      },
-      "description": "Sign up: https://context7.com"
+      "type": "local"
     }
   },
   "permission": {
-    "read": {
-      "*": "allow",
-      "*.env": "deny",
-      "*.env.*": "deny",
-      "*.env.example": "allow"
-    },
     "bash": {
       "*": "ask",
       "git status*": "allow",
@@ -192,8 +132,54 @@
       "Get-Content*": "allow",
       "Get-Command*": "allow",
       "Select-String*": "allow",
-      "git commit *": "ask",
-      "git push *": "ask"
+      "pnpm lint": "allow",
+      "pnpm lint *": "allow",
+      "pnpm run lint": "allow",
+      "pnpm run lint *": "allow",
+      "pnpm typecheck": "allow",
+      "pnpm typecheck *": "allow",
+      "pnpm run typecheck": "allow",
+      "pnpm run typecheck *": "allow",
+      "pnpm test": "allow",
+      "pnpm test *": "allow",
+      "pnpm run test": "allow",
+      "pnpm run test *": "allow",
+      "pnpm exec tsc --noEmit*": "allow",
+      "pnpm *--fix*": "ask",
+      "git commit*": "ask",
+      "git push*": "ask"
+    },
+    "edit": {
+      "*": "ask",
+      "C:/Users/YOUR_USERNAME/.config/opencode/**": "ask"
+    },
+    "external_directory": {
+      "*": "ask",
+      "C:/Users/YOUR_USERNAME/.config/opencode/**": "allow",
+      "C:/path/to/opencode/**": "allow"
+    },
+    "list": {
+      "*": "ask",
+      "C:/Users/YOUR_USERNAME/.config/opencode/**": "allow",
+      "C:/path/to/opencode/**": "allow"
+    },
+    "read": {
+      "*": "allow",
+      "*.env": "deny",
+      "*.env.*": "deny",
+      "*.env.example": "allow",
+      "C:/Users/YOUR_USERNAME/.config/opencode/**": "allow",
+      "C:/path/to/opencode/**": "allow"
     }
-  }
+  },
+  "provider": {
+    "google": {
+      "options": {
+        "projectId": "YOUR_GOOGLE_CLOUD_PROJECT_ID"
+      }
+    }
+  },
+  "plugin": [
+    "opencode-gemini-auth@latest"
+  ]
 }
