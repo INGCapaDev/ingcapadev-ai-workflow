@@ -41,10 +41,8 @@ Standard delegations receive the repository reference `prompts/capa/result-contr
 
 ## Improve AI Review
 
-- Route `/improve-ai` and explicit natural-language requests to improve the AI workflow or learn from session signals through the model-invoked `improve-ai` skill. Keep both entry paths on that one lazy workflow; the skill owns its detailed evidence, signal, target, scope, and candidate-report procedure.
-- Capa retains classification, skill resolution, optional bounded read-only exploration and corroboration, semantic aggregation, material questions, selection-before-plan gating, plan state, and accepted durable Engram ownership. Use the existing `sub-explore` only when distributed corroboration is useful; do not add a specialist, plugin, phase, config entry, or telemetry.
-- Aggregate the skill's findings by root invariant and owning authority, preserve evidence and dispositions, and keep project/global classification proportionate. Prepare selected work for the current repository unless an explicitly approved requirement identifies another owner.
-- Candidate discovery stays read-only and never mutates code, prompts, skills, plans, commits, or Engram. After human selection, propose an `engineered-ai-dev` plan in the same workflow; Capa alone writes the plan or accepted durable knowledge only after explicit approval.
+- Route `/improve-ai` and equivalent explicit requests to improve AI workflow or assistant behavior, or learn from session feedback, through the model-invoked `improve-ai` skill. It owns the single lazy retrospective, evidence boundaries, proposals, and selection plus implementation-authorization gate.
+- After that gate, use normal routing: small understood corrections stay direct; substantial or unresolved meaningful changes use the currently installed `engineered-ai-dev` planning workflow and its approval gates.
 
 ## Refactor Candidate Review
 

@@ -25,12 +25,21 @@ The system has one primary agent (`ingcapa-dev-orchestrator`) and five hidden sp
 | `sub-review-standards` | Review axis: documented rules and quality |
 | `sub-review-plan` | Review axis: plan conformance |
 
-Users interact through four commands:
+Core development commands:
 
 - `/plan` — Force structured planning with human approval gate
 - `/continue [slice]` — Apply exactly one approved slice
 - `/verify [scope]` — Independently verify a completed slice
 - `/review <ref>` — Two-axis review from a fixed Git ref
+
+For a lightweight retrospective, use `/improve-ai [focus or examples]` or explicitly ask to
+improve the AI workflow or learn from session feedback. Both reach the same lazy `improve-ai`
+skill using available evidence, with uncertainty made clear and no-change as a valid outcome.
+Discovery is read-only. Selecting a proposal alone does not authorize changes: after selection
+and explicit implementation authorization, small understood corrections stay direct, while
+substantial changes or unresolved meaningful design use the current `engineered-ai-dev` planning
+workflow and its approval gates. Not every improvement needs a persisted plan; project-specific
+changes stay local, and shared scope requires deliberate authorization.
 
 Every delegation starts fresh. The orchestrator classifies work, resolves skills, delegates, and owns plan state. A successful Apply is ready for human diff review; only human acceptance marks a slice complete and advances the plan.
 
@@ -58,7 +67,8 @@ commands/
 ├── plan.md              — /plan command
 ├── continue.md          — /continue command
 ├── verify.md            — /verify command
-└── review.md            — /review command
+├── review.md            — /review command
+└── improve-ai.md        — /improve-ai retrospective entry point
 prompts/capa/
 ├── orchestrator.md      — Orchestrator prompt
 ├── result-contract.md   — Envelope contract
@@ -70,7 +80,8 @@ prompts/capa/
 skills/
 ├── code-quality/        — Universal implementation harness
 ├── coding-conventions/  — Language/framework convention router
-└── engineered-ai-dev/   — Core workflow (v2)
+├── engineered-ai-dev/   — Core workflow (v2)
+└── improve-ai/          — Read-only retrospective and authorized-change routing
 ```
 
 ## Complementary Tools
