@@ -19,11 +19,12 @@
 
 ## Engineering Principles
 
-- Implement the smallest clear, human-maintainable solution that satisfies current requirements.
+- Implement a clear, human-maintainable solution with minimum conceptual complexity, not minimum LOC.
 - Follow project instructions, established patterns, and local conventions before global defaults.
 - Reuse existing utilities and patterns.
 - Validate untrusted data once at boundaries; trust established types and validated data internally.
-- Avoid impossible-state handling, hypothetical fallbacks, premature abstractions, trivial one-use helpers, and speculative reuse.
+- Preserve real absence, narrowing, invariant, and failure semantics. Let abstractions earn their place through concepts, ownership, or reduced caller knowledge, including useful one-use extractions.
+- Discuss meaningful API, domain-model, and structural choices with the human before implementation; keep routine details within agreed design.
 - Before finishing, remove redundant validation, dead or unrequired code, duplicated utilities, and AI slop.
 - Load `code-quality` for implementation or code-quality review, and `coding-conventions` only when applicable language or framework conventions exist.
 
@@ -33,7 +34,7 @@ Load relevant skills before task-specific work. Use exact paths from the configu
 
 | Context | Skill |
 |---|---|
-| Creating or editing AI skills | `writing-great-skills` |
+| Creating or editing AI skills | `writing-for-agents` |
 | Non-trivial development, structured planning, or human review gates | `engineered-ai-dev` |
 | Implementing code or reviewing code quality | `code-quality` |
 | Applying language or framework conventions | `coding-conventions` |
