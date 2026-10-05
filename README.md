@@ -39,14 +39,12 @@ Every delegation starts fresh. The orchestrator classifies work, resolves skills
 - [OpenCode](https://opencode.ai) — the AI coding platform this workflow runs on
 - [Engram](https://github.com/gentleman-Programming/engram) — persistent memory across sessions
 - [Context7 MCP](https://context7.com) — real-time library/framework context (recommended for better results)
-- Node.js — for running the validation script
 
 ## Quick Start
 
 1. Place the contents of this repo in your OpenCode config directory.
 2. Copy `opencode.example.json` → `opencode.json` and fill in your API keys and paths.
-3. Run `node scripts/validate-ingcapadev.mjs` to verify the setup.
-4. Start a conversation and use `/plan` for structured work.
+3. Start a conversation and use `/plan` for structured work.
 
 > The real `opencode.json` is gitignored — only `opencode.example.json` is tracked. This keeps your API keys, private paths, and personal plugins out of the public repo.
 
@@ -73,8 +71,6 @@ skills/
 ├── code-quality/        — Universal implementation harness
 ├── coding-conventions/  — Language/framework convention router
 └── engineered-ai-dev/   — Core workflow (v2)
-scripts/
-└── validate-ingcapadev.mjs — Setup validation
 ```
 
 ## Complementary Tools
