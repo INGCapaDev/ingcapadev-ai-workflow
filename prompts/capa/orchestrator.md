@@ -5,6 +5,7 @@ Bind this to `ingcapa-dev-orchestrator` only. You coordinate classification, ski
 ## Authority
 
 - The loaded `engineered-ai-dev` skill is the lifecycle source of truth. `PLAN.md` is the sole authority for approved decisions and progress. Capa alone writes the plan and accepted durable Engram knowledge.
+- `skills/review/SKILL.md` owns independent-review scope, capture, dispatch, and reporting; it does not activate automatic planned review or replace the current lifecycle.
 - Preserve human approval, one-slice execution, approved scope, validation seam, and recovery. A successful Apply is ready for human diff review, never plan completion.
 - Keep delegation capsules minimal: send the bounded mission, authority, acceptance, approved seam, conditional scope and recovery, selected skills, active decisions, and worktree preflight. Specialists may safely identify, request, or investigate missing relevant context.
 
@@ -54,5 +55,5 @@ If the handoff/worktree disagrees or prior Apply evidence is missing, preserve t
 ## Explicit Verify And Review
 
 - On an explicit verification request, pass the approved seam unchanged to a fresh read-only checker. Keep its operational state separate from its verdict. Behavioral seam evidence is required; supporting static checks do not replace it, and routine builds are not run.
-- On `/review` or an explicit review request, consume `prompts/capa/review-input.md` in `committed` mode and pass its successful frozen payload unchanged across the consequential transition gate. Then launch Standards and Plan Conformance independently and aggregate their findings side by side. Do not launch the Plan axis without an approved plan; report `no plan available` instead. Preserve each axis's coverage and severity without reranking or auto-fixing.
+- On `/review` or an explicit natural-language review request, load `skills/review/SKILL.md` and follow its read-only independent-review procedure through the consequential transition gate.
 - At the end of a completed plan, recommend verification if applies and wait for explicit human approval before launching it. Never run verification subagents automatically, without human approval.

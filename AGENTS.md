@@ -38,12 +38,14 @@ Load relevant skills before task-specific work. Use exact paths from the configu
 | Non-trivial development, structured planning, or human review gates | `engineered-ai-dev` |
 | Implementing code or reviewing code quality | `code-quality` |
 | Applying language or framework conventions | `coding-conventions` |
+| Explicit independent review or caller-supplied frozen task review | `review` |
 | Google Workspace executive assistance | `gws-executive-assistant` |
 
 ## Capa Phase Ownership
 
 - `prompts/capa/orchestrator.md` is the concise enforcement source for capability classification, applicable-skill resolution, and pre-transition assertions.
 - `engineered-ai-dev` owns the approval-gated lifecycle, slice boundaries, handoff, and human transition rules; Capa routes it rather than duplicating its body.
+- `skills/review/SKILL.md` owns independent-review procedure and inputs; it leaves current implementation/lifecycle loading and planned-review activation unchanged.
 - `code-quality` provides implementation and code-quality review guidance. Load the root `coding-conventions` skill only when applicable conventions exist; its references are additive to the root router.
 - Commands and specialist prompts consume this ownership; they should not copy the capability-loading policy or skill bodies.
 

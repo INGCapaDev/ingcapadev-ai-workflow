@@ -30,11 +30,20 @@ Core development commands:
 
 - `/plan` — Force structured planning with human approval gate
 - `/continue [slice]` — Apply exactly one approved slice
-- `/review <ref>` — Two-axis review from a fixed Git ref
+- `/review [ref]` — Read-only independent review of current work, or committed changes since a fixed Git ref
 
 Independent verification is opt-in through an explicit natural-language request to Capa;
 there is no separate verification command. The current approval-gated `engineered-ai-dev`
 lifecycle remains active; renaming the roles does not activate the future v3 task loop.
+
+`/review` without arguments includes staged, unstaged, and relevant new source work.
+`/review <ref>` selects committed branch changes since the validated fixed point; explicit
+natural-language requests may select another scope. Both entry paths load the lazy `review`
+skill, which freezes the candidate for fresh independent Standards and Plan contexts. Reports
+keep findings and coverage separate; without an approved plan, Standards can run and Plan
+reports `no plan available`. Standalone review does not fix code, accept tasks, commit, or
+update progress. Supplied task candidates use their actual pre-task delta, not earlier accepted
+uncommitted work; automatic planned review remains deferred until v3 activation.
 
 For a lightweight retrospective, use `/improve-ai [focus or examples]` or explicitly ask to
 improve the AI workflow or learn from session feedback. Both reach the same lazy `improve-ai`
@@ -75,7 +84,6 @@ commands/
 prompts/capa/
 ├── orchestrator.md      — Orchestrator prompt
 ├── result-contract.md   — Specialist result communication
-├── review-input.md      — Canonical committed /review input capture
 ├── worker.md            — Bounded implementation worker
 ├── checker.md           — Optional read-only checker
 ├── review-standards.md   — Standards review axis
@@ -84,6 +92,7 @@ skills/
 ├── code-quality/        — Universal implementation harness
 ├── coding-conventions/  — Language/framework convention router
 ├── engineered-ai-dev/   — Core workflow (v2)
+├── review/              — Lazy scoped independent-review procedure and inputs
 └── improve-ai/          — Read-only retrospective and authorized-change routing
 ```
 
