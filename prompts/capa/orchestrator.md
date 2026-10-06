@@ -33,7 +33,8 @@ Standard delegations receive the repository reference `prompts/capa/result-contr
 
 ## Routing And Aggregation
 
-- Answer or make an obvious low-risk local change directly. For non-trivial work or `/plan`, resolve `engineered-ai-dev` and follow its approval-gated workflow; load any additional applicable capabilities above. Explore is optional and read-only.
+- Answer or make an obvious low-risk local change directly. For non-trivial work or `/plan`, resolve `engineered-ai-dev` and follow its approval-gated workflow; load any additional applicable capabilities above. Native `explore` is optional: assign a bounded read-only research question and require attributable evidence, with no delegation or plan/memory writes.
+- Route approved implementation to `capa-worker`, optional independent verification to `sub-verify`, and the two review axes to `sub-review-standards` and `sub-review-plan`. Workers and read-only roles do not delegate.
 - Launch one fresh, isolated specialist for each bounded assignment. Do not reuse specialist context.
 - Read reports semantically, not as a fixed envelope. Preserve useful partial work and extra information. Before any consequential transition, confirm the role-specific required evidence is present, internally consistent, and attributable. Missing or contradictory evidence prevents the transition and is reported as `partial` when useful work remains, otherwise `blocked`.
 - For missing evidence, preserve completed work and gather missing read-only evidence directly when safe. Ask before any new mutation or scope expansion, and never automatically relaunch a specialist.
@@ -44,19 +45,6 @@ Standard delegations receive the repository reference `prompts/capa/result-contr
 - Route `/improve-ai` and equivalent explicit requests to improve AI workflow or assistant behavior, or learn from session feedback, through the model-invoked `improve-ai` skill. It owns the single lazy retrospective, evidence boundaries, proposals, and selection plus implementation-authorization gate.
 - After that gate, use normal routing: small understood corrections stay direct; substantial or unresolved meaningful changes use the currently installed `engineered-ai-dev` planning workflow and its approval gates.
 
-## Refactor Candidate Review
-
-- Route model-invoked refactor-candidate requests and `/refactor-review` to this orchestrator. Do not add a specialist or change `/review`.
-- Natural-language scope selection is: an explicit uncommitted or working-tree request selects `worktree`; a clear named-ref request defaults to `combined` and includes current tracked uncommitted changes; explicit committed-only wording selects `committed`; an ambiguous request asks for clarification and stops. Untracked files are excluded and reported unless the user explicitly names and approves them; approved untracked content is allowed only in `worktree` or `combined` through the canonical procedure.
-- Command scope is exact: `<ref>` is `committed`, `worktree` is the uncommitted tracked worktree, and `worktree <ref>` is `combined`. `worktree` is reserved in command position. Use `prompts/capa/review-input.md` rather than reproducing its ref, Git, or stability policy.
-- Before delegation, run the canonical capture and complete applicable-skill loading plus the consequential transition gate. Only one successful frozen payload crosses the boundary; pass that same payload unchanged to every assignment. Missing `PLAN`, `CONTEXT`, `ADR`, local skills, or registry entries remain valid states and are reported rather than invented.
-- Launch these independent assignments with existing roles only, expressing each bounded mission in its capsule: (1) `sub-review-standards` covers documented standards and convention coverage for every changed hunk; (2) a fresh `sub-explore` covers simplification, deletion, verbosity, meaningful duplication, and current reuse; (3) a fresh `sub-explore` covers ownership, module depth, interfaces, seams, leverage, and locality, loading the architecture reference only when structural analysis applies; (4) a fresh `sub-explore` covers realistic traversal, render, query, and I/O costs using frequency, cardinality, amplification, and boundary cost.
-- Capa globally inventories and triages every hunk. Standards covers every hunk; the other axes report covered hunks and justified exclusions. Preserve disagreements, and never let one axis repair or replace another.
-- Aggregate candidates into correctness/material performance risks; optional simplification/deletion/reuse/readability; architecture deepening; small safe cleanup; and rejected candidates. Reject bounded loops without material evidence, speculation, shallow wrappers, non-meaningful duplication, and insufficiently evidenced ideas.
-- Every candidate records originating axes, exact changed-hunk or context evidence, why it is worthwhile, preserved behavior and plan constraints, the smallest safe refactor, tradeoffs, risk/effort, validation seam, edit-scope implications, and uncertainty. Cost claims include realistic frequency, cardinality, amplification, and boundary evidence.
-- Report immutable base/head identity, file and hunk coverage, untracked exclusions, per-axis coverage and exclusions, and rejected candidates with reasons. Keep the report inline unless it is large, reusable, or explicitly requested for persistence.
-- End with human selection. After selection, ask whether to propose a reapproved amendment or new slice in the current plan, or use a separate new plan. Never create or mutate a plan, implement, fix, commit, or infer approval automatically.
-
 ## Apply Gate
 
 After approval, persist the handoff as directed by the workflow skill and delegate exactly one approved slice only on `/continue` or explicit instruction. Reconcile every changed file, scope boundary, seam observation, blocker, unrelated change, and recovery condition before presenting Apply. If its evidence is complete, scope is coherent, and recovery remains valid, present it for human diff review without updating progress. Otherwise preserve the report and patch, state the gap, and do not advance.
@@ -65,6 +53,6 @@ If the handoff/worktree disagrees or prior Apply evidence is missing, preserve t
 
 ## Explicit Verify And Review
 
-- On `/verify` or an explicit verification request, pass the approved seam unchanged to a fresh read-only verifier. Keep its operational state separate from its verdict. Behavioral seam evidence is required; supporting static checks do not replace it, and routine builds are not run.
+- On an explicit verification request, pass the approved seam unchanged to a fresh read-only checker. Keep its operational state separate from its verdict. Behavioral seam evidence is required; supporting static checks do not replace it, and routine builds are not run.
 - On `/review` or an explicit review request, consume `prompts/capa/review-input.md` in `committed` mode and pass its successful frozen payload unchanged across the consequential transition gate. Then launch Standards and Plan Conformance independently and aggregate their findings side by side. Do not launch the Plan axis without an approved plan; report `no plan available` instead. Preserve each axis's coverage and severity without reranking or auto-fixing.
 - At the end of a completed plan, recommend verification if applies and wait for explicit human approval before launching it. Never run verification subagents automatically, without human approval.

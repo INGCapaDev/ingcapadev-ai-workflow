@@ -4,13 +4,13 @@
     "ingcapa-dev-orchestrator": {
       "description": "INGCapaDev Orchestrator - classifies, routes, delegates, owns handoff state",
       "mode": "primary",
-      "model": "openai/gpt-5.6-sol",
-      "variant": "medium",
+      "model": "openai/gpt-6.1-sol",
+      "variant": "high",
       "permission": {
         "task": {
           "*": "deny",
-          "sub-explore": "allow",
-          "sub-apply": "allow",
+          "explore": "allow",
+          "capa-worker": "allow",
           "sub-verify": "allow",
           "sub-review-standards": "allow",
           "sub-review-plan": "allow"
@@ -18,80 +18,74 @@
       },
       "prompt": "{file:./prompts/capa/orchestrator.md}"
     },
-    "sub-explore": {
-      "description": "Read-only Capa exploration specialist",
+    "capa-worker": {
+      "description": "Bounded Capa implementation worker",
       "hidden": true,
       "mode": "subagent",
-      "model": "openai/gpt-5.6-terra",
+      "model": "openai/gpt-6.1-sol",
+      "variant": "medium",
+      "permission": {
+        "task": "deny"
+      },
+      "prompt": "{file:./prompts/capa/worker.md}"
+    },
+    "sub-verify": {
+      "description": "Optional read-only Capa checker",
+      "hidden": true,
+      "mode": "subagent",
+      "model": "openai/gpt-6.1-sol",
       "variant": "medium",
       "permission": {
         "edit": "deny",
         "task": "deny"
       },
-      "prompt": "{file:./prompts/capa/sub-explore.md}"
-    },
-    "sub-apply": {
-      "description": "One approved Capa implementation slice",
-      "hidden": true,
-      "mode": "subagent",
-      "model": "openai/gpt-5.6-sol",
-      "variant": "low",
-      "permission": {
-        "task": "deny"
-      },
-      "prompt": "{file:./prompts/capa/sub-apply.md}"
-    },
-    "sub-verify": {
-      "description": "Read-only Capa verification specialist",
-      "hidden": true,
-      "mode": "subagent",
-      "model": "openai/gpt-5.6-luna",
-      "variant": "max",
-      "permission": {
-        "edit": "deny",
-        "task": "deny"
-      },
-      "prompt": "{file:./prompts/capa/sub-verify.md}"
+      "prompt": "{file:./prompts/capa/checker.md}"
     },
     "sub-review-standards": {
       "description": "Read-only Capa standards review axis",
       "hidden": true,
       "mode": "subagent",
-      "model": "openai/gpt-5.6-sol",
-      "variant": "medium",
+      "model": "openai/gpt-6.1-sol",
+      "variant": "high",
       "permission": {
         "edit": "deny",
         "bash": "deny",
         "task": "deny"
       },
-      "prompt": "{file:./prompts/capa/sub-review-standards.md}"
+      "prompt": "{file:./prompts/capa/review-standards.md}"
     },
     "sub-review-plan": {
       "description": "Read-only Capa plan-conformance review axis",
       "hidden": true,
       "mode": "subagent",
-      "model": "openai/gpt-5.6-sol",
-      "variant": "medium",
+      "model": "openai/gpt-6.1-sol",
+      "variant": "high",
       "permission": {
         "edit": "deny",
         "bash": "deny",
         "task": "deny"
       },
-      "prompt": "{file:./prompts/capa/sub-review-plan.md}"
+      "prompt": "{file:./prompts/capa/review-plan.md}"
     },
     "explore": {
-      "model": "openai/gpt-5.6-luna",
-      "variant": "xhigh"
+      "model": "openai/gpt-6-luna",
+      "variant": "xhigh",
+      "permission": {
+        "edit": "deny",
+        "task": "deny"
+      }
     },
     "general": {
-      "model": "opencode/deepseek-v4-flash-free",
-      "variant": "max"
+      "model": "openai/gpt-6.1-sol",
+      "variant": "medium"
     },
     "title": {
-      "model": "opencode/deepseek-v4-flash-free"
+      "model": "openai/gpt-6-luna",
+      "variant": "medium"
     },
     "summary": {
-      "model": "opencode/deepseek-v4-flash-free"
+      "model": "openai/gpt-6.1-sol",
+      "variant": "medium"
     }
   },
   "mcp": {

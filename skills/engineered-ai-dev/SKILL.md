@@ -21,7 +21,7 @@ This skill is standalone for one capable agent. Capa enhances it with routing an
 - **Assign one writer:** Standalone, the current agent coordinates, implements, reconciles, and writes the plan after human acceptance. With Capa, its orchestrator is the sole plan and Engram writer; specialists return evidence and memory candidates.
 - **Approve before mutation:** Inspect the codebase before asking facts it can answer. Clarify material requirements, behavior that should and should not happen, in/out/deferred scope, acceptance, and relevant compatibility, performance, UX, and security constraints. Obtain explicit plan approval before persisting or implementing.
 - **Deliver one slice:** Implement only the current approved slice. Never start the next slice in the response that asks for diff review. Never commit unless explicitly asked.
-- **Prove readiness:** Focused evidence against the approved validation seam is mandatory before presenting a successful Apply result for human diff review. Independent `/verify` and `/review` are opt-in.
+- **Prove readiness:** Focused evidence against the approved validation seam is mandatory before presenting a successful Apply result for human diff review. Independent verification and `/review` are opt-in.
 - **Protect scope:** Never expand scope, edit scope, validation seam, or recovery implicitly. Keep blockers distinct from accepted deviations.
 - **Protect artifacts:** Write technical artifacts in English, match the latest user language in replies, redact secrets and PII, and reference authoritative material instead of duplicating it.
 

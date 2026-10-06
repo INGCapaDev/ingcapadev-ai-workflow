@@ -15,13 +15,14 @@ My `engineered-ai-dev` skill was what helped me refine and perfect the workflow.
 
 ## How It Works
 
-The system has one primary agent (`ingcapa-dev-orchestrator`) and five hidden specialists:
+The system has one primary agent (`ingcapa-dev-orchestrator`), four hidden specialists,
+and native `explore` for read-only research:
 
 | Specialist | Role |
 |---|---|
-| `sub-explore` | Read-only codebase investigation |
-| `sub-apply` | Implement one approved slice |
-| `sub-verify` | Read-only slice verification |
+| `explore` (native) | Read-only, non-delegating codebase investigation |
+| `capa-worker` | Implement one approved slice without delegation |
+| `sub-verify` | Optional read-only checker, requested explicitly |
 | `sub-review-standards` | Review axis: documented rules and quality |
 | `sub-review-plan` | Review axis: plan conformance |
 
@@ -29,8 +30,11 @@ Core development commands:
 
 - `/plan` — Force structured planning with human approval gate
 - `/continue [slice]` — Apply exactly one approved slice
-- `/verify [scope]` — Independently verify a completed slice
 - `/review <ref>` — Two-axis review from a fixed Git ref
+
+Independent verification is opt-in through an explicit natural-language request to Capa;
+there is no separate verification command. The current approval-gated `engineered-ai-dev`
+lifecycle remains active; renaming the roles does not activate the future v3 task loop.
 
 For a lightweight retrospective, use `/improve-ai [focus or examples]` or explicitly ask to
 improve the AI workflow or learn from session feedback. Both reach the same lazy `improve-ai`
@@ -66,17 +70,16 @@ README.md                — This file
 commands/
 ├── plan.md              — /plan command
 ├── continue.md          — /continue command
-├── verify.md            — /verify command
 ├── review.md            — /review command
 └── improve-ai.md        — /improve-ai retrospective entry point
 prompts/capa/
 ├── orchestrator.md      — Orchestrator prompt
-├── result-contract.md   — Envelope contract
-├── sub-explore.md       — Exploration specialist
-├── sub-apply.md         — Implementation specialist
-├── sub-verify.md        — Verification specialist
-├── sub-review-standards.md — Standards review axis
-└── sub-review-plan.md   — Plan conformance axis
+├── result-contract.md   — Specialist result communication
+├── review-input.md      — Canonical committed /review input capture
+├── worker.md            — Bounded implementation worker
+├── checker.md           — Optional read-only checker
+├── review-standards.md   — Standards review axis
+└── review-plan.md        — Plan conformance axis
 skills/
 ├── code-quality/        — Universal implementation harness
 ├── coding-conventions/  — Language/framework convention router

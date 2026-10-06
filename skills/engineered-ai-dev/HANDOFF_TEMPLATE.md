@@ -83,7 +83,7 @@ Each slice centers one primary review decision and a valid, merge-safe resulting
 - Implement one approved slice at a time.
 - A successful Apply is ready for human diff review, not complete; do not update this plan before review approval.
 - After explicit human acceptance, make one update: mark the slice complete, record accepted durable facts, advance the current slice, and set the next safe action.
-- Independent `/verify` and `/review` are opt-in.
+- Independent verification and `/review` are opt-in.
 - Suggest a conventional commit after a successful slice; never commit unless explicitly asked.
 
 ## E. Current Progress

@@ -17,7 +17,7 @@ uncertainty. Missing conversation, response, tool-error history, or telemetry re
 repository facts can corroborate a problem but cannot reconstruct an unseen event.
 
 Inspect facts before asking questions. Work directly unless distributed corroboration is useful;
-then use at most one fresh existing `sub-explore` per bounded assignment, read-only and returning
+then use at most one fresh native `explore` per bounded assignment, read-only and returning
 attributable evidence. Use existing capabilities without adding an actor or telemetry path.
 
 ## Find the owner and smallest useful correction
