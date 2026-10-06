@@ -7,8 +7,8 @@ description: "Independent review for /review or natural-language review requests
 
 Own scope selection, frozen input capture, and independent two-axis dispatch. Standalone
 review is read-only: report findings, not fixes, task acceptance, commits, or progress writes.
-This capability accepts planned-task candidates; automatic planned review is not activated
-here. Current implementation and lifecycle loading remain with `engineered-ai-dev` until S7.
+For planned tasks, Capa invokes this procedure after functional verification and retains
+finding triage, correction, plan updates, and human transitions. This skill authorizes no fixes.
 
 ## 1. Select the scope
 

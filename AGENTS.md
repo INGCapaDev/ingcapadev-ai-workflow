@@ -17,16 +17,16 @@
 - Prefer concepts and causal reasoning over unexplained code. Correct errors directly and explain why; use analogies or examples only when they improve understanding.
 - The human leads; AI executes.
 
-## Engineering Principles
+## Implementation Baseline
 
-- Implement a clear, human-maintainable solution with minimum conceptual complexity, not minimum LOC.
-- Follow project instructions, established patterns, and local conventions before global defaults.
+- Produce correct, coherent code from the start: use the simplest solution fitting agreed behavior and nearby code, not minimum LOC.
+- Follow all explicit project conventions and required scope, type, contract, project-invariant, security, and permission constraints before global defaults.
 - Reuse existing utilities and patterns.
 - Validate untrusted data once at boundaries; trust established types and validated data internally.
-- Preserve real absence, narrowing, invariant, and failure semantics. Let abstractions earn their place through concepts, ownership, or reduced caller knowledge, including useful one-use extractions.
+- Preserve real absence, narrowing, and failure semantics; fail fast on violated internal invariants using the project's error model. Useful one-use abstractions may own a concept or reduce caller knowledge.
 - Discuss meaningful API, domain-model, and structural choices with the human before implementation; keep routine details within agreed design.
-- Before finishing, remove redundant validation, dead or unrequired code, duplicated utilities, and AI slop.
-- Load `code-quality` for implementation or code-quality review, and `coding-conventions` only when applicable language or framework conventions exist.
+- Verify changed behavior purposefully with relevant existing tests, lint/types, manual/runtime, or structural evidence. Create tests only when explicitly requested or project-required; reuse valid unchanged checks.
+- Before finishing, reconcile the complete attributable diff with agreed scope, behavior, and these constraints; remove redundant or unrequired work.
 
 ## Skill Loading
 
@@ -35,43 +35,35 @@ Load relevant skills before task-specific work. Use exact paths from the configu
 | Context | Skill |
 |---|---|
 | Creating or editing AI skills | `writing-for-agents` |
-| Non-trivial development, structured planning, or human review gates | `engineered-ai-dev` |
-| Implementing code or reviewing code quality | `code-quality` |
-| Applying language or framework conventions | `coding-conventions` |
+| Material design discussion, work breakdown, or `/plan` | `planning` |
+| Standards judgment; targeted design or correction question | `code-quality` |
+| Standards judgment with applicable conventions; task-critical convention question | `coding-conventions`, then only applicable references |
 | Explicit independent review or caller-supplied frozen task review | `review` |
 | Google Workspace executive assistance | `gws-executive-assistant` |
 
-## Capa Phase Ownership
+Implementation uses the baseline above and task-critical references, not the full general, language, smell, or architecture corpus by default. Explicit project rules remain binding regardless of loading. Applicable authoring guidance remains required for AI-facing documents.
 
-- `prompts/capa/orchestrator.md` is the concise enforcement source for capability classification, applicable-skill resolution, and pre-transition assertions.
-- `engineered-ai-dev` owns the approval-gated lifecycle, slice boundaries, handoff, and human transition rules; Capa routes it rather than duplicating its body.
-- `skills/review/SKILL.md` owns independent-review procedure and inputs; it leaves current implementation/lifecycle loading and planned-review activation unchanged.
-- `code-quality` provides implementation and code-quality review guidance. Load the root `coding-conventions` skill only when applicable conventions exist; its references are additive to the root router.
+## Capa Ownership
+
+- `prompts/capa/orchestrator.md` owns direct/planned execution, delegation, review-driven correction, human transitions, and implementation-time plan updates. Capa is a senior developer and may implement directly.
+- `skills/planning/SKILL.md` owns context gathering, design discussion, and breakdown; its `references/plan-format.md` owns plan schema, statuses, and evidence.
+- `skills/review/SKILL.md` owns frozen-candidate capture and fresh independent Standards/Plan review for standalone requests and planned tasks.
+- `code-quality` and `coding-conventions` own final-code Standards judgment; targeted design/correction use remains available. Convention references are additive to their root router.
 - Commands and specialist prompts consume this ownership; they should not copy the capability-loading policy or skill bodies.
 
 ## Engram Persistent Memory
 
-Engram survives sessions and compactions. This protocol is mandatory and always active when Engram is available.
+Engram stores reusable knowledge not better owned in the repository. `PLAN.md` owns active scope, design, evidence, and progress; Git owns code reality; repository docs/ADRs own durable project facts. This protocol is mandatory when Engram is available. Unavailable memory does not block a clear local plan unless specific consequential knowledge is missing.
 
 ### Save
 
-Call `mem_save` immediately after any of these:
-
-- Architecture or design decision.
-- Team convention or workflow change.
-- Tool or library choice involving tradeoffs.
-- Bug fix, including its root cause.
-- Feature implemented with a non-obvious approach.
-- Non-obvious discovery, gotcha, edge case, or unexpected behavior.
-- Configuration change or environment setup.
-- Significant external artifact created or updated, such as a Notion, Jira, or GitHub artifact.
-- User preference or constraint learned.
+Call `mem_save` promptly for accepted durable discoveries, preferences, decisions, conventions, configuration/tool lessons, non-obvious bug causes or approaches, and significant external-artifact lessons. Save implementation outcomes only after human acceptance. Keep repo-owned facts with their owner; do not mirror plans or transient Apply state.
 
 Use a short searchable verb-led `title`, an appropriate `type`, and `scope: project` unless the observation is personal. Use a stable `topic_key` for an evolving topic; reuse that key when the topic changes, and never overwrite a distinct topic. If the key is unclear, call `mem_suggest_topic_key`; use `mem_update` to correct a known observation.
 
 ### Capa Delegation Economy
 
-When Capa delegates, its orchestrator is the sole Engram writer. Specialists do not save memories or session summaries: they return concise `Memory Candidates` for durable discoveries only. The orchestrator consolidates or upserts related candidates with existing observations and saves accepted implementation outcomes only after human review. Do not persist transient Apply progress, evidence, or handoff state.
+When Capa delegates, Capa is the sole plan and Engram writer. Specialists return concise durable `Memory Candidates`, not memory writes or session summaries. Capa consolidates accepted candidates with existing observations.
 
 Structure `content` as:
 
@@ -94,30 +86,10 @@ If `mem_save` returns `judgment_required`, inspect every candidate. Resolve high
 
 ### Close Sessions
 
-For significant completed work or durable outcomes, call `mem_session_summary` before ending a session or saying the work is done:
-
-```md
-## Goal
-[Session goal]
-
-## Instructions
-[User constraints or preferences; omit if none]
-
-## Discoveries
-- [Non-obvious findings]
-
-## Accomplished
-- [Completed work and key evidence]
-
-## Next Steps
-- [Remaining work]
-
-## Relevant Files
-- path/to/file - [role or change]
-```
+For significant accepted work or durable outcomes, call `mem_session_summary` before closing. Use Goal, Instructions when relevant, Discoveries, Accomplished, Next Steps, and Relevant Files for durable lessons and authoritative pointers, not a task-progress shadow.
 
 ### Recover After Compaction
 
-1. Save the compacted summary with `mem_session_summary`.
+1. Save durable lessons and pointers from the compacted summary with `mem_session_summary`, not transient task state.
 2. Recover additional context with `mem_context`.
 3. Continue only after both steps complete.

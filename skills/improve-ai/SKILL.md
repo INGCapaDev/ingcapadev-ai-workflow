@@ -71,8 +71,8 @@ provide both. If authorization is absent, stop at the proposals or selected cand
 After selection and authorization, return to normal Capa routing:
 
 - Small understood corrections proceed directly with focused validation and reporting.
-- Substantial changes or unresolved meaningful design invoke the currently installed
-  `engineered-ai-dev` planning workflow and its approval gates before persistence or implementation.
+- Substantial changes or unresolved meaningful design invoke `skills/planning/SKILL.md`
+  and its approval gates before persistence or implementation; Capa owns subsequent execution.
 
 An improvement does not automatically need a persisted plan. Capa retains classification, human
 interaction, plan state, and accepted durable knowledge ownership under the normal workflow.

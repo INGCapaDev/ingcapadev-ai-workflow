@@ -1,17 +1,17 @@
 ---
 name: coding-conventions
-description: Routes work to the exact project, language, and framework convention references. Use alongside code-quality skill when implementing or reviewing code with applicable TypeScript, React, Hono, Go, or architecture conventions.
+description: Routes Standards judgment and task-critical design or correction questions to applicable project, TypeScript, React, Hono, Go, or architecture conventions.
 ---
 
 # Coding Conventions
 
-This is a convention router, not a code-quality guide. Load only the reference files that match the task.
+This is a convention router, not a code-quality guide. Standards loads applicable references alongside code-quality. Implementation may read task-critical references; it does not load the full language/framework/architecture corpus by default. All explicit project conventions remain binding.
 
 ## Precedence
 
 1. System instructions and the explicit user request.
 2. Applicable project and global `AGENTS.md` instructions.
-3. Project-local skills and the approved plan or handoff.
+3. Project-local skills and the approved plan.
 4. Global Capa skills: `code-quality` and `coding-conventions`.
 5. Ecosystem defaults when no stronger convention exists.
 

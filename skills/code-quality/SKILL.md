@@ -1,6 +1,6 @@
 ---
 name: code-quality
-description: "Trigger: implementing, refactoring, or reviewing code. Defines shared standards for readable, human-maintainable final code."
+description: "Standards judgment for readable, human-maintainable final code; targeted guidance for material design or correction questions."
 license: MIT
 metadata:
   author: ingcapadev
@@ -9,7 +9,7 @@ metadata:
 
 # Code Quality
 
-One authoritative final-code quality bar for authors and Standards judgment. Project instructions, established conventions, and agreed design govern its application. Role-specific loading and review procedure belong to the workflow; current implementation loading and completion checks remain in force until that workflow changes.
+One authoritative final-code quality bar, primarily for Standards judgment. Project instructions, established conventions, and agreed design govern its application. Implementation follows the thin AGENTS baseline and may consult relevant guidance here for a design or correction question; this skill does not require loading the full corpus into every implementation.
 
 ## Quality Bar
 
@@ -33,7 +33,7 @@ Before adding code or structure, test the relevant condition:
 
 ## Completion
 
-Before implementation success, inspect the complete diff against the quality bar and applicable conventions. Remove redundant validation or error handling, impossible-state masking, shallow wrappers, speculative flexibility, generic comments, placeholder prose, duplicated utilities, and dead, unrequired, unrelated, or unnecessarily verbose code. Preserve justified checks and abstractions by their actual contracts and responsibilities.
+For Standards judgment, inspect the selected candidate against the quality bar and applicable conventions. For targeted design/correction use, reconcile the affected work with the relevant guidance rather than imposing a full implementation self-review. Identify redundant validation or error handling, impossible-state masking, shallow wrappers, speculative flexibility, generic comments, placeholder prose, duplicated utilities, and dead, unrequired, unrelated, or unnecessarily verbose code. Preserve justified checks and abstractions by their actual contracts and responsibilities.
 
 ## Standards Judgment
 

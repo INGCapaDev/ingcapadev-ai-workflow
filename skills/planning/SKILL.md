@@ -7,8 +7,7 @@ description: "Planning for Capa v3: gather relevant context, resolve material de
 
 Turn a request into an agreed design and a proportionate work breakdown. This guidance
 works for one capable agent; execution, independent review, delivery, and memory stay with
-their respective owners. This is a v3 source prepared for activation; current production
-routing remains with `engineered-ai-dev` until the migration activates v3.
+their respective owners. Capa invokes this source for planning and owns subsequent execution.
 
 Planning-only input authorizes read-only investigation and a conversational proposal.
 Obtain explicit final plan approval before persisting `PLAN.md`. Implementation requires
