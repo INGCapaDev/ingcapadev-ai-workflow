@@ -31,6 +31,10 @@ it directly. Workers and read-only roles never delegate, commit, or advance plan
 `sub-verify` is an optional read-only checker, not a default stage or substitute for review;
 use it on explicit request or obtain approval for a concrete evidence gap.
 
+For an implemented change, include one suggested commit message in the final handoff using
+`skills/conventional-commits/SKILL.md`. This applies to direct work and planned tasks, including
+manual or later commits; a suggestion is not permission to execute Git operations.
+
 ## Resolve only applicable capabilities
 
 Follow AGENTS skill routing: implementation gets the baseline and task-critical rules,

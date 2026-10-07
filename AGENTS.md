@@ -2,7 +2,7 @@
 
 ## Operating Rules
 
-- Never add `Co-Authored-By` or AI attribution. Use Conventional Commits when user requests, but do not add AI authorship.
+- Never add `Co-Authored-By` or AI attribution.
 - Do not use builds as routine verification. Prefer focused lint, type-check, and tests; run broader lint/typechecks/test only when relevant. Build only when explicitly requested or when build behavior is under validation.
 - When asking the user a question, stop and wait. Do not assume an answer.
 - Verify technical claims against code, documentation, or other evidence before expressing agreement or certainty.
@@ -35,6 +35,7 @@ Load relevant skills before task-specific work. Use exact paths from the configu
 | Context | Skill |
 |---|---|
 | Creating or editing AI skills | `writing-for-agents` |
+| Writing or suggesting a commit message | `conventional-commits` |
 | Material design discussion, work breakdown, or `/plan` | `planning` |
 | Standards judgment; targeted design or correction question | `code-quality` |
 | Standards judgment with applicable conventions; task-critical convention question | `coding-conventions`, then only applicable references |

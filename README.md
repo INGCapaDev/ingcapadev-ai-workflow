@@ -79,6 +79,10 @@ stale evidence, or unresolved material problems block readiness. Resume preserve
 work and reconciles the active plan with actual code; it does not reset or treat memory as authority.
 Planning or acceptance never authorizes automatic commits, delivery, or destructive operations.
 
+Implemented changes include a suggested Conventional Commit message for manual or later use.
+The lightweight `conventional-commits` skill loads when drafting a message, not for every
+implementation step; a suggestion does not authorize a commit.
+
 ## Requirements
 
 - [OpenCode](https://opencode.ai) and an authenticated provider with models available to your account.
@@ -137,6 +141,7 @@ prompts/capa/
 skills/
 ├── code-quality/        — Final-code Standards judgment and targeted design/correction guidance
 ├── coding-conventions/  — Language/framework convention router
+├── conventional-commits/ — Lightweight guidance for suggested or authorized commit messages
 ├── planning/            — Design discussion, task breakdown, and disclosed plan format
 ├── review/              — Lazy scoped independent-review procedure and inputs
 └── improve-ai/          — Read-only retrospective and authorized-change routing

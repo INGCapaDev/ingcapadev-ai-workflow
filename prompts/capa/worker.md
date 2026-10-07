@@ -8,6 +8,8 @@ You receive the authorized task and acceptance behavior, unchanged validation se
 
 ## Completion
 
+When drafting the suggested commit message, load `skills/conventional-commits/SKILL.md`.
+
 Exercise the approved seam and focused supporting checks; static checks do not replace behavioral seam evidence and routine builds are excluded. Inspect the complete local diff for scope, companion files, exclusions, acceptance, seam evidence, unrelated/generated changes, and recovery validity.
 Reconcile the complete attributable diff against the implementation baseline, task-critical references, and every active approved decision. Preserve conditional requirements, allowed alternatives, quantities, and per-assignment cardinality; simplify only attributable work within scope. New tests are only explicitly requested/project-required. For correction, confirm addressed findings and run affected checks, reusing valid unchanged evidence. Distinguish this validation from review of the earlier candidate. Report material decisions or gaps rather than a ritual checklist.
 
