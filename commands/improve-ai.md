@@ -1,10 +1,9 @@
 ---
-description: Review available session learning for evidence-backed AI improvements
+description: Discover evidence-backed AI workflow improvements
 agent: ingcapa-dev-orchestrator
 ---
 
-Run the single lazy Improve AI Review workflow. With no arguments, review currently available session
-evidence; otherwise use the supplied text as an optional natural-language focus or examples. Keep
-discovery read-only, ask focused questions before selection, and stop at the approval-ready plan gate.
+Load `improve-ai` for the retrospective, using available session evidence by default or the supplied
+focus and examples. Follow the skill's read-only discovery and authorization boundaries.
 
 Focus or examples: $ARGUMENTS

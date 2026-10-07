@@ -1,8 +1,8 @@
 ---
-description: Run an opt-in two-axis Capa review from a fixed point
+description: Review current work or committed changes since a Git ref, read-only
 agent: ingcapa-dev-orchestrator
 ---
 
-Use `prompts/capa/review-input.md` as the canonical procedure. Invoke its `committed` mode with the supplied fixed point, then pass a successful frozen payload to the existing two-axis review. `/review` launches only Standards and Plan Conformance without fixing code; if no approved plan/handoff exists, report `no plan available` for Plan Conformance.
+Load `skills/review/SKILL.md` and follow its scope, capture, independent-axis, and reporting procedure. Blank arguments select current work; a supplied ref selects committed changes since that fixed point. Resolve ambiguity before dispatch. This request authorizes read-only review only.
 
-Fixed point: $ARGUMENTS
+Review scope/ref: $ARGUMENTS
