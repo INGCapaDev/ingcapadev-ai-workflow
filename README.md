@@ -127,8 +127,13 @@ implementation step; a suggestion does not authorize a commit.
 The example preapproves common standalone inspection commands: Git/GitHub queries, `pwd`,
 `test -e`/`test -f`, `sha256sum --`, and filesystem metadata via `ls`/`stat` in the listed forms.
 Use the dedicated Read/Grep/Glob tools for file contents; shell-based content reads require approval.
-Git diff/show queries, including summaries, use `--no-ext-diff --no-textconv` before other
-arguments. Git configuration-value queries remain approval-gated because they may expose secrets.
+Ordinary `ls <path>` listings and exact common Git summaries (`git diff --stat`,
+`git diff --cached --stat`, and listed staged/order equivalents) are preapproved without extra
+flags. Extra diff options are not covered by those exact rules; general diff/show queries use
+`--no-ext-diff --no-textconv` before other arguments. Raw, non-writing object hashing uses
+`git hash-object --no-filters -- <file>`; it intentionally does not perform Git attribute or
+line-ending conversion. Git configuration-value queries remain approval-gated because they may
+expose secrets. These conveniences assume a trusted installed toolchain and repository setup.
 
 Unlisted scripts, modifying Git operations, autofix/snapshot updates, and delivery require
 approval. OpenCode evaluates parsed commands separately, so a chain of permitted inspections
