@@ -86,6 +86,7 @@ implementation step; a suggestion does not authorize a commit.
 ## Requirements
 
 - [OpenCode](https://opencode.ai) and an authenticated provider with models available to your account.
+- Bash for the configured shell: the Windows example uses Git Bash from Git for Windows.
 - Optional: [Engram](https://github.com/gentleman-Programming/engram) for persistent memory and
   [Context7 MCP](https://context7.com) for current library/framework documentation. Configure
   their example MCP entries, or disable them if you do not use them. Missing memory does not
@@ -101,14 +102,18 @@ implementation step; a suggestion does not authorize a commit.
    merge the Capa agent definitions and permissions deliberately. Choose provider/model IDs
    available to your account and replace example path/API-key placeholders. Preserve the
    agent IDs, prompt paths, task allowlist, and read-only reviewer/checker restrictions.
+   Set `shell` to your installed Bash executable. The Windows example uses
+   `C:/Program Files/Git/bin/bash.exe`; on Linux/macOS use an appropriate path such as `/bin/bash`.
+   On Windows, do not substitute the `bash.exe` WSL launcher for Git Bash.
 3. Authenticate your provider through OpenCode, for example with `opencode auth login`.
    If enabled, install Engram so `engram mcp` is available and configure Context7's API key.
    Otherwise set the respective MCP entry's `enabled` value to `false`. The example's Google
    provider settings and Gemini authentication plugin are not required by Capa; retain them
    only if your provider setup uses them.
-4. Start or restart OpenCode and select `ingcapa-dev-orchestrator`. Config, agent prompts,
-   and skills are startup-loaded; restart after changing them. Work from your project so
-   its instructions and conventions apply.
+4. Start or restart OpenCode. The example sets `default_agent` to `ingcapa-dev-orchestrator`,
+   so new sessions start with Capa; other primary agents remain available for selection.
+   Config, agent prompts, and skills are startup-loaded; restart after changing them.
+   Work from your project so its instructions and conventions apply.
 5. Ask directly for small understood work. For planned work, use `/plan`, settle material
    design choices, and approve the final plan before persistence. Then explicitly authorize
    execution with `/continue`. Review each presented candidate; approval-only accepts and
@@ -116,6 +121,37 @@ implementation step; a suggestion does not authorize a commit.
    Commits, pushes, PRs, and deployment need separate authorization.
 
 > The real `opencode.json` is gitignored — only `opencode.example.json` is tracked. This keeps your API keys, private paths, and personal plugins out of the public repo.
+
+### Inspection permissions
+
+The example preapproves common standalone inspection commands: Git/GitHub queries, `pwd`,
+`test -e`/`test -f`, `sha256sum --`, and filesystem metadata via `ls`/`stat` in the listed forms.
+Use the dedicated Read/Grep/Glob tools for file contents; shell-based content reads require approval.
+Git diff/show queries, including summaries, use `--no-ext-diff --no-textconv` before other
+arguments. Git configuration-value queries remain approval-gated because they may expose secrets.
+
+Unlisted scripts, modifying Git operations, autofix/snapshot updates, and delivery require
+approval. OpenCode evaluates parsed commands separately, so a chain of permitted inspections
+may run unattended; a safe cmdlet inside a larger script does not approve the whole script.
+Keep ordinary inspections as separate literal commands. Operator/expression patterns are
+conservative fallback rules, not a shell sandbox; allowed tests/lint still execute trusted
+project code. Sensitive config dumps and arbitrary interpreters are not preapproved.
+Reviewers retain their explicit read-only tool restrictions.
+
+### Windows shell workaround
+
+On OpenCode `1.18.35`, a reproduced PowerShell permission-scanning failure allows
+`git diff --stat -p -- <path>` to execute even with an explicit `git diff*` deny, while the
+same command without the standalone `--` is blocked. The pinned runtime's shell implementation
+skips the Bash permission request when its parsed command scan has no patterns. The observed
+shell/argument difference is consistent with that fail-open path; the exact AST was not dumped.
+
+This setup uses Git Bash, where both forms were correctly blocked in the denial probe. It is
+a workaround for the reproduced case, not a universal security guarantee. Keep Git's `--`
+argument separator; do not remove it to evade the parsing issue. PowerShell-specific commands
+now need an explicit, separately approved PowerShell invocation, not a broad interpreter allow.
+
+Source: [OpenCode v1.18.35 shell implementation](https://github.com/anomalyco/opencode/blob/v1.18.35/packages/opencode/src/tool/shell.ts).
 
 ## Core Capa Files
 
