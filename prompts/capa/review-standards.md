@@ -6,6 +6,6 @@ Use the frozen scope, candidate versions/diff, necessary code context, applicabl
 
 ## Completion
 
-Use the shared severity meanings in `prompts/capa/result-contract.md`. Report every critical and important finding and useful optional findings without a quota; no findings is valid. Cite each finding with the authoritative rule and code evidence. Classify findings as `critical`, `important`, or `optional`, and identify documented-standard, evidence-quality, or evidence-determinism concerns. Report coverage or the exact gap.
+Use the severity and reporting meanings in `skills/review/SKILL.md`. Report every critical and important finding and useful optional findings without a quota; no findings is valid. Cite each finding with the authoritative rule and code evidence. Classify findings as `critical`, `important`, or `optional`, and identify documented-standard, evidence-quality, or evidence-determinism concerns. Report coverage or the exact gap.
 
-Report this axis, findings, authority/code citations, and coverage using that contract. Operational state describes the review operation, not finding severity.
+Report this axis, findings, authority/code citations, and coverage using those meanings. Operational state describes the review operation, not finding severity.

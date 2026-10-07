@@ -113,11 +113,18 @@ instead of silently reading a different live candidate. Axis-specific authority 
 
 ## 4. Report and return control
 
+Use `prompts/capa/references/specialist-reports.md` for shared report semantics and operational
+states. Classify review severity separately:
+
+- `critical`: unsafe or materially incorrect and requires human action.
+- `important`: substantial standards, conformance, or evidence issue.
+- `optional`: non-blocking improvement or judgment call.
+
 Recheck candidate stability after review. Reconcile material concurrent changes with the
 caller and identify affected findings; never imply the changed candidate was reviewed.
 Report scope, base/head or task-baseline/candidate identities, included layers/paths, material
 exclusions, and each axis's coverage, gaps, findings (or no findings), authority/code citations,
-and impact. Use `prompts/capa/result-contract.md` for shared severity and operational state.
+and impact using these meanings.
 
 Present the axes side by side without merging or reranking their verdicts. A completed review
 is not human acceptance or permission to correct. Standalone review ends with the report;

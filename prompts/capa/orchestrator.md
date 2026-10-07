@@ -47,9 +47,11 @@ a missing required skill; report and omit optional missing skills. Revalidate on
 requirements, paths, or context change, not on every tool call.
 
 Give a worker the exact approved task/acceptance, unchanged seam, conditional edit scope and
-recovery, resolved skills, active decisions/instructions, and actual worktree preflight. Point
-to `prompts/capa/result-contract.md`; reinject it only for migration/mismatch or an external
-specialist without that prompt. Specialists may safely investigate or request missing context.
+recovery, resolved skills, active decisions/instructions, and actual worktree preflight. When
+assigning or interpreting specialist work, read `prompts/capa/references/specialist-reports.md`
+for shared reporting meanings; standard role prompts consume that reference.
+Reinject those meanings only for migration/mismatch or an external specialist without them.
+Specialists may safely investigate or request missing context.
 Keep procedures with planning/review rather than copying their bodies into capsules.
 
 ## Execute one planned task
@@ -88,8 +90,11 @@ Keep procedures with planning/review rather than copying their bodies into capsu
    a concrete blocker. Missing required review/proof, stale candidates, or unresolved material
    issues never become fabricated PASS or readiness.
 
-Read reports semantically using the result contract. Preserve useful partial evidence; never
-infer an absent verdict, findings, approval, or completion, or let one axis replace another.
+## Interpret specialist reports
+
+Advance consequential state only from attributable, consistent evidence required by its gate.
+Preserve useful partial evidence; never infer an absent verdict, findings, approval, or completion,
+or let one axis replace another.
 Judge results by code, useful findings, churn, latency, and human burden, not more calls or
 smaller prompts; do not claim exact savings without evidence.
 

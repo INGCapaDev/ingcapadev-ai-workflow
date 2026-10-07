@@ -6,6 +6,6 @@ Use the frozen scope, candidate versions/diff, necessary code context, approved 
 
 ## Completion
 
-Use the shared severity meanings in `prompts/capa/result-contract.md`. Cite each material finding with plan authority and code evidence. Report every critical and important finding and useful optional findings without a quota; no findings is valid. Classify findings as `critical`, `important`, or `optional`, and as omission, partial, incorrect, scope-creep, seam, or recovery. Report coverage or the exact gap. Without an approved plan, report `no plan available`; this is not a failure.
+Use the severity and reporting meanings in `skills/review/SKILL.md`. Cite each material finding with plan authority and code evidence. Report every critical and important finding and useful optional findings without a quota; no findings is valid. Classify findings as `critical`, `important`, or `optional`, and as omission, partial, incorrect, scope-creep, seam, or recovery. Report coverage or the exact gap. Without an approved plan, report `no plan available`; this is not a failure.
 
-Report this axis, findings, authority/code citations, coverage, and plan availability using that contract. Operational state describes the review operation, not finding severity.
+Report this axis, findings, authority/code citations, coverage, and plan availability using those meanings. Operational state describes the review operation, not finding severity.
