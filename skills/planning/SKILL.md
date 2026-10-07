@@ -81,16 +81,30 @@ grouped like sensible work-unit commits. A task may advance a feature without fi
 it. Favor one clear purpose and logically coupled supporting changes over feature-sized
 bundles or file-by-file tasks.
 
+Test **outcome separability** before grouping work. If capabilities can each deliver a
+useful, independently verifiable result while preserving supported behavior, prefer separate
+slices when that reduces review burden. Sharing a feature or eventual wiring is not
+sufficient reason to combine them.
+
+Distinguish implementation prerequisites from final activation. Producer/consumer wiring
+may belong to a later integration slice when earlier capabilities remain coherent and
+verifiable without placeholders or premature production activation. Split by demonstrable
+outcomes, not mechanically by folders, technical layers, or responsibilities.
+
 For each slice, describe the outcome, necessary supporting changes, acceptance, and
-how to check the result. Keep required consumers, types, documentation, and any requested
-or project-required tests with the outcome. Follow the layers the task actually touches;
-every task need not span UI, API, and storage. End at a valid checkpoint where the changes
-work and existing supported behavior remains intact.
+how to check the result. Keep the consumers, types, documentation, and any requested or
+project-required tests needed for that checkpoint with the outcome. Every task need not
+span UI, API, and storage. End at a valid checkpoint where the changes work and existing
+supported behavior remains intact.
 
 Use roughly 400 authored additions plus deletions as a review-sizing signal, not a target
-or cap. Many tasks should be smaller. Seek meaningful smaller checkpoints if the code
-would be difficult to understand in one focused review; explain a necessary larger coupled
-boundary before settling the breakdown. Preserve coherent structure and supporting work.
+or cap. Many tasks should be smaller. Assess **review breadth** alongside authored size:
+several independently meaningful outcomes or materially different acceptance surfaces are
+signals to reconsider grouping, even when the diff is small. Seek meaningful smaller
+checkpoints if the code would be difficult to understand in one focused review. When
+combining outcomes is necessary, explain the concrete dependency or invalid intermediate
+state, not merely that the complete feature needs all the pieces. Preserve coherent
+structure and supporting work.
 
 Record only real dependencies: a preceding contract, capability, or valid-state requirement
 that the task needs. Show what remains for later tasks without manufacturing setup,
