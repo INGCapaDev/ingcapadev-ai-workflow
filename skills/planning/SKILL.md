@@ -1,6 +1,6 @@
 ---
 name: planning
-description: "Planning for Capa v3: gather relevant context, resolve material design choices with the human, and propose small verifiable work units before plan approval."
+description: "Planning for Capa v3: gather context, resolve material design choices, and propose evidence-based work units before approval; /reslice compares alternative groupings read-only."
 ---
 
 # Planning
@@ -12,6 +12,9 @@ their respective owners. Capa invokes this source for planning and owns subseque
 Planning-only input authorizes read-only investigation and a conversational proposal.
 Obtain explicit final plan approval before persisting `PLAN.md`. Implementation requires
 execution authorization; a planning request or permission to write the plan supplies none.
+
+For `/reslice` or an explicit request to compare an existing proposal's or plan's grouping,
+follow [read-only regrouping](references/reslice.md) instead of the plan-persistence path.
 
 ## 1. Gather context toward decisions
 
@@ -81,6 +84,13 @@ grouped like sensible work-unit commits. A task may advance a feature without fi
 it. Favor one clear purpose and logically coupled supporting changes over feature-sized
 bundles or file-by-file tasks.
 
+Before presenting a nontrivial proposal, evaluate grouping against actual code and
+contracts: independently useful outcomes, acceptance surfaces, integration paths, shared
+prerequisites, valid intermediate states, review breadth, and human handoff burden.
+Requirement headings alone do not establish task boundaries. When boundaries are materially
+debatable, compare a small number of genuinely viable decompositions before recommending
+one; a simple coherent task needs no alternatives or comparison table.
+
 Test **outcome separability** before grouping work. If capabilities can each deliver a
 useful, independently verifiable result while preserving supported behavior, prefer separate
 slices when that reduces review burden. Sharing a feature or eventual wiring is not
@@ -120,6 +130,11 @@ the work's ownership or risk calls for them, not as default filler.
 The breakdown is sufficient when each slice has a clear outcome, coherent supporting
 changes, a valid checkpoint, and verifiable acceptance, with dependencies and material
 risks accounted for.
+
+Present a concise grouping rationale with the proposed tasks: why supporting changes belong
+together, why the boundaries help, what remains valid at each checkpoint, and which
+dependencies are real. Explain the recommendation, not private deliberation or a second
+plan artifact. Favor the clearest coherent checkpoints, not a higher or lower task count.
 
 ## 5. Obtain final approval, then persist
 
