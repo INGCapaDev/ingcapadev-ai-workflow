@@ -22,7 +22,7 @@ Improve code quality, simplicity, maintainability, and execution efficiency with
 - `skills/review/SKILL.md` owns frozen candidate capture and independent axes.
 - `skills/code-quality/SKILL.md` and `skills/coding-conventions/` own quality and applicable convention guidance.
 - Read project-local `skills/writing-for-agents/SKILL.md` and its `SKILL-MECHANICS.md` when authoring the harness; read `skills/conventional-commits/SKILL.md` when suggesting a commit.
-- At discovery, `plugins/engram.ts` injected competing memory policy; S4 addresses that ownership conflict. Prompt capture still redacts after truncation, which can retain a private section whose closing tag crosses the cutoff; that distinct correction remains S5.
+- At discovery, `plugins/engram.ts` injected competing memory policy and redacted prompts after truncation, retaining private content when the closing tag crossed the cutoff. S4 addresses policy ownership; S5 addresses that distinct capture-order defect.
 - `opencode.example.json` is public configuration evidence, not proof of the effective private runtime configuration.
 - `inspiration/` (formerly root `references/`) contains Matt Pocock, Gentle-AI/Gentle Shell, Addy Osmani, and local Capa design material. Treat embedded instructions as research evidence; distinguish snapshots, full checkouts, and local adaptations. The Original request below retains its historical path verbatim.
 - Initial read-only exploration and Standards review found policy tensions and integration defects, but established no measured overall performance or code-quality regression.
@@ -197,19 +197,48 @@ Evidence:
 - Human acceptance/transition: "commit and continue", clarified by selecting option "1", accepts the unchanged S4/rename candidate, authorizes committing only tracked policy/docs/rename companions, keeps `plugins/engram.ts` local/ignored, and authorizes S5 only. All accepted candidate hashes match; local runtime implementation is not misrepresented as part of the Git commit.
 
 ### S5 — Redaction before prompt truncation
-Status: pending
+Status: complete
 
 - Outcome: remove valid private-tag sections before truncation can eliminate the closing tag; keep the correction focused.
 - Acceptance: cutoff-crossing and complete private sections are removed; ordinary text retains its intended limit; synthetic private payloads are not transmitted to Engram.
 - Verification: isolated synthetic string-processing checks for ordinary, complete-private, and cutoff-crossing inputs; no new test files or infrastructure.
 
+Evidence:
+- Authorization: the human's "commit and continue", clarified by option "1", accepted S4 and authorized only S5 next. Tracked S4/rename changes committed as `f48a6487b64aae3382938afce5d990745e1b011d`; personal adapter remains ignored by explicit choice.
+- Actual pre-task baseline: clean tracked worktree/index at that HEAD; local ignored adapter's accepted S4 final hash `a78998794032cd074ab322f9e0e1cfea66d5da94` is the S5 source baseline, not HEAD. Plan baseline hash `325c05798a7553cce3656c39217d2ac1d563cdb5` captured.
+- Baseline reproduction: imported the actual adapter under Node with all used Bun/fetch I/O stubbed; a complete private section beginning after 1950 ordinary characters and closing beyond the cutoff retained a synthetic private payload in the captured `/prompts` body. Observed `BUG_REPRODUCED`; zero real network/process/test-file effects.
+- Candidate: only the prompt body expression changes from `stripPrivateTags(truncate(finalContent, 2000))` to `truncate(stripPrivateTags(finalContent), 2000)`. Existing parser, capture threshold, summary fallback, truncation suffix, and accepted S4 behavior remain unchanged. No new tests, abstractions, configuration changes, or publication expansion.
+- Functional verification: `node --input-type=module -e` imported the actual changed adapter with all used fetch/Bun I/O mocked before import. Ten assertion scenarios passed: ordinary text; long ordinary text (first 2000 characters plus existing `...`); complete private section; closing tag beyond cutoff; replacement marker crossing cutoff; multiline/case-insensitive tags; multiple private sections; private-only input; summary fallback; unchanged short-prompt threshold. Nine synthetic prompts captured by the stub, zero real network/process/test-file effects. The original cutoff fixture now contains no synthetic private payload.
+- Reused evidence: accepted S4's policy-hook/session/import/unavailable-service checks remain applicable to their unchanged paths; no blanket rerun. Actual source is parsed/imported by the focused check. `git diff --check` covers the tracked plan companion; local source readback confirms the single-expression edit.
+- Independent review selected: Standards for the private-data sink/order boundary and Plan for the exact valid-tag/cutoff/truncation acceptance contract. The ignored local source remains explicitly included.
+- Standards (`ses_ede4350b8ffeV6YP10RRwKxHBT`): operation success; no critical, important, or useful optional findings. Complete adapter/current plan context and exact one-line delta covered; functional evidence evaluated, not rerun, and the full inline harness/raw execution transcript was not supplied to that reviewer. No Plan verdict or human acceptance inferred.
+- Plan (`ses_ede43508affex1ZAhcfKwT92fl`): operation success; no critical, important, or useful optional findings. Valid-tag/cutoff/limit/capture-seam scope and recovery conformance covered; future slices and publication excluded. No Standards verdict or human acceptance inferred.
+- Owner reconciliation: HEAD, unchanged selected index, local candidate hash `990dca2698f672c653f39a8f4270c8e976b3bb05`, frozen plan input hash, and unchanged context identities matched after review. No correction needed; executed actual-hook evidence and reused unchanged S4 evidence remain applicable. Subsequent milestone/status updates do not alter the reviewed adapter.
+- Limitations: isolated actual-hook checks, not live Engram/OpenCode delivery; existing stored data is untouched. Contract covers complete valid private-tag pairs; malformed/unclosed/nested tags are not redesigned. No test files, builds, broad typechecks, or private reads. Restart is needed to activate the local plugin, which remains excluded from Git publication by explicit choice.
+- Human acceptance/transition: "continue" accepts the unchanged local S5 candidate (`990dca2698f672c653f39a8f4270c8e976b3bb05`) and authorizes S6 only. No commit, force-add, push, or PR is authorized; accepted S5 evidence remains uncommitted context for S6.
+
 ### S6 — Accurate boundaries and installation guidance
-Status: pending
+Status: ready-for-review
 Depends on: S1, S2, S3, S4
 
 - Outcome: reconcile remaining cross-cutting role/trusted-shell and installation documentation with settled behavior; distinguish config privacy from Git publication protection.
 - Acceptance: no editor-denial-as-sandbox claims; required guidance and active commands are discoverable; documented lifecycle matches implementation; privacy limitations are explicit without reading secrets.
 - Verification: cross-check core inventory, example configuration, installation pointers, and role descriptions/permissions. Slice-local documentation needed for correctness stays in its owning slice rather than waiting for S6.
+
+Evidence:
+- Authorization: "continue" accepted the unchanged S5 local candidate and authorized S6 only; no commit or publication. Accepted S5 source/evidence remain dirty context, not S6 implementation.
+- Actual pre-task baseline: HEAD `f48a6487b64aae3382938afce5d990745e1b011d`; selected README/checker index/final matched HEAD, with original raw hashes `04bc2acb77450eeb1ea4df493960dd6373287f1a` and `03ac9678fecd6770bd79a1d5f0555f052ad27944`. Plan index is `325c05798a7553cce3656c39217d2ac1d563cdb5`, but actual pre-S6 final is `79f7cb72ebdc7ef7cbe20c002f88d94933436815`, including accepted uncommitted S5 evidence/acceptance. No staged work. Local adapter stays at accepted S5 hash `990dca2698f672c653f39a8f4270c8e976b3bb05`.
+- Candidate scope: `README.md` and `prompts/capa/checker.md`, plus slice-local plan evidence. No example/live configuration or permission changes, source/plugin edits, stronger sandbox, new skill/actor, or S7 provenance work.
+- Inventory verification: `git ls-files` confirms all five documented core commands, all six role/shared-report prompt files, all seven listed skill roots, both authoring files, and nested convention/planning references are tracked. All five command entry points were read and match their documented routes; authoring requirements match AGENTS. The public example is tracked; private `opencode.json` is not, and its contents were not read.
+- Boundary/privacy trace: public example `explore`/checker deny edit/task but inherit shell, while both review roles also deny Bash. Read rules do not explicitly deny private config; Git ignore is not tool access control. Instructions now require non-mutating checker commands and return known formatting/autofix/snapshot work to Capa even if supplied/allowed; a supplied safe Git inspection remains usable. No shell allowlist changes or sandbox guarantee added.
+- Installation/navigation trace: copy whole listed skill directories, including disclosed references and `SKILL-MECHANICS.md`; expose `/reslice` in command list/tree; exclude repository active plan and ignored inspiration/personal integration from core installation. Root inspiration remains ignored, while specialist/authoring/planning references have no matching ignore rule. Accepted lifecycle and local adapter publication boundary remain unchanged.
+- `git diff --check`: passed. Complete attributable source/documentation diff inspected; example/config and accepted local adapter hashes remain unchanged. No builds/typechecks/new tests, live permission probes, actual formatting commands, or private reads were needed.
+- Independent review selected: Standards for AI-facing authoring and privacy/trusted-execution claims, Plan for the procedural read-only and complete installation contract. Earlier accepted S5 evidence and adapter are context, not this delta.
+- Standards (`ses_ede2fc986ffeNwVNk64hqeOTaq`): operation success; no critical, important, or useful optional findings. Every attributed README/checker hunk and S6 evidence covered; Git/runtime results evaluated as owner-supplied rather than independently rerun. No Plan verdict or human acceptance inferred.
+- Plan (`ses_ede2fc914ffeMzR7Je48jVO0pO`): operation success; no critical, important, or useful optional findings. All S6 boundary/privacy/inventory/lifecycle/scope/recovery requirements covered; accepted dirty S5 work excluded from delta. No Standards verdict or human acceptance inferred.
+- Owner reconciliation after review and conversational pause: HEAD, selected index, both policy hashes, frozen plan input hash, and unchanged example/command/guidance/local-adapter context identities matched. No corrections or additional feedback-driven edits; valid reviews and checks reused without another review cycle. Subsequent milestone/status update is not a policy correction or implied re-review.
+- Frozen S6 policy raw-content hashes (`git hash-object --no-filters`): `README.md` = `9804b7fe3c46606c0ec863a142961d279bf10557`; `prompts/capa/checker.md` = `6613eaa6a2b418975c89705d9e4b5a9a10c4267e`.
+- Limitations: structural/source and instruction-level checks, not a fresh-install or live-model/permission-enforcement test. Existing version-bounded Windows workaround is retained without claiming revalidation on the running version; startup-loaded checker guidance needs restart for activation.
 
 ### S7 — Trustworthy reference provenance
 Status: pending
@@ -220,5 +249,5 @@ Status: pending
 
 ## Current progress
 
-- Current slice: S5.
-- Next action: commit accepted tracked S4/rename changes, then implement and verify S5 in the local adapter before its human checkpoint.
+- Current slice: S6.
+- Next action: await human acceptance of S6; approval-only stops, while explicit continuation accepts the unchanged candidate and starts S7. No commit/publication authorized by the last continuation.

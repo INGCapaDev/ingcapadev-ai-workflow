@@ -20,15 +20,16 @@ directly, with four hidden specialists and native `explore` for read-only resear
 
 | Specialist | Role |
 |---|---|
-| `explore` (native) | Read-only, non-delegating codebase investigation |
+| `explore` (native) | Procedurally read-only, non-delegating codebase investigation |
 | `capa-worker` | Implement one bounded task or accepted correction without delegation |
-| `sub-verify` | Optional read-only checker, explicitly requested or approved for an evidence gap |
+| `sub-verify` | Optional procedurally read-only checker, explicitly requested or approved for an evidence gap |
 | `sub-review-standards` | Review axis: documented rules and quality |
 | `sub-review-plan` | Review axis: plan conformance |
 
 Core development commands:
 
 - `/plan` — Discuss design, propose small work units, and persist one plan only after final approval
+- `/reslice` — Compare alternative task groupings read-only; selection alone changes neither code nor the saved plan
 - `/continue` — Follow the current approved plan through one task, then stop for human review
 - `/review [ref]` — Read-only independent review of current work, or committed changes since a fixed Git ref
 - `/improve-ai [focus]` — Read-only retrospective; selection and implementation require explicit authorization
@@ -145,7 +146,11 @@ implementation step; a suggestion does not authorize a commit.
    stops, while `/continue` accepts an unchanged ready candidate and starts one next task.
    Commits, pushes, PRs, and deployment need separate authorization.
 
-> The real `opencode.json` is gitignored — only `opencode.example.json` is tracked. This keeps your API keys, private paths, and personal plugins out of the public repo.
+> The real `opencode.json` is gitignored — only `opencode.example.json` is tracked. This is
+> publication hygiene, not access control: the example does not deny reads of private
+> configuration, and shell-based search is not governed by dedicated Read-tool secret rules.
+> Keep credentials out of shared files and avoid dumping private config. The template is not
+> proof of an existing installation's effective permissions.
 
 ### Inspection permissions
 
@@ -173,7 +178,11 @@ conservative fallback rules, not a shell sandbox; allowed scripts/tools execute 
 project code and may use project configuration. Shell search is not governed by the dedicated
 Read tool's secret-file deny rules. Sensitive config dumps and arbitrary interpreters are not
 preapproved; agents must still honor secret and directory boundaries.
-Reviewers retain their explicit read-only tool restrictions.
+Read-only is an assignment constraint, not a shell sandbox. In the example, `explore` and the
+checker deny editor writes and delegation but inherit shell access; they must select non-mutating
+inspections/checks. Formatting, autofix, and snapshot updates remain unsuitable for the checker
+even when tool-allowed. The two review axes additionally deny Bash. None of these restrictions
+alone guarantees that trusted scripts cannot write or that private configuration is inaccessible.
 
 ### Windows shell workaround
 
@@ -201,7 +210,11 @@ Source: [OpenCode v1.18.35 shell implementation](https://github.com/anomalyco/op
 
 ## Core Capa Files
 
-This tree shows the workflow's core files, not unrelated personal commands or skills.
+This tree shows the workflow's core files, not unrelated personal commands or skills. Install
+each listed skill directory in full, including its `references/` and companion files; copying
+only `SKILL.md` can omit required guidance. The listed skills' and prompts' nested references
+are core files, unlike the ignored root `inspiration/` collection. The repository's active
+`PLAN.md` is project work state, not a core configuration file to install into another project.
 
 ```
 opencode.example.json    — Agent definitions and config (template, no secrets)
@@ -209,6 +222,7 @@ AGENTS.md                — Global baseline instructions
 README.md                — This file
 commands/
 ├── plan.md              — /plan command
+├── reslice.md           — /reslice read-only regrouping
 ├── continue.md          — /continue command
 ├── review.md            — /review command
 └── improve-ai.md        — /improve-ai retrospective entry point
@@ -226,7 +240,8 @@ skills/
 ├── conventional-commits/ — Lightweight guidance for suggested or authorized commit messages
 ├── planning/            — Design discussion, task breakdown, and disclosed plan format
 ├── review/              — Lazy scoped independent-review procedure and inputs
-└── improve-ai/          — Read-only retrospective and authorized-change routing
+├── improve-ai/          — Read-only retrospective and authorized-change routing
+└── writing-for-agents/  — Required authoring guidance: SKILL.md and SKILL-MECHANICS.md
 ```
 
 ## Complementary Tools
