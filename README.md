@@ -124,23 +124,30 @@ implementation step; a suggestion does not authorize a commit.
 
 ### Inspection permissions
 
-The example preapproves common standalone inspection commands: Git/GitHub queries, `pwd`,
-`test -e`/`test -f`, `sha256sum --`, and filesystem metadata via `ls`/`stat` in the listed forms.
-Use the dedicated Read/Grep/Glob tools for file contents; shell-based content reads require approval.
-Ordinary `ls <path>` listings and exact common Git summaries (`git diff --stat`,
-`git diff --cached --stat`, and listed staged/order equivalents) are preapproved without extra
-flags. Extra diff options are not covered by those exact rules; general diff/show queries use
-`--no-ext-diff --no-textconv` before other arguments. Raw, non-writing object hashing uses
+The example preapproves ordinary Git/GitHub inspection, filesystem listing/metadata, and
+`rg`/`grep` search. Git diff/log/show accept normal argument variations rather than a list
+of exact spellings. Prefer dedicated Read/Grep/Glob tools for file contents and
+`--no-ext-diff --no-textconv` for captured Git review evidence. Raw, non-writing hashing uses
 `git hash-object --no-filters -- <file>`; it intentionally does not perform Git attribute or
 line-ending conversion. Git configuration-value queries remain approval-gated because they may
 expose secrets. These conveniences assume a trusted installed toolchain and repository setup.
 
-Unlisted scripts, modifying Git operations, autofix/snapshot updates, and delivery require
-approval. OpenCode evaluates parsed commands separately, so a chain of permitted inspections
+Lint, typecheck/type-check, format, and test script families are allowed through pnpm, npm,
+yarn, and bun, including suffixed script names such as `lint:fix`. Listed local lint/type
+tools and formatters are also allowed; `npx` requires the listed `--no-install` forms.
+Formatting and lint autofix may modify files. Snapshot updates, installs, unlisted scripts,
+modifying Git operations, and delivery still require approval. Later rules keep Git output
+files/external helpers and ripgrep preprocessors approval-gated.
+`git grep` remains approval-gated because equivalent option spellings can launch pager
+helpers; use `rg` or `grep` for ordinary shell search.
+
+OpenCode evaluates parsed commands separately, so a chain of permitted inspections
 may run unattended; a safe cmdlet inside a larger script does not approve the whole script.
 Keep ordinary inspections as separate literal commands. Operator/expression patterns are
-conservative fallback rules, not a shell sandbox; allowed tests/lint still execute trusted
-project code. Sensitive config dumps and arbitrary interpreters are not preapproved.
+conservative fallback rules, not a shell sandbox; allowed scripts/tools execute trusted
+project code and may use project configuration. Shell search is not governed by the dedicated
+Read tool's secret-file deny rules. Sensitive config dumps and arbitrary interpreters are not
+preapproved; agents must still honor secret and directory boundaries.
 Reviewers retain their explicit read-only tool restrictions.
 
 ### Windows shell workaround
@@ -153,8 +160,17 @@ shell/argument difference is consistent with that fail-open path; the exact AST 
 
 This setup uses Git Bash, where both forms were correctly blocked in the denial probe. It is
 a workaround for the reproduced case, not a universal security guarantee. Keep Git's `--`
-argument separator; do not remove it to evade the parsing issue. PowerShell-specific commands
-now need an explicit, separately approved PowerShell invocation, not a broad interpreter allow.
+argument separator; do not remove it to evade the parsing issue. A small set of inspection
+cmdlets is allowed through either `powershell` or `pwsh` with the fixed
+`-NoProfile -NonInteractive -Command '<cmdlet> <literal arguments>'` form. For example:
+
+```sh
+powershell -NoProfile -NonInteractive -Command 'Test-Path README.md'
+```
+
+Use the exact listed form for Test-Path, Get-ChildItem, Get-Item, Get-Location, Select-String,
+or Get-FileHash. Other invocation forms, expressions, and arbitrary PowerShell scripts still
+require approval. This leaves Git Bash as the default and does not blanket-allow interpreters.
 
 Source: [OpenCode v1.18.35 shell implementation](https://github.com/anomalyco/opencode/blob/v1.18.35/packages/opencode/src/tool/shell.ts).
 
