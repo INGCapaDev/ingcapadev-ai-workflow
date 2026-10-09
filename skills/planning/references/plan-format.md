@@ -19,11 +19,14 @@ owners rather than copying them into the plan or creating another state artifact
 - Constraints and overall acceptance.
 
 ## Relevant context
+- Original user request/requirements in their exact wording, or an available canonical source
+  locator; preserve original language and intent without copying secrets.
 - Relevant current behavior, owners, patterns, contracts, and repository paths.
 - Applicable instructions or authoritative references, with when/why to read them.
 
 ## Agreed design
-- Resolved material choices and rationale.
+- Resolved material choices and rationale, distinguishing later approved refinements from
+  original requirements.
 - Intended behavior, interactions, interfaces, and important invariants.
 - Compatibility requirements when relevant.
 
@@ -54,6 +57,11 @@ outcomes and proof belong with their slices. Reference shared overall acceptance
 than repeating it in every slice. Context paths are navigation hints, not a frozen
 file-by-file implementation script. Keep small context inline and point to dense or
 authoritative material with a clear condition for reading it.
+
+Preserve source wording rather than substituting a planning summary for the requirements.
+Use the original request and Agreed design together: later approved changes refine the contract
+without erasing original intent. Delegation points to the relevant source, decisions, and slice
+acceptance rather than requiring unrelated history or another spec/handoff artifact.
 
 Each slice needs acceptance and verification: identify the observable scenario or boundary,
 which checks serve it, and what evidence would establish the expected result. Record

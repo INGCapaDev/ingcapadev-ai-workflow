@@ -36,8 +36,15 @@ Core development commands:
 Tiny understood work stays direct, without a mandatory plan, worker, or review. Medium direct
 work uses review when worthwhile; material decisions, multiple outcomes, risk, or recoverable
 work call for planning. Inline versus delegated execution is a separate choice: delegation
-needs a concrete benefit and one writer. Independent checking is optional, requested explicitly
+needs a concrete benefit; one writer is the default. Independent checking is optional, requested explicitly
 or approved for a concrete evidence gap; there is no separate verification command.
+
+Parallel writers normally handle only worthwhile, independent subtasks within the current
+authorized slice, with disjoint edit surfaces and compatible contracts. Capa coordinates the
+integrated result and its checks; individual worker success is not proof of integration.
+Executing independent slices together is an exception requiring explicit human approval of
+the proposed grouping and checkpoints. Small size or speed alone does not justify giving up
+step-by-step control; each slice retains its evidence and human acceptance.
 
 `/review` without arguments includes staged, unstaged, and relevant new source work.
 `/review <ref>` selects committed branch changes since the validated fixed point; explicit
@@ -76,6 +83,12 @@ and shared scope requires deliberate authorization.
 Reviewers always start fresh; worker context may be reused for an accepted correction. Capa owns
 plan state, memory, and human transitions. One `PLAN.md` records active scope/design/evidence/progress;
 Git owns code reality and Engram stores accepted reusable knowledge not better owned in the repo.
+The plan retains original user wording/intent (or points to its available canonical source)
+separately from later approved refinements. Workers receive relevant requirement/decision/slice
+locators plus concise parent instructions, not paraphrased requirements or unrelated history.
+Without a canonical source, a delegated assignment includes the request verbatim and agreed
+clarifications; delegation alone does not require creating a plan. Reviewers receive relevant
+requirements and frozen evidence, without the writer's reasoning or suggested conclusions.
 Implementation uses the thin AGENTS baseline and loads router-selected conventions before
 substantive code changes. Wording-only edits, mechanical renames, and confirmed unused-code
 deletions normally skip additional coding conventions; actual behavior/contract/structure changes

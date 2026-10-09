@@ -23,13 +23,23 @@ Inspect relevant code, contracts, patterns, and existing checks before deciding 
   direct/planned routing; interest alone authorizes no mutation.
 
 Direct versus planned is independent of inline versus delegated execution. Delegate only
-for a concrete freshness, specialization, isolation, or cost benefit, with one writer.
+for a concrete freshness, specialization, isolation, or cost benefit; one writer is the default.
 Use native `explore` for a bounded read-only question, `capa-worker` for implementation,
 and `sub-review-standards` / `sub-review-plan` through the review owner. Reviewers are always
 fresh and isolated. A worker may reuse context for an accepted correction, or Capa may fix
 it directly. Workers and read-only roles never delegate, commit, or advance plan/memory state.
 `sub-verify` is an optional read-only checker, not a default stage or substitute for review;
 use it on explicit request or obtain approval for a concrete evidence gap.
+
+Parallel writers are justified only for independent subtasks within the current authorized
+slice whose benefit outweighs coordination. Assign disjoint edit surfaces, including companion
+files, and compatible contracts; keep dependent or shared-surface work sequential. Capa does
+not edit a delegated surface while its writer is active. Wait for all writers, reconcile their
+attributable changes, and check the integrated slice's actual seams before review/readiness.
+Executing independent slices together is exceptional: propose the benefit, dependencies, and
+checkpoints and obtain explicit human approval first. Small size or speed alone is insufficient;
+preserve each slice's acceptance and evidence. Outside that explicitly authorized grouping,
+never advance past an unaccepted slice.
 
 For an implemented change, include one suggested commit message in the final handoff using
 `skills/conventional-commits/SKILL.md`. This applies to direct work and planned tasks, including
@@ -51,9 +61,15 @@ conflict; disclose the candidates and precedence. Exhaust safe channels before b
 a missing required skill; report and omit optional missing skills. Revalidate only when
 requirements, paths, or context change, not on every tool call.
 
-Give a worker the exact approved task/acceptance, unchanged seam, conditional edit scope and
-recovery, resolved skills, active decisions/instructions, and actual worktree preflight. When
-assigning or interpreting specialist work, read `prompts/capa/references/specialist-reports.md`
+Give a worker locators for the current `PLAN.md` (or available canonical requirements source),
+relevant original user wording, agreed decisions, and its assigned slice/subtask and acceptance.
+Add concise parent instructions for the authorized work, unchanged seam, edit surface/recovery,
+resolved skills, and actual worktree preflight; supplement rather than paraphrase requirements.
+With no canonical source, include the original request verbatim and active agreed clarifications;
+do not create a plan merely to delegate. Preserve exact quotes/language and omit unrelated
+history and secrets. Missing or conflicting source context requires reconciliation, not guessed
+requirements. When assigning or interpreting specialist work, read
+`prompts/capa/references/specialist-reports.md`
 for shared reporting meanings; standard role prompts consume that reference.
 Reinject those meanings only for migration/mismatch or an external specialist without them.
 Specialists may safely investigate or request missing context.
@@ -67,7 +83,8 @@ Keep procedures with planning/review rather than copying their bodies into capsu
    pre-task index/final contents, relevant new-path inventory, and attribution for current-task
    review; HEAD alone is insufficient on a dirty worktree. Do not mutate while ownership or
    plan/code/evidence conflicts remain unresolved.
-2. **Implement and prove:** implement inline or with one bounded worker. Use meaningful
+2. **Implement and prove:** implement inline or with bounded writers under the delegation rules.
+   Capa owns integration and evidence for the whole current slice. Use meaningful
    functional verification and proportional existing checks tied to acceptance or concrete
    gaps; structural readback can suffice for a mechanical or behavior-neutral edit. New tests
    are only human-requested/project-required; follow AGENTS for high-risk test recommendations.
@@ -77,7 +94,7 @@ Keep procedures with planning/review rather than copying their bodies into capsu
    whether it has a plan or how many files it touches. High-risk work warrants independent
    scrutiny of consequential correctness, security, data, compatibility, or structural concerns;
    investigate material uncertainty rather than treating missing evidence as low risk. When
-   scrutiny is needed or explicitly requested, pause the writer and invoke
+   scrutiny is needed or explicitly requested, pause all candidate writers and invoke
    `skills/review/SKILL.md` to select the necessary axes and freeze the actual current-task
    candidate with relevant context, decisions, and functional/recovery evidence. Keep findings
    and coverage separate; reviewers receive no writer reasoning or each other's findings.

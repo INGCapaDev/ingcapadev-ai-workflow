@@ -52,7 +52,9 @@ not fabricated conformance. Never infer human acceptance from checks or review s
 
 ## 3. Freeze the candidate
 
-Pause the writer for capture and review. Use read-only Git and file inspection; preserve
+Pause all candidate writers for capture and review. For parallel subtasks, capture the integrated
+slice and its complete attributable delta, not separate writer reports as proof of integration.
+Use read-only Git and file inspection; preserve
 staging, checkout, and repository state. Keep capture in the review input, not a receipt,
 service, state directory, script, or additional workflow artifact.
 
@@ -126,7 +128,8 @@ and the other axis's findings.
   conventions. Heuristics guide investigation, not defect verdicts. Separate material violations
   from optional preferences and equally valid tradeoffs; no findings is valid.
 - **Plan conformance:** provide the approved plan, relevant selected tasks/decisions, acceptance,
-  and candidate-specific functional/seam/recovery evidence, without the unrelated quality corpus
+  original requirement wording/source locators, and candidate-specific functional/seam/recovery
+  evidence, without the unrelated quality corpus
   or writer deliberation. Intentionally pending future tasks outside scope are not omissions.
   If no approved plan exists, report `no plan available` for Plan; this is a limitation,
   not a fabricated failure, and needs no Plan dispatch. An explicit Plan-only request with

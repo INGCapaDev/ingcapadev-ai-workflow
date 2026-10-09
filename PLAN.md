@@ -6,10 +6,10 @@ Improve code quality, simplicity, maintainability, and execution efficiency with
 
 - Repository: `C:/.dotfiles-configs/opencode`; branch at approval: `main`; starting HEAD: `2c79d905dc995707c319f79b3f5c3e892e34573d`.
 - Plan location: root `PLAN.md`.
-- Implementation branch: `feat/harness-simplification`, created from the starting HEAD at the human's request before S1 edits. The human authorized the S1 and S2 commits; no push or PR has been authorized.
+- Implementation branch: `feat/harness-simplification`, created from the starting HEAD at the human's request before S1 edits. The human authorized the S1, S2, and S3 commits; no push or PR has been authorized.
 - In scope: core routing, verification/review/correction, writer convention loading, delegated requirements and justified parallelism, behavior-affecting Engram integration, role-boundary and installation documentation, and reference provenance.
 - Out of scope: unrelated personal skills/themes/productivity commands; new orchestration or telemetry infrastructure; duplicated tracking artifacts; unevidenced model/provider changes; mandatory test creation/TDD/coverage/builds; commits, pushes, and publication without separate authorization.
-- Preserve unrelated work, including the pre-existing unstaged `.gitignore` addition of `references/`. Do not read private `opencode.json` or secrets to implement this plan.
+- Preserve unrelated work. The pre-existing `.gitignore` addition of `references/` was originally excluded; the human subsequently authorized narrowing it to root-only `/references/` and committing that correction with accepted S3. Do not read private `opencode.json` or secrets to implement this plan.
 - Overall acceptance: small work stays small; planned slices retain human checkpoints; checks/reviews have identifiable purposes; requirements survive delegation; applicable conventions reach writers; corrections respect design boundaries; memory ownership is consistent; private-tag capture handles the demonstrated cutoff failure; documentation reflects actual behavior.
 - Evaluate representative scenarios and disclose limitations. Fewer instructions or calls alone do not prove improved latency, tokens, or generated-code quality.
 
@@ -134,12 +134,39 @@ Evidence:
 - Human acceptance and transition: "Commit them and continue" accepted the unchanged HUMAN-ready S2 candidate, authorized its commit, and authorized S3 only. All six policy hashes matched at acceptance. The unrelated `.gitignore` addition is now staged; preserve its index state and exclude it from the selected-path S2 commit.
 
 ### S3 — Faithful requirements and bounded delegation
-Status: pending
+Status: complete
 Depends on: S1
 
 - Outcome: canonical original requirements plus later decisions, focused reference-based assignments, and justified parallel subtasks.
 - Acceptance: workers locate original intent and current approval; parent instructions supplement rather than replace requirements; unrelated history is not mandatory; reviewers receive no writer conclusions; parallelism preserves edit ownership, integration responsibility, and checkpoints; cross-slice execution requires approval.
 - Verification: inspect single-worker, parallel-subtask, and independent-review handoffs; trace original/later requirement precedence and overlapping edit surfaces.
+
+Evidence:
+- Accepted prerequisite/context: S2 committed as `a00b3328080126e4a3c64174b04120a1f0b1e56b`; the human's "Commit them and continue" authorized S3 only. S1's accepted review/control behavior remains context, not this delta.
+- Pre-task baseline: all six selected policy files and plan index/final versions matched that HEAD. Only the unrelated `.gitignore` addition remained dirty, staged; its exact index/worktree patch is preserved. Original selected raw-content hashes captured before mutation.
+- Candidate scope: `README.md`, `prompts/capa/{orchestrator,worker}.md`, `skills/planning/SKILL.md`, `skills/planning/references/plan-format.md`, and `skills/review/SKILL.md`; this plan receives milestone evidence only. No new actors, artifacts, runtime concurrency mechanism, or S4-S7 integration behavior is introduced.
+- Instruction-level handoff traces:
+  - Single worker: a locator to this plan's Original request, Agreed design, and assigned slice/acceptance plus focused seam/edit-surface/preflight instructions provides original intent and current approval without copying unrelated evidence/history.
+  - No canonical source: a bounded direct assignment includes the request verbatim and active clarifications rather than inventing a plan solely for delegation.
+  - Later approved refinement: the preserved original request remains provenance; a deliberate change recorded in Agreed design governs the current contract. Unexplained conflicts or missing source context require reconciliation, not invented requirements.
+  - Parallel subtasks within a slice: distinct worker-prompt and plan-format edit surfaces can be assigned under the same settled contract when worthwhile; parent avoids active worker surfaces and checks the whole attributable integrated result after all writers finish.
+  - Overlapping files, companion surfaces, dependencies, or a newly changed shared contract: keep execution sequential or return the conflict/dependency to Capa; individual success never proves integration.
+  - Independent review: stop all candidate writers, freeze the integrated slice delta, supply relevant original requirements/approved decisions and evidence identically, and exclude writer reasoning/conclusions.
+  - Cross-slice grouping: propose benefit/dependencies/checkpoints and obtain explicit human approval; an ordinary continuation still authorizes exactly one next slice.
+- `git diff --check`: passed. Complete attributable diff, selected role/planning/review pointers, and original-wording/later-decision clauses inspected; accepted S1/S2 gates and the staged unrelated `.gitignore` patch remain intact.
+- Independent review selected: Standards for source/authoring/authority consistency and Plan for requirement fidelity, edit ownership, integration, and cross-slice permission/checkpoint semantics.
+- Standards (`ses_edebbb7b3ffecyczZyeIKmESO1`): operation success; no critical, important, or useful optional findings. All six policy files, attributed plan evidence, and required source context covered. No Plan verdict or human acceptance inferred.
+- Plan (`ses_edebbb77effea6aXg8zn9PdrDD`): operation success; no critical, important, or useful optional findings. All S3 requirement fidelity, authority, integration, checkpoint, scope, seam, and recovery requirements covered; future slices excluded. No Standards verdict or human acceptance inferred.
+- Owner reconciliation: HEAD, all six candidate hashes, plan input hash, and unchanged context hashes matched after review; selected index remains at baseline and only the original unrelated `.gitignore` delta is staged. No corrections needed; source-trace evidence remains applicable. This subsequent milestone/status update is not a policy correction or implied re-review.
+- Frozen policy candidate raw-content hashes (`git hash-object --no-filters`):
+  - `README.md`: `ba03b4423ad021b734f2c899cae4cd2f9cef1cb9`.
+  - `prompts/capa/orchestrator.md`: `11bf5d32b142437b0d87581e26346d7438153c53`.
+  - `prompts/capa/worker.md`: `f310af4d9950eaa428c75975862210bffa7a4d36`.
+  - `skills/planning/SKILL.md`: `c8640aa6b7e82a36a041dac84c08bd74fadd0be0`.
+  - `skills/planning/references/plan-format.md`: `935b60d42e88bcd474a18d1cb11513a2ec5ddcd2`.
+  - `skills/review/SKILL.md`: `29da905ee0726954405f6b8c1e815c118ca07a96`.
+- Limitations: source inspection and instruction-level scenarios, not a live multi-writer run or model-compliance benchmark. No new tests, builds, typechecks, private configuration reads, or unrequested concurrent implementation were performed.
+- Human acceptance: "Commit the changes and fix the issue" accepted the unchanged S3 policy candidate and authorized the root-reference ignore correction. Policy hashes still match the reviewed candidate. No continuation of S4, push, or PR is authorized.
 
 ### S4 — Single-owner memory policy
 Status: pending
@@ -172,5 +199,5 @@ Status: pending
 
 ## Current progress
 
-- Current slice: S3.
-- Next action: commit accepted S2, then implement and verify S3 before its human checkpoint.
+- Current slice: S4.
+- Next action: await explicit execution authorization for S4; S1-S3 are accepted.
