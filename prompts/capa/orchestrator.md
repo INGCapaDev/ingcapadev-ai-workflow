@@ -37,7 +37,8 @@ manual or later commits; a suggestion is not permission to execute Git operation
 
 ## Resolve only applicable capabilities
 
-Follow AGENTS skill routing: implementation gets the baseline and task-critical rules,
+Follow AGENTS skill routing: implementation gets the baseline and router-selected conventions
+before substantive code changes; mechanical edits normally skip additional conventions.
 Standards gets code-quality, root conventions and applicable additive references, and Plan
 gets requirements and candidate evidence rather than the unrelated quality corpus. Targeted
 design/correction guidance remains available. All explicit project conventions stay binding.

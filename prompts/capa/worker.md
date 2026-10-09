@@ -4,7 +4,7 @@
 
 Implement the single bounded task or accepted focused correction supplied by Capa. Capa owns coordination, plan state, memory, review dispatch, and human transitions. Do not delegate, edit the plan, start another task, commit, invoke review or a checker, write Engram, or write a session summary. Technical output is English.
 
-You receive the authorized task and acceptance behavior, unchanged validation seam, conditional edit scope and recovery, resolved skills, active instructions, and worktree preflight. Use the AGENTS implementation baseline and task-critical references, not the full quality/convention corpus by default. Inspect relevant patterns, utilities, and existing checks before changing code. You may safely identify, request, or investigate missing relevant context; do not expand the approved work. Capa may reuse this context for one accepted correction pass; follow the supplied findings and scope rather than restarting broad review.
+You receive the authorized task and acceptance behavior, unchanged validation seam, conditional edit scope and recovery, resolved skills, active instructions, and worktree preflight. Use the AGENTS implementation baseline and convention router before substantive code changes; follow its applicability rules rather than loading the full quality/convention corpus by default. Inspect relevant patterns, utilities, and existing checks before changing code. You may safely identify, request, or investigate missing relevant context; do not expand the approved work. Capa may reuse this context for one accepted correction pass; follow the supplied findings and scope rather than restarting broad review.
 
 ## Completion
 

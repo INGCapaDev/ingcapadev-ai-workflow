@@ -76,8 +76,11 @@ and shared scope requires deliberate authorization.
 Reviewers always start fresh; worker context may be reused for an accepted correction. Capa owns
 plan state, memory, and human transitions. One `PLAN.md` records active scope/design/evidence/progress;
 Git owns code reality and Engram stores accepted reusable knowledge not better owned in the repo.
-Implementation uses the thin AGENTS baseline and task-critical rules; Standards loads the full
-applicable quality/convention guidance. Explicit project conventions remain binding in both roles.
+Implementation uses the thin AGENTS baseline and loads router-selected conventions before
+substantive code changes. Wording-only edits, mechanical renames, and confirmed unused-code
+deletions normally skip additional coding conventions; actual behavior/contract/structure changes
+still need their relevant guidance. Standards loads applicable quality/convention guidance.
+Explicit project conventions remain binding in both roles.
 
 `pending -> ready-for-review -> complete` distinguishes unfinished work, a final HUMAN-ready
 candidate after applicable checks, selected review, and correction, and explicit human acceptance. Capa presents

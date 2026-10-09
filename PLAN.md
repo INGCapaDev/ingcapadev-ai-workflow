@@ -6,7 +6,7 @@ Improve code quality, simplicity, maintainability, and execution efficiency with
 
 - Repository: `C:/.dotfiles-configs/opencode`; branch at approval: `main`; starting HEAD: `2c79d905dc995707c319f79b3f5c3e892e34573d`.
 - Plan location: root `PLAN.md`.
-- Implementation branch: `feat/harness-simplification`, created from the starting HEAD at the human's request before S1 edits. The human authorized the S1 commit; no push or PR has been authorized.
+- Implementation branch: `feat/harness-simplification`, created from the starting HEAD at the human's request before S1 edits. The human authorized the S1 and S2 commits; no push or PR has been authorized.
 - In scope: core routing, verification/review/correction, writer convention loading, delegated requirements and justified parallelism, behavior-affecting Engram integration, role-boundary and installation documentation, and reference provenance.
 - Out of scope: unrelated personal skills/themes/productivity commands; new orchestration or telemetry infrastructure; duplicated tracking artifacts; unevidenced model/provider changes; mandatory test creation/TDD/coverage/builds; commits, pushes, and publication without separate authorization.
 - Preserve unrelated work, including the pre-existing unstaged `.gitignore` addition of `references/`. Do not read private `opencode.json` or secrets to implement this plan.
@@ -98,12 +98,40 @@ Evidence:
 - Human acceptance and transition: "commit the changes and continue" accepted the unchanged HUMAN-ready S1 candidate, authorized its commit, and authorized execution of S2 only. All nine policy hashes still matched at acceptance; the unrelated `.gitignore` change is excluded from the commit.
 
 ### S2 — Task-relevant writer conventions
-Status: pending
+Status: complete
 Depends on: S1
 
 - Outcome: reliably route the writer to applicable conventions without loading unrelated corpora or duplicating the quality bar.
 - Acceptance: mechanical work normally skips additional conventions; typed-boundary work reaches TypeScript; framework and structural changes reach their relevant references; project conventions remain binding; inaccurate contracts are corrected rather than hidden.
 - Verification: route representative mechanical, typed-behavior, framework, and structural scenarios; inspect pointers and ownership for contradiction/duplication.
+
+Evidence:
+- Accepted prerequisite: S1 committed as `1e02fd250c362498cc501b872b7bcef0b4de70d3`; the human's "commit the changes and continue" authorized S2 only.
+- Pre-task baseline: selected index/final files matched that HEAD, with no staged work; only the unrelated `.gitignore` addition remained dirty. Raw-content hashes captured before editing.
+- Candidate scope: `AGENTS.md`, `README.md`, `prompts/capa/{orchestrator,worker}.md`, `skills/coding-conventions/SKILL.md`, and its `references/architecture.md`. Existing quality rules and language/framework reference contents are preserved; no S3-S7 behavior is implemented.
+- Routing trace against the candidate's applicability/annotated references:
+  - Wording-only text, a local mechanical rename, or deletion of confirmed unused code: normally no additional coding conventions; agent-facing edits still use authoring guidance.
+  - An apparently mechanical rename that changes an exported contract or removal with observable effects: inspect the actual consequence and load relevant guidance before that substantive part.
+  - TypeScript validation or shape changes: TypeScript reference, retaining its boundary-validation and accurate-modeling rules; no automatic full quality corpus.
+  - React component state/render behavior: React plus TypeScript when applicable; architecture only for a changed responsibility/structural boundary.
+  - Hono handler/middleware behavior: Hono plus TypeScript when applicable; no unrelated React/Go load.
+  - Go implementation: Go; architecture only when its applicability condition is met.
+  - New or reshaped ownership/module/dependency boundary: Architecture plus applicable language/framework guidance; merely editing existing module logic does not alone trigger Architecture.
+  - Explicit project conventions and already-loaded applicable guidance: preserve precedence and reuse; reassess when the task/boundary changes.
+- `git diff --check`: passed. Full selected diff and role pointers inspected; all five router references exist and were read. Language/framework rule bodies and the quality bar are unchanged, including TypeScript's rule against casts masking wrong contracts.
+- Independent review selected: Standards for pointer/authoring/ownership consistency and Plan for the coupled writer-versus-mechanical applicability contract across parent, worker, and router. Neither selection is based solely on having a plan.
+- Standards (`ses_ee0e07bf5ffeXHlDkPkxBl4uwC`): operation success; no critical, important, or useful optional findings. All six policy files, attributed plan evidence, and required source context covered; live-model activation and raw-byte recomputation outside reviewer coverage.
+- Plan (`ses_ee0e07bcdffebIuJzsQ0adfreI`): operation success; no critical, important, or useful optional findings. All S2 acceptance, ownership/seam, scope, and recovery requirements covered; future slices excluded. No human acceptance inferred.
+- Owner reconciliation: HEAD, empty staged delta, all six candidate hashes, plan input hash, and context hashes matched the frozen review input after both reviews. Unrelated `.gitignore` change is unchanged. No correction was needed; verified source evidence remains applicable. This subsequent plan milestone/status update is not a policy correction or implied re-review.
+- Frozen policy candidate raw-content hashes (`git hash-object --no-filters`):
+  - `AGENTS.md`: `c3301cfbbecda6074980744607cd9a58658d498d`.
+  - `README.md`: `059d2b858177b1891505d39f756361e9015adccf`.
+  - `prompts/capa/orchestrator.md`: `a14046b629681f8becb301b29bb0cae8407756b6`.
+  - `prompts/capa/worker.md`: `40a7ea66a3b149329c5604ad549330833dd8cee8`.
+  - `skills/coding-conventions/SKILL.md`: `8120afd55f5aa5ab3b67bc81caa4910587d3f393`.
+  - `skills/coding-conventions/references/architecture.md`: `ef178587c93c6ba002e7cd7f6a9ea27ed2c664b2`.
+- Limitations: structural/source tracing, not live-model skill-activation or generated-code quality evidence; no builds, typechecks, new tests, or private configuration inspection. Startup-loaded instructions and descriptions require restart for activation.
+- Human acceptance and transition: "Commit them and continue" accepted the unchanged HUMAN-ready S2 candidate, authorized its commit, and authorized S3 only. All six policy hashes matched at acceptance. The unrelated `.gitignore` addition is now staged; preserve its index state and exclude it from the selected-path S2 commit.
 
 ### S3 — Faithful requirements and bounded delegation
 Status: pending
@@ -144,5 +172,5 @@ Status: pending
 
 ## Current progress
 
-- Current slice: S2.
-- Next action: commit accepted S1, then implement and verify S2 before its human checkpoint.
+- Current slice: S3.
+- Next action: commit accepted S2, then implement and verify S3 before its human checkpoint.

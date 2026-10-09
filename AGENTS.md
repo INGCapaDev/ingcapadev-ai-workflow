@@ -39,11 +39,11 @@ Load relevant skills before task-specific work. Use exact paths from the configu
 | Writing or suggesting a commit message | `conventional-commits` |
 | Material design discussion, work breakdown, or `/plan` | `planning` |
 | Standards judgment; targeted design or correction question | `code-quality` |
-| Standards judgment with applicable conventions; task-critical convention question | `coding-conventions`, then only applicable references |
+| Substantive code implementation; Standards judgment; task-critical convention question | `coding-conventions`, then only applicable references |
 | Explicit independent review or caller-supplied frozen task review | `review` |
 | Google Workspace executive assistance | `gws-executive-assistant` |
 
-Implementation uses the baseline above and task-critical references, not the full general, language, smell, or architecture corpus by default. Explicit project rules remain binding regardless of loading. Applicable authoring guidance remains required for AI-facing documents.
+Implementation uses the baseline above and router-selected conventions before substantive code changes, not the full quality or convention corpus by default. Mechanical edits normally need no additional coding-convention load; `coding-conventions` owns applicability. Explicit project rules remain binding regardless of loading. Applicable authoring guidance remains required for AI-facing documents.
 
 ## Capa Ownership
 

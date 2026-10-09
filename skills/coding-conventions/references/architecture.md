@@ -1,6 +1,6 @@
 # Architecture
 
-Load this reference only for changes that add or alter a module, component, interface, ownership boundary, or other structural boundary.
+Load this reference for changes that add or reshape responsibilities, module/component structure, contracts, dependencies, or ownership boundaries, not merely edits to logic within an existing module.
 
 - **Own responsibilities:** Put behavior beside the state, decision, or domain concept it owns. A module or component should have a distinct responsibility and a clear reason to exist.
 - **Choose depth deliberately:** A module or layer earns its place through distinct ownership, hidden complexity, a concentrated invariant, or a meaningful boundary that reduces caller knowledge. A single consumer is enough when that value is real; keep straightforward logic local instead of adding pass-through structure.
