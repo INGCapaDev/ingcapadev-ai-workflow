@@ -1,6 +1,6 @@
 # INGCapaDev AI Workflow
 
-A lightweight, human-in-the-loop AI development workflow. Built around collaborative design, small tasks, focused evidence, resilient plans, and two-axis review — because the human stays in control.
+A lightweight, human-in-the-loop AI development workflow. Built around collaborative design, small tasks, focused evidence, resilient plans, and risk-based review with two focused axes — because the human stays in control.
 
 ## The Story
 
@@ -42,18 +42,27 @@ or approved for a concrete evidence gap; there is no separate verification comma
 `/review` without arguments includes staged, unstaged, and relevant new source work.
 `/review <ref>` selects committed branch changes since the validated fixed point; explicit
 natural-language requests may select another scope. Both entry paths load the lazy `review`
-skill, which freezes the candidate for fresh independent Standards and Plan contexts. Reports
-keep findings and coverage separate; without an approved plan, Standards can run and Plan
-reports `no plan available`. Standalone review does not fix code, accept tasks, commit, or
+skill, which freezes the candidate for the selected fresh independent Standards and/or Plan
+contexts. General standalone review uses both when an approved plan exists, otherwise Standards;
+explicit axis requests are honored. Reports keep findings and coverage separate; without an
+approved plan, Plan reports `no plan available`. Standalone review does not fix code, accept tasks, commit, or
 update progress. Supplied task candidates use their actual pre-task delta, not earlier accepted
 uncommitted work.
 
-Each planned task receives meaningful functional verification and fresh parallel Standards/Plan
-review of the same frozen task candidate. Capa may authorize at most one focused correction pass
-for clear meaningful in-scope findings, followed by affected checks. Material design changes,
+Each planned task receives purposeful verification for its actual change; structural readback
+can suffice for mechanical or behavior-neutral edits. Planning alone does not require independent
+review. High-risk work receives justified independent scrutiny; Capa selects Standards, Plan
+conformance, or both for the remaining assurance need. Both axes run fresh and in parallel on
+the same frozen candidate when selected. Existing applicable evidence is reused, but functional
+checks are not automatically independent judgment. Omitted axes are not reported as passes.
+Capa may authorize at most one focused correction pass for clear meaningful in-scope findings,
+followed by affected checks. Material design changes,
 disputed findings, and optional alternatives return to the human. Corrections are disclosed as
 changes to the reviewed candidate, not implied re-review; no automatic second broad loop runs.
-New tests are only explicitly requested or project-required, and valid unchanged checks are reused.
+New tests are only explicitly requested or project-required. For important high-risk business
+rules with an established setup, Capa may recommend a focused test and waits for authorization.
+Routine builds, blanket suites, and unrelated checks are not default verification. Every planned
+task still stops for human acceptance, including tasks with no independent review.
 
 For a lightweight retrospective, use `/improve-ai [focus or examples]` or explicitly ask to
 improve the AI workflow or learn from session feedback. Both reach the same lazy `improve-ai`
@@ -71,7 +80,7 @@ Implementation uses the thin AGENTS baseline and task-critical rules; Standards 
 applicable quality/convention guidance. Explicit project conventions remain binding in both roles.
 
 `pending -> ready-for-review -> complete` distinguishes unfinished work, a final HUMAN-ready
-candidate after applicable checks/review/correction, and explicit human acceptance. Capa presents
+candidate after applicable checks, selected review, and correction, and explicit human acceptance. Capa presents
 the final diff, decisions, findings/dispositions, correction checks, and limitations, then stops.
 Approval-only accepts and stops; `/continue` after presentation of the unchanged ready candidate
 accepts it and starts exactly one next task. Adjustments remain on the current task. Missing proof,

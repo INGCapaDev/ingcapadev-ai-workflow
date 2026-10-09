@@ -124,8 +124,10 @@ not authorize a commit.
 Give each check a purpose tied to an acceptance scenario or concrete evidence gap.
 Prefer relevant existing checks and observable behavior; reuse valid unchanged passing
 evidence. New tests, TDD, and coverage requirements come only from the human or applicable
-project instructions. Add consequential edit boundaries or concrete recovery options when
-the work's ownership or risk calls for them, not as default filler.
+project instructions. Follow the AGENTS test-recommendation boundary for high-risk business
+rules. Identify consequential independent-review needs, not mandatory reviewers for every
+slice; execution reassesses the actual candidate. Add consequential edit boundaries or concrete
+recovery options when the work's ownership or risk calls for them, not as default filler.
 
 The breakdown is sufficient when each slice has a clear outcome, coherent supporting
 changes, a valid checkpoint, and verifiable acceptance, with dependencies and material

@@ -68,13 +68,21 @@ Keep procedures with planning/review rather than copying their bodies into capsu
    plan/code/evidence conflicts remain unresolved.
 2. **Implement and prove:** implement inline or with one bounded worker. Use meaningful
    functional verification and proportional existing checks tied to acceptance or concrete
-   gaps. New tests are only human-requested/project-required; reuse unchanged passing checks.
+   gaps; structural readback can suffice for a mechanical or behavior-neutral edit. New tests
+   are only human-requested/project-required; follow AGENTS for high-risk test recommendations.
+   Reuse applicable unchanged passing checks.
    Routine builds, blanket suites, and extra checker calls are not default proof.
-3. **Review once:** pause the writer and invoke `skills/review/SKILL.md` with the frozen actual
-   current-task candidate, necessary code context, approved decisions, and candidate-specific
-   functional/recovery evidence. Its fresh parallel Standards and Plan roles receive the same
-   candidate without writer reasoning or each other's findings. Collect each axis's findings,
-   evidence, coverage, and gaps separately. Earlier accepted dirty work is context, not task delta.
+3. **Assess independent review:** assess the actual change and remaining assurance need, not
+   whether it has a plan or how many files it touches. High-risk work warrants independent
+   scrutiny of consequential correctness, security, data, compatibility, or structural concerns;
+   investigate material uncertainty rather than treating missing evidence as low risk. When
+   scrutiny is needed or explicitly requested, pause the writer and invoke
+   `skills/review/SKILL.md` to select the necessary axes and freeze the actual current-task
+   candidate with relevant context, decisions, and functional/recovery evidence. Keep findings
+   and coverage separate; reviewers receive no writer reasoning or each other's findings.
+   Otherwise record why independent review is unnecessary. Reuse current applicable evidence,
+   but distinguish functional checks from independent judgment. Earlier accepted dirty work is
+   context, not task delta. A skipped axis is not a passing review.
 4. **Triage and correct when warranted:** evaluate evidence-backed meaningful findings. Capa
    may authorize at most one focused correction pass for clear defects within agreed behavior,
    interfaces, ownership, and scope, by the same worker or itself. Optional stylistic alternatives,
@@ -90,7 +98,8 @@ Keep procedures with planning/review rather than copying their bodies into capsu
    results, separate findings/dispositions, corrections, reused evidence, and limitations. Record
    milestone evidence and status in PLAN using its format, not every tool call. Mark
    `ready-for-review` only when the final candidate is HUMAN-ready after applicable verification,
-   review, and correction/checks. Stop for the human; useful incomplete work stays `pending` with
+   selected review, and correction/checks. Stop for the human after every planned task, including
+   tasks needing no independent review; useful incomplete work stays `pending` with
    a concrete blocker. Missing required review/proof, stale candidates, or unresolved material
    issues never become fabricated PASS or readiness.
 

@@ -26,6 +26,7 @@
 - Preserve real absence, narrowing, and failure semantics; fail fast on violated internal invariants using the project's error model. Useful one-use abstractions may own a concept or reduce caller knowledge.
 - Discuss meaningful API, domain-model, and structural choices with the human before implementation; keep routine details within agreed design.
 - Verify changed behavior purposefully with relevant existing tests, lint/types, manual/runtime, or structural evidence. Create tests only when explicitly requested or project-required; reuse valid unchanged checks.
+- For important high-risk business rules with an established test setup, recommend a focused test when useful and await authorization before adding it.
 - Before finishing, reconcile the complete attributable diff with agreed scope, behavior, and these constraints; remove redundant or unrequired work.
 
 ## Skill Loading

@@ -35,7 +35,8 @@ Depends on: <real prerequisite, only when present>
 
 - Outcome and logically coupled supporting changes.
 - Acceptance criteria.
-- Verification: boundary/scenario, purposeful checks, and expected evidence.
+- Verification: boundary/scenario, purposeful checks, expected evidence, and independent
+  review needs when consequential. Reassess these needs against the actual candidate.
 - Edit boundaries or recovery: <only when consequential>
 
 Evidence:
@@ -62,19 +63,21 @@ useful. Recovery identifies how to preserve or restore the relevant state, not a
 instruction to revert everything.
 
 **Evidence is slice-local.** Record observed results against expected evidence, including
-failed, unavailable, or skipped checks and their consequences. Tie functional observations
-and independent Plan/Standards findings to the actual candidate examined; record no-findings
-outcomes when observed. Include finding dispositions, accepted corrections, affected checks,
-and remaining limitations. Distinguish checks of corrected code from independent review of
+failed, unavailable, or skipped checks and their consequences. Record independent-review
+selection and its reason; identify omitted axes without treating them as passing reviews.
+Tie functional observations and selected Plan/Standards findings to the actual candidate
+examined; record no-findings outcomes only when observed. Include finding dispositions,
+accepted corrections, affected checks, and remaining limitations. Distinguish checks of corrected code from independent review of
 an earlier candidate; corrections do not imply re-review. Identify reused unchanged evidence
 as reuse. Record explicit human acceptance when given. Git establishes what code exists;
 the plan records what was checked and accepted, without a separate evidence/state mirror.
 
 **Status means progress toward human acceptance:**
 
-- `pending`: implementation or required verification/review/correction remains unfinished.
+- `pending`: implementation or required verification/selected review/correction remains unfinished.
 - `ready-for-review`: the final candidate is HUMAN-ready after applicable functional
-  verification, independent review, and accepted correction/checks. Remaining non-blocking
+  verification, selected independent review (if needed), and accepted correction/checks.
+  No independent review is required merely because the task is planned. Remaining non-blocking
   findings or limitations are disclosed; explicit human acceptance is still pending.
 - `complete`: the human explicitly accepted the slice.
 
