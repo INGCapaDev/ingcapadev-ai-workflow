@@ -121,12 +121,14 @@ that the task needs. Show what remains for later tasks without manufacturing set
 cleanup, or verification phases for ordinary supporting work. Commit-sized grouping does
 not authorize a commit.
 
-Give each check a purpose tied to an acceptance scenario or concrete evidence gap.
+Give each verification activity a purpose tied to an acceptance scenario or concrete evidence gap;
+implementation/diff inspection and flow tracing are valid evidence paths, not automatically commands.
 Prefer relevant existing checks and observable behavior; reuse valid unchanged passing
 evidence. New tests, TDD, and coverage requirements come only from the human or applicable
 project instructions. Follow the AGENTS test-recommendation boundary for high-risk business
-rules. Identify consequential independent-review needs, not mandatory reviewers for every
-slice; execution reassesses the actual candidate. Add consequential edit boundaries or concrete
+rules. Follow the orchestrator's verification-effort and review-approval gates: identify any
+consequential concern worth recommending for review, not mandatory reviewers for every slice.
+Execution reassesses the actual candidate. Add consequential edit boundaries or concrete
 recovery options when the work's ownership or risk calls for them, not as default filler.
 
 The breakdown is sufficient when each slice has a clear outcome, coherent supporting

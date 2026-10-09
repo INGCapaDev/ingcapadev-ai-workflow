@@ -72,7 +72,7 @@ instruction to revert everything.
 
 **Evidence is slice-local.** Record observed results against expected evidence, including
 failed, unavailable, or skipped checks and their consequences. Record independent-review
-selection and its reason; identify omitted axes without treating them as passing reviews.
+request/approval, selected scope and its reason; identify omitted axes without treating them as passing reviews.
 Tie functional observations and selected Plan/Standards findings to the actual candidate
 examined; record no-findings outcomes only when observed. Include finding dispositions,
 accepted corrections, affected checks, and remaining limitations. Distinguish checks of corrected code from independent review of
@@ -83,8 +83,8 @@ the plan records what was checked and accepted, without a separate evidence/stat
 **Status means progress toward human acceptance:**
 
 - `pending`: implementation or required verification/selected review/correction remains unfinished.
-- `ready-for-review`: the final candidate is HUMAN-ready after applicable functional
-  verification, selected independent review (if needed), and accepted correction/checks.
+- `ready-for-review`: the final candidate is HUMAN-ready after applicable verification,
+  requested/approved independent review (if any), and accepted correction/checks.
   No independent review is required merely because the task is planned. Remaining non-blocking
   findings or limitations are disclosed; explicit human acceptance is still pending.
 - `complete`: the human explicitly accepted the slice.

@@ -1,6 +1,6 @@
 # INGCapaDev AI Workflow
 
-A lightweight, human-in-the-loop AI development workflow. Built around collaborative design, small tasks, focused evidence, resilient plans, and risk-based review with two focused axes — because the human stays in control.
+A lightweight, human-in-the-loop AI development workflow. Built around collaborative design, small tasks, focused evidence, resilient plans, and request-driven independent review with two focused axes — because the human stays in control.
 
 ## The Story
 
@@ -35,7 +35,8 @@ Core development commands:
 - `/improve-ai [focus]` — Read-only retrospective; selection and implementation require explicit authorization
 
 Tiny understood work stays direct, without a mandatory plan, worker, or review. Medium direct
-work uses review when worthwhile; material decisions, multiple outcomes, risk, or recoverable
+work can recommend focused review when worthwhile and waits for approval before dispatch;
+material decisions, multiple outcomes, risk, or recoverable
 work call for planning. Inline versus delegated execution is a separate choice: delegation
 needs a concrete benefit; one writer is the default. Independent checking is optional, requested explicitly
 or approved for a concrete evidence gap; there is no separate verification command.
@@ -57,11 +58,16 @@ approved plan, Plan reports `no plan available`. Standalone review does not fix 
 update progress. Supplied task candidates use their actual pre-task delta, not earlier accepted
 uncommitted work.
 
-Each planned task receives purposeful verification for its actual change; structural readback
-can suffice for mechanical or behavior-neutral edits. Planning alone does not require independent
-review. High-risk work receives justified independent scrutiny; Capa selects Standards, Plan
-conformance, or both for the remaining assurance need. Both axes run fresh and in parallel on
-the same frozen candidate when selected. Existing applicable evidence is reused, but functional
+Each planned task receives purposeful verification for its actual change. Capa's implementation/diff
+inspection, caller tracing, and evidence-backed feedback can suffice without running commands;
+inspection is not represented as executed runtime proof. Project-required checks remain binding,
+and behavior that cannot be established by inspection needs focused execution. Custom harness
+setup trouble calls for reassessing the evidence path rather than expanding ceremony.
+Human diff review is the normal checkpoint. Independent review runs on explicit request or approval
+of a focused recommendation, including consequential-risk concerns; declining it does not erase
+missing required proof. Capa selects Standards, Plan conformance, or both within that approved scope.
+Both axes run fresh and in parallel on the same frozen candidate when selected.
+Existing applicable evidence is reused, but functional
 checks are not automatically independent judgment. Omitted axes are not reported as passes.
 Capa may authorize at most one focused correction pass for clear meaningful in-scope findings,
 followed by affected checks. Material design changes,

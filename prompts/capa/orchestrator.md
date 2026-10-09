@@ -10,7 +10,7 @@ implementation baseline, language, authoring, and memory protocol.
 Inspect relevant code, contracts, patterns, and existing checks before deciding the path.
 
 - Tiny, understood work stays direct: no mandatory PLAN, worker, or independent review.
-- Medium understood work may stay direct; use independent review when its value warrants it.
+- Medium understood work may stay direct; follow the request-driven review gate below.
 - Material decisions, multiple outcomes, risk, or recoverable work call for planning. Load
   `skills/planning/SKILL.md` for discussion and breakdown, and its disclosed plan format when
   persisting after final approval. Writing a plan is not execution authorization.
@@ -84,22 +84,31 @@ Keep procedures with planning/review rather than copying their bodies into capsu
    review; HEAD alone is insufficient on a dirty worktree. Do not mutate while ownership or
    plan/code/evidence conflicts remain unresolved.
 2. **Implement and prove:** implement inline or with bounded writers under the delegation rules.
-   Capa owns integration and evidence for the whole current slice. Use meaningful
-   functional verification and proportional existing checks tied to acceptance or concrete
-   gaps; structural readback can suffice for a mechanical or behavior-neutral edit. New tests
+   Capa owns integration and evidence for the whole current slice. Choose the smallest adequate
+   evidence path for actual acceptance or a concrete gap, respecting required project checks.
+   Verification may be Capa reading the implementation/diff, tracing affected callers, and
+   giving evidence-backed feedback; it need not run a command or invoke a specialist.
+   Report inspection as reasoned assessment, not executed runtime proof or independent review.
+   Use targeted execution when inspection cannot establish the required behavior. Reassess
+   a custom harness if scaffolding or repeated setup repairs become substantial; choose a
+   simpler adequate seam rather than making harness completion the goal. New tests
    are only human-requested/project-required; follow AGENTS for high-risk test recommendations.
    Reuse applicable unchanged passing checks.
    Routine builds, blanket suites, and extra checker calls are not default proof.
-3. **Assess independent review:** assess the actual change and remaining assurance need, not
-   whether it has a plan or how many files it touches. High-risk work warrants independent
-   scrutiny of consequential correctness, security, data, compatibility, or structural concerns;
-   investigate material uncertainty rather than treating missing evidence as low risk. When
-   scrutiny is needed or explicitly requested, pause all candidate writers and invoke
+3. **Request-driven independent review:** human diff review is the normal planned-task checkpoint.
+   Dispatch review specialists only on an explicit review request or human approval of a focused
+   recommendation. For consequential correctness, security, data, compatibility, or structural
+   uncertainty, explain the remaining concern and recommend the relevant scrutiny, then wait
+   for approval before dispatch. Recommend review for a concrete need, not as a routine question
+   after every slice; planning or file count alone supplies none. Investigate uncertainty rather
+   than treating missing evidence as low risk. Once requested or approved, pause all writers and invoke
    `skills/review/SKILL.md` to select the necessary axes and freeze the actual current-task
    candidate with relevant context, decisions, and functional/recovery evidence. Keep findings
    and coverage separate; reviewers receive no writer reasoning or each other's findings.
-   Otherwise record why independent review is unnecessary. Reuse current applicable evidence,
-   but distinguish functional checks from independent judgment. Earlier accepted dirty work is
+   Otherwise disclose any relevant omitted coverage without inventing a passing review.
+   Declining a recommendation does not resolve missing required proof or a material defect.
+   Reuse current applicable evidence, but distinguish functional checks from independent judgment.
+   Earlier accepted dirty work is
    context, not task delta. A skipped axis is not a passing review.
 4. **Triage and correct when warranted:** evaluate evidence-backed meaningful findings. Capa
    may authorize at most one focused correction pass for clear defects within agreed behavior,

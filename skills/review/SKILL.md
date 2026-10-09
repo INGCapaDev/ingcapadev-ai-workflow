@@ -7,8 +7,10 @@ description: "Independent review for /review or natural-language review requests
 
 Own scope and axis selection, frozen input capture, and independent review dispatch. Standalone
 review is read-only: report findings, not fixes, task acceptance, commits, or progress writes.
-For planned tasks needing independent scrutiny, Capa invokes this after functional verification
-and retains finding triage, correction, plan updates, and human transitions. This skill authorizes no fixes.
+For an explicitly requested or human-approved task review, Capa invokes this after applicable
+verification and retains finding triage, correction, plan updates, and human transitions.
+The orchestrator owns the request/approval gate; supplying a frozen candidate alone is not
+dispatch authorization. This skill authorizes no fixes.
 
 ## 1. Select the scope
 
@@ -31,7 +33,7 @@ no selected changes, not a reason to manufacture findings or launch reviewers.
 
 Keep Standards and Plan conformance as focused roles, not a combined reviewer. Honor explicit
 review scope/axis requests. For a general standalone review, use both when an approved plan
-exists, otherwise Standards. For risk-based task review, select only the axes that address a
+exists, otherwise Standards. For an approved focused task review, select only the axes that address a
 remaining assurance need:
 
 - **Standards:** independent judgment of quality, contracts, security, or structure is needed.
@@ -41,12 +43,12 @@ remaining assurance need:
 Planning or change size alone does not require an axis. Reuse attributable, current evidence
 whose candidate and coverage still apply; adequate verification can resolve a need without a
 new reviewer. Functional checks or the writer's assertion of conformance do not automatically
-provide independent judgment. For high-risk work, select independent scrutiny of the remaining
-consequential concern rather than omitting it solely because the writer ran checks.
+provide independent judgment. Keep task-review selection within the requested or approved
+concern; return materially broader scrutiny to Capa for the human's decision.
 
 State the selected axes and reasons, existing evidence being reused, and omitted axes with
 their reasons or coverage limitations. An omitted axis is not a PASS. If no independent need
-remains and no review was explicitly requested, return that assessment without dispatch; the
+remains, return that assessment without manufacturing reviewer work; the
 planned task still requires its human checkpoint. Missing approved-plan input is a limitation,
 not fabricated conformance. Never infer human acceptance from checks or review selection.
 
