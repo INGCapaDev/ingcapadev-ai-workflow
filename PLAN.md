@@ -218,7 +218,7 @@ Evidence:
 - Human acceptance/transition: "continue" accepts the unchanged local S5 candidate (`990dca2698f672c653f39a8f4270c8e976b3bb05`) and authorizes S6 only. No commit, force-add, push, or PR is authorized; accepted S5 evidence remains uncommitted context for S6.
 
 ### S6 — Accurate boundaries and installation guidance
-Status: ready-for-review
+Status: complete
 Depends on: S1, S2, S3, S4
 
 - Outcome: reconcile remaining cross-cutting role/trusted-shell and installation documentation with settled behavior; distinguish config privacy from Git publication protection.
@@ -239,15 +239,28 @@ Evidence:
 - Owner reconciliation after review and conversational pause: HEAD, selected index, both policy hashes, frozen plan input hash, and unchanged example/command/guidance/local-adapter context identities matched. No corrections or additional feedback-driven edits; valid reviews and checks reused without another review cycle. Subsequent milestone/status update is not a policy correction or implied re-review.
 - Frozen S6 policy raw-content hashes (`git hash-object --no-filters`): `README.md` = `9804b7fe3c46606c0ec863a142961d279bf10557`; `prompts/capa/checker.md` = `6613eaa6a2b418975c89705d9e4b5a9a10c4267e`.
 - Limitations: structural/source and instruction-level checks, not a fresh-install or live-model/permission-enforcement test. Existing version-bounded Windows workaround is retained without claiming revalidation on the running version; startup-loaded checker guidance needs restart for activation.
+- Human acceptance/transition: "Conitnue working" accepts the unchanged S6 policy candidate and authorizes S7 only. At resume, the human had committed accepted S5 evidence/S6 documentation as `d07e2c7ee5aa3263bf0f79ae02e416dc1466655b`; tracked worktree/index are clean, both reviewed S6 hashes and the accepted local adapter still match. No new Capa commit or publication authorized.
 
 ### S7 — Trustworthy reference provenance
-Status: pending
+Status: complete
 
 - Outcome: accurately index snapshots/checkouts/local commentary and identify versions without changing upstream material or adopting its instructions.
 - Acceptance: full checkouts are not labeled plain pinned snapshots; Addy/Gentle Shell/local Capa are discoverable; source versions are identifiable; reference instructions remain evidence.
 - Verification: compare navigation/provenance with directory inventory and read-only revision metadata; check links and version distinctions.
 
+Evidence:
+- Authorization: "Conitnue working" accepted unchanged S6 and authorized S7 only; no new commit, checkout refresh, source execution, or publication. S7 indexes remain local under `/inspiration/` by the human's existing exclusion decision.
+- Pre-task baseline: tracked worktree/index clean at human-created HEAD `d07e2c7ee5aa3263bf0f79ae02e416dc1466655b`. Plan final after acceptance = `f70220e04e4e767fa6a8deb4e170f82a5fbf41a3`. Local index originals captured: root README `edb16a4096cdda96426c768a6125ac2e5c78f361`, Matt REFERENCE `27f1c821c25c98430da27e7b35b5641281b5aecb`, Gentle REFERENCE `c0c0d36cb23d1f7b9183366908ed88fb7dcd2ec8`, local Capa README `1712bf633ace54fba7c320f38f2b35f81e4a48e4`. They are ignored local artifacts, not HEAD versions.
+- Source observation: three clean Git checkouts on `main`, with official SSH remotes: Addy `1401c8b8030e023baeebb31781a6653fe8e93026` (2026-10-03), Gentle-AI `4e020a8a26d509f3df94f06afcebec672a63b129` (2026-10-08), Gentle Shell `16ced58e8c7d8936d5f47d9b674fe59fb84a9bc4` (2026-10-08). Gentle's local v4.0.0 tag = historical `ff77164d4f56f1665b22fb6fac51c2ccbb769400`, not current HEAD. Matt export has no nested `.git`; local Capa records its distinct historical Gentle pin `5140c5f55baf91763198eb0bfca019c015e3b015` and a local routing synopsis.
+- Candidate: four authored local indexes only. Root index exposes all five collections and distinguishes observed checkout versions from declared snapshot/historical pins. Gentle wrapper no longer calls the current checkout a selected v4 export and exposes Gentle Shell separately. Matt pin/layout limits are explicit. Historical Capa navigation no longer points to missing MAIN_PROMPT or calls the new root plan its original migration plan. No upstream source/license, clone state, active workflow policy, or local adapter changed.
+- Verification: explicit `test -f` checks passed for all 48 indexed local navigation targets; directory readback confirms checkout/export/pack layouts and the routing synopsis identifies itself as distilled source. Post-edit Git HEAD/status checks match all three pre-task checkout revisions with clean worktrees. Source remotes and local v4 tag metadata were read without fetching/pulling/checking out or executing upstream code.
+- Scope/readback: all four final indexes read in full; existing Capa SOURCES hash is unchanged. Root harness README/checker hashes still match accepted S6 and the local adapter matches accepted S5. Only plan evidence is visible in parent Git; `/inspiration/` continues ignoring the local indexes. `git diff --check` passed for the tracked plan companion; no builds/typechecks/new tests or formatter runs.
+- Independent review omitted: both Standards and Plan axes were unnecessary for this low-risk local metadata/navigation change, supported by direct file readback, observed Git metadata, and concrete link checks. No active code/policy/permission boundary changed. Omission is not a PASS; the human checkpoint remains required.
+- Final local raw-content identities: root README `c804d7a298f1d079b31e0fa5c5dfda3004887513`; Matt REFERENCE `bcf8790b4ddb0613286625f814fd4ffcbd42b16e`; Gentle REFERENCE `bfd4bbb68c807b008cca92ac394d07fee394ed86`; local Capa README `afa296c0bde67e893bbb12c781e90c32abfc0a1e`.
+- Limitations: external URLs were not fetched and the Matt/source-copy declared pins were not verified byte-for-byte against upstream; those limits are explicit in the indexes. Observed checkout HEADs are not guaranteed latest versions or future pins. This is local provenance reconciliation, not a runtime/model-performance benchmark or upstream refresh; no new commit/publication authorized.
+- Human acceptance: "accept and commit the changes" accepts the unchanged S7 candidate and authorizes committing the tracked plan/evidence update. All four local index identities and accepted harness/adapter identities still match. Inspiration indexes and the personal adapter stay ignored/local; no force-add, push, or PR authorized. All seven slices are now human-accepted.
+
 ## Current progress
 
-- Current slice: S6.
-- Next action: await human acceptance of S6; approval-only stops, while explicit continuation accepts the unchanged candidate and starts S7. No commit/publication authorized by the last continuation.
+- Current slice: none; S1-S7 complete.
+- Next action: stop; the approved plan is complete. Publication or further implementation requires a separate human instruction; ignored local artifacts remain excluded.
