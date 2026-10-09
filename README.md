@@ -237,6 +237,14 @@ For the best experience, pair this workflow with:
 - **Context7 MCP** — gives AI agents real-time access to library and framework documentation.
 - **Matt Pocock's skill-writing approach** — if you want to write your own skills, his composable skill pattern fits perfectly with this workflow.
 
+`AGENTS.md` owns memory policy, including primary-session compaction recovery. Installed
+adapters must not inject a competing save/search protocol or persist delegated outcomes before
+human acceptance. The local `plugins/engram.ts` adapter retains operational session/user-prompt
+capture, server startup, and import handling; semantic saves and context recovery remain with
+Capa. It does not inject policy, reminders, project memory into compaction, or passive task-result
+learnings. This personal adapter is ignored by Git and is not part of the public core install;
+reconcile separately installed adapters deliberately rather than assuming the template changes them.
+
 ## License
 
 MIT

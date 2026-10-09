@@ -88,9 +88,12 @@ If `mem_save` returns `judgment_required`, inspect every candidate. Resolve high
 
 ### Close Sessions
 
-For significant accepted work or durable outcomes, call `mem_session_summary` before closing. Use Goal, Instructions when relevant, Discoveries, Accomplished, Next Steps, and Relevant Files for durable lessons and authoritative pointers, not a task-progress shadow.
+For primary sessions with significant accepted work or durable outcomes, call `mem_session_summary` before closing. Use Goal, Instructions when relevant, Discoveries, Accomplished, Next Steps, and Relevant Files for durable lessons and authoritative pointers, not a task-progress shadow. Delegated specialists return candidates to Capa rather than writing summaries.
 
 ### Recover After Compaction
+
+This recovery applies to primary sessions. Delegated specialists recover their assignment and
+role context and request missing context from Capa; Capa owns their memory recovery.
 
 1. Save durable lessons and pointers from the compacted summary with `mem_session_summary`, not transient task state.
 2. Recover additional context with `mem_context`.

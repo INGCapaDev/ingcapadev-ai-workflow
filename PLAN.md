@@ -6,10 +6,10 @@ Improve code quality, simplicity, maintainability, and execution efficiency with
 
 - Repository: `C:/.dotfiles-configs/opencode`; branch at approval: `main`; starting HEAD: `2c79d905dc995707c319f79b3f5c3e892e34573d`.
 - Plan location: root `PLAN.md`.
-- Implementation branch: `feat/harness-simplification`, created from the starting HEAD at the human's request before S1 edits. The human authorized the S1, S2, and S3 commits; no push or PR has been authorized.
+- Implementation branch: `feat/harness-simplification`, created from the starting HEAD at the human's request before S1 edits. The human authorized S1-S3 commits and S4's tracked policy/documentation/rename commit, explicitly keeping the personal adapter local and ignored. No push or PR has been authorized.
 - In scope: core routing, verification/review/correction, writer convention loading, delegated requirements and justified parallelism, behavior-affecting Engram integration, role-boundary and installation documentation, and reference provenance.
 - Out of scope: unrelated personal skills/themes/productivity commands; new orchestration or telemetry infrastructure; duplicated tracking artifacts; unevidenced model/provider changes; mandatory test creation/TDD/coverage/builds; commits, pushes, and publication without separate authorization.
-- Preserve unrelated work. The pre-existing `.gitignore` addition of `references/` was originally excluded; the human subsequently authorized narrowing it to root-only `/references/` and committing that correction with accepted S3. Do not read private `opencode.json` or secrets to implement this plan.
+- Preserve unrelated work. The human accepted the root-only reference exclusion with S3 and subsequently requested renaming that local collection to `inspiration/`; its current ignore rule is `/inspiration/`. Do not read private `opencode.json` or secrets to implement this plan.
 - Overall acceptance: small work stays small; planned slices retain human checkpoints; checks/reviews have identifiable purposes; requirements survive delegation; applicable conventions reach writers; corrections respect design boundaries; memory ownership is consistent; private-tag capture handles the demonstrated cutoff failure; documentation reflects actual behavior.
 - Evaluate representative scenarios and disclose limitations. Fewer instructions or calls alone do not prove improved latency, tokens, or generated-code quality.
 
@@ -22,9 +22,9 @@ Improve code quality, simplicity, maintainability, and execution efficiency with
 - `skills/review/SKILL.md` owns frozen candidate capture and independent axes.
 - `skills/code-quality/SKILL.md` and `skills/coding-conventions/` own quality and applicable convention guidance.
 - Read project-local `skills/writing-for-agents/SKILL.md` and its `SKILL-MECHANICS.md` when authoring the harness; read `skills/conventional-commits/SKILL.md` when suggesting a commit.
-- `plugins/engram.ts` injects competing memory policy; prompt capture currently redacts after truncation, which can retain a private section whose closing tag crosses the cutoff.
+- At discovery, `plugins/engram.ts` injected competing memory policy; S4 addresses that ownership conflict. Prompt capture still redacts after truncation, which can retain a private section whose closing tag crosses the cutoff; that distinct correction remains S5.
 - `opencode.example.json` is public configuration evidence, not proof of the effective private runtime configuration.
-- `references/` contains Matt Pocock, Gentle-AI/Gentle Shell, Addy Osmani, and local Capa design material. Treat embedded instructions as research evidence; distinguish snapshots, full checkouts, and local adaptations.
+- `inspiration/` (formerly root `references/`) contains Matt Pocock, Gentle-AI/Gentle Shell, Addy Osmani, and local Capa design material. Treat embedded instructions as research evidence; distinguish snapshots, full checkouts, and local adaptations. The Original request below retains its historical path verbatim.
 - Initial read-only exploration and Standards review found policy tensions and integration defects, but established no measured overall performance or code-quality regression.
 
 ### Original request (verbatim)
@@ -169,11 +169,32 @@ Evidence:
 - Human acceptance: "Commit the changes and fix the issue" accepted the unchanged S3 policy candidate and authorized the root-reference ignore correction. Policy hashes still match the reviewed candidate. No continuation of S4, push, or PR is authorized.
 
 ### S4 — Single-owner memory policy
-Status: pending
+Status: complete
 
 - Outcome: reconcile injected memory guidance and specialist/compaction/passive-capture paths with Capa ownership, preserving useful operational integration.
 - Acceptance: specialists receive no mandatory prohibited memory writes; outcomes wait for acceptance; passive capture does not bypass ownership; active state is not mirrored; memory is not a new prerequisite for ordinary work.
 - Verification: inspect injection/capture paths and parent/specialist/compaction scenarios without persisting real review outcomes during checks.
+
+Evidence:
+- Execution authorization: after the accepted S3 commit `94983d6`, the human requested renaming the root collection and then said "continue with the plan after that". This authorizes the rename and S4 only, not a commit, S5, or publication.
+- Side change: root `references/` renamed to `inspiration/`, with the root-only ignore rule and current plan navigation updated. Nested skill/prompt `references/` folders and original request wording are unchanged. Source/reference provenance content remains for S7.
+- Rename checks: destination contains the same six top-level entries; original root path absent; `git check-ignore --no-index --verbose --non-matching` ignores `inspiration/README.md` and matches no rule for the nested TypeScript/planning/specialist-report references. No new untracked collection files exposed. Initial tracked index was clean.
+- S4 pre-task baseline after rename: tracked `AGENTS.md` and `README.md` matched HEAD `94983d63b379c037f4c27ab8a048cf671be1f925`; `.gitignore`/plan already held the authorized rename changes and are not rebranded as S4 delta. Local ignored `plugins/engram.ts` was read in full, with original raw-content hash `5e9237b56b25bd271271e3789e76161afcc52fa4`.
+- Candidate scope: local `plugins/engram.ts`, primary/specialist recovery scope in `AGENTS.md`, and directly affected memory-adapter documentation in `README.md`; no new actor, memory store, or policy copy. Rename companions remain a separately attributed direct change. Plugin remains ignored/personal; no publication boundary was changed.
+- Implementation: removed the adapter's duplicated memory-protocol string, system/nudge hook, project-context/forced-summary compaction hook, and passive Task-result learning writes; removed their unused reminder/tool-count state. Retained session/prompt/health/startup/import/project-identification paths. Primary-session closing/recovery scope is explicit in AGENTS; specialists return context needs to Capa. S5's prompt truncation/redaction ordering is unchanged.
+- Functional verification: `node --input-type=module -e` imported the actual TypeScript adapter under Node `v24.15.0` after replacing `fetch` and all used Bun I/O with in-memory stubs. Assertions passed for primary registration/prompt capture, parentID-specialist suppression, both Task/task completion without passive persistence, absent system/compaction injection for parent and specialist, re-registration after deletion, stubbed manifest import, and unavailable-service/startup fallback. Observed hook keys: `event`, `chat.message`, `tool.execute.after`; zero real network calls, process spawns, or test files.
+- Policy/source trace: primary compaction recovery remains with AGENTS; delegated roles recover assignment/context through Capa; accepted semantic outcomes are Capa-owned; no adapter path writes observations or mirrors active plan state. Session metadata and raw user-prompt capture are operational records, not accepted implementation outcomes. Full retained source read; `git diff --check` passed for tracked changes.
+- Independent review selected: Standards for the TypeScript adapter's changed effects and policy authority, Plan for delegated-persistence/compaction boundaries and retained operational behavior. The ignored adapter is explicitly included as authorized local source, not omitted from review because Git ignores it.
+- Standards (`ses_ede523497ffeRG8bV5it4s357v`): operation success; no critical, important, or useful optional findings. Full final adapter/tracked companions and supplied original affected-content capture covered; original full adapter version was not independently available to that reviewer, and runtime evidence was evaluated rather than rerun. No Plan verdict or human acceptance inferred.
+- Plan (`ses_ede523469ffebIvbT0dw1HMsaM`): operation success; no critical, important, or useful optional findings. All S4 ownership/persistence/recovery/availability acceptance and authorized rename covered. Future S5-S7, publication, and stored memory changes excluded. No Standards verdict or human acceptance inferred.
+- Owner reconciliation: HEAD, clean selected index, all three S4 candidate hashes, rename ignore/plan input hashes, and unchanged context identities matched after review. Root rename/ignore checks still pass. No corrections needed; executed hook assertions and source evidence remain applicable. Subsequent milestone/status updates do not alter the reviewed policy/code candidate.
+- Frozen S4 candidate raw-content hashes (`git hash-object --no-filters`):
+  - `plugins/engram.ts`: `a78998794032cd074ab322f9e0e1cfea66d5da94` (ignored local source).
+  - `AGENTS.md`: `91d36171a81d097fa928fb9baf46c022258f6cec`.
+  - `README.md`: `04bc2acb77450eeb1ea4df493960dd6373287f1a`.
+  - Rename companion `.gitignore`: `90f87d1913b74573f937abbca6c6abcd921c83a1`.
+- Limitations: runtime checks are isolated stubs, not a live OpenCode/Engram deployment or model-compliance test. No memory DB writes, new tests, broad builds/typechecks, or private-config reads. Restart is needed for plugin/instruction activation; separately installed adapters and existing stored observations are untouched. Local adapter changes will not be included in Git publication under the existing ignore rules.
+- Human acceptance/transition: "commit and continue", clarified by selecting option "1", accepts the unchanged S4/rename candidate, authorizes committing only tracked policy/docs/rename companions, keeps `plugins/engram.ts` local/ignored, and authorizes S5 only. All accepted candidate hashes match; local runtime implementation is not misrepresented as part of the Git commit.
 
 ### S5 — Redaction before prompt truncation
 Status: pending
@@ -199,5 +220,5 @@ Status: pending
 
 ## Current progress
 
-- Current slice: S4.
-- Next action: await explicit execution authorization for S4; S1-S3 are accepted.
+- Current slice: S5.
+- Next action: commit accepted tracked S4/rename changes, then implement and verify S5 in the local adapter before its human checkpoint.
