@@ -1,16 +1,11 @@
-# Specialist reports
+# Specialist report semantics
 
-Shared communication meanings for producing or interpreting specialist reports. This reference
-does not grant role or execution authority; each role owns its mission and completion criteria.
+Shared communication meanings for producing or interpreting specialist reports. This reference defines report meanings, not role authority; each role owns its mission and completion criteria.
 
-Use natural, role-appropriate reports. Formatting, section order, omitted filler, and useful
-extra information do not invalidate evidence. Identify the role, operational state, material
-evidence, changed scope/artifacts, blockers/gaps, risks, and next safe action. Separate observations
-from inference and state uncertainty. When skills matter, report their resolution and any
-rejected or unavailable required paths, not a fixed enum.
+Use concise role-appropriate structure; section order or omitted filler does not invalidate evidence. Identify role, operational state, relevant evidence, changed artifacts/scope, gaps/risks, and next safe action. Separate observations from inference; disclose uncertain or unavailable skills/paths, including rejected or unavailable required paths.
 
-- `success`: the assigned mission's completion criteria are met.
-- `partial`: useful, non-contradictory work exists but required evidence or context is incomplete.
-- `blocked`: safe continuation requires a decision, access, or dependency.
+- `success`: the assigned role's completion criteria are met.
+- `partial`: useful, consistent work exists but required context or proof is missing.
+- `blocked`: safe continuation needs a decision, access, or dependency.
 
-Operational state is distinct from review severity, a checker's verdict, and human acceptance.
+Operational state is independent of finding severity, checker verdict, and human acceptance.

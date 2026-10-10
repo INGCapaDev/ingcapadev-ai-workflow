@@ -5,10 +5,17 @@ Keep exactly the five main headings below; detail scales with the work. The chan
 identifies the plan. Include repository/worktree, plan location, branch/base, or other locating
 context under Goal and scope when it prevents ambiguity.
 
+Follow an explicit project plan-location convention when present. Otherwise use the project's
+established documentation root (for example `docs/` or `documentation/`), defaulting to `docs/`,
+and create `<docs-root>/ai/<feature-or-plan-name>/PLAN.md`. Keep related working files,
+discoveries, or persisted context in that scope folder when useful, and reference them from
+the plan. They support the single scope/design/progress authority, not a second state mirror;
+do not create companion artifacts by default.
+
 The outline describes content, not mandatory field labels. Replace placeholders with
 change-specific information and omit empty, filler, or irrelevant fields in the persisted
 plan. Add slice blocks only for actual work. Keep workflow and quality rules with their
-owners rather than copying them into the plan or creating another state artifact.
+owners rather than copying them into the plan or its companions.
 
 ```markdown
 # <Change title>
@@ -19,11 +26,14 @@ owners rather than copying them into the plan or creating another state artifact
 - Constraints and overall acceptance.
 
 ## Relevant context
+- Original user request/requirements in their exact wording, or an available canonical source
+  locator; preserve original language and intent without copying secrets.
 - Relevant current behavior, owners, patterns, contracts, and repository paths.
 - Applicable instructions or authoritative references, with when/why to read them.
 
 ## Agreed design
-- Resolved material choices and rationale.
+- Resolved material choices and rationale, distinguishing later approved refinements from
+  original requirements.
 - Intended behavior, interactions, interfaces, and important invariants.
 - Compatibility requirements when relevant.
 
@@ -35,7 +45,8 @@ Depends on: <real prerequisite, only when present>
 
 - Outcome and logically coupled supporting changes.
 - Acceptance criteria.
-- Verification: boundary/scenario, purposeful checks, and expected evidence.
+- Verification: boundary/scenario, purposeful checks, expected evidence, and independent
+  review needs when consequential. Reassess these needs against the actual candidate.
 - Edit boundaries or recovery: <only when consequential>
 
 Evidence:
@@ -54,6 +65,11 @@ than repeating it in every slice. Context paths are navigation hints, not a froz
 file-by-file implementation script. Keep small context inline and point to dense or
 authoritative material with a clear condition for reading it.
 
+Preserve source wording rather than substituting a planning summary for the requirements.
+Use the original request and Agreed design together: later approved changes refine the contract
+without erasing original intent. Delegation points to the relevant source, decisions, and slice
+acceptance rather than requiring unrelated history or redundant spec/handoff artifacts.
+
 Each slice needs acceptance and verification: identify the observable scenario or boundary,
 which checks serve it, and what evidence would establish the expected result. Record
 dependencies only when another outcome is a prerequisite. Add edit boundaries, exclusions,
@@ -62,19 +78,21 @@ useful. Recovery identifies how to preserve or restore the relevant state, not a
 instruction to revert everything.
 
 **Evidence is slice-local.** Record observed results against expected evidence, including
-failed, unavailable, or skipped checks and their consequences. Tie functional observations
-and independent Plan/Standards findings to the actual candidate examined; record no-findings
-outcomes when observed. Include finding dispositions, accepted corrections, affected checks,
-and remaining limitations. Distinguish checks of corrected code from independent review of
+failed, unavailable, or skipped checks and their consequences. Record independent-review
+request/approval, selected scope and its reason; identify omitted axes without treating them as passing reviews.
+Tie functional observations and selected Plan/Standards findings to the actual candidate
+examined; record no-findings outcomes only when observed. Include finding dispositions,
+accepted corrections, affected checks, and remaining limitations. Distinguish checks of corrected code from independent review of
 an earlier candidate; corrections do not imply re-review. Identify reused unchanged evidence
 as reuse. Record explicit human acceptance when given. Git establishes what code exists;
 the plan records what was checked and accepted, without a separate evidence/state mirror.
 
 **Status means progress toward human acceptance:**
 
-- `pending`: implementation or required verification/review/correction remains unfinished.
-- `ready-for-review`: the final candidate is HUMAN-ready after applicable functional
-  verification, independent review, and accepted correction/checks. Remaining non-blocking
+- `pending`: implementation or required verification/selected review/correction remains unfinished.
+- `ready-for-review`: the final candidate is HUMAN-ready after applicable verification,
+  requested/approved independent review (if any), and accepted correction/checks.
+  No independent review is required merely because the task is planned. Remaining non-blocking
   findings or limitations are disclosed; explicit human acceptance is still pending.
 - `complete`: the human explicitly accepted the slice.
 

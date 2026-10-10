@@ -3,7 +3,6 @@ description: Discover evidence-backed AI workflow improvements
 agent: ingcapa-dev-orchestrator
 ---
 
-Load `improve-ai` for the retrospective, using available session evidence by default or the supplied
-focus and examples. Follow the skill's read-only discovery and authorization boundaries.
+Load `skills/improve-ai/SKILL.md` for the read-only retrospective and authorization gates, using available session evidence by default and the supplied focus and examples.
 
 Focus or examples: $ARGUMENTS
