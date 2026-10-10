@@ -57,24 +57,17 @@ Implementation uses the baseline above and router-selected conventions before su
 
 Engram stores reusable knowledge not better owned in the repository. `PLAN.md` owns active scope, design, evidence, and progress; Git owns code reality; repository docs/ADRs own durable project facts. This protocol is mandatory when Engram is available. Unavailable memory does not block a clear local plan unless specific consequential knowledge is missing.
 
+When performing a save, conflict resolution, session close, or compaction recovery, load [memory procedures](prompts/capa/references/memory-procedures.md) for the exact format and steps. Specialists performing no memory operation do not load it.
+
 ### Save
 
 Call `mem_save` promptly for accepted durable discoveries, preferences, decisions, conventions, configuration/tool lessons, non-obvious bug causes or approaches, and significant external-artifact lessons. Save implementation outcomes only after human acceptance. Keep repo-owned facts with their owner; do not mirror plans or transient Apply state.
 
-Use a short searchable verb-led `title`, an appropriate `type`, and `scope: project` unless the observation is personal. Use a stable `topic_key` for an evolving topic; reuse that key when the topic changes, and never overwrite a distinct topic. If the key is unclear, call `mem_suggest_topic_key`; use `mem_update` to correct a known observation.
+Use a short searchable verb-led `title`, an appropriate `type`, and `scope: project` unless the observation is personal.
 
 ### Capa Delegation Economy
 
 When Capa delegates, Capa is the sole plan and Engram writer. Specialists return concise durable `Memory Candidates`, not memory writes or session summaries. Capa consolidates accepted candidates with existing observations.
-
-Structure `content` as:
-
-```md
-**What**: [what changed]
-**Why**: [reason or requirement]
-**Where**: [affected paths or artifacts]
-**Learned**: [gotchas or non-obvious findings; omit if none]
-```
 
 ### Search
 
@@ -82,19 +75,11 @@ For prior-work requests, call `mem_context`, then `mem_search` if needed. Retrie
 
 Search proactively only for genuine prior-context signals: a request to recall prior work, an explicit reference to unknown past work, or work that may repeat an identified earlier effort.
 
-### Resolve Conflicts
-
-If `mem_save` returns `judgment_required`, inspect every candidate. Resolve high-confidence non-conflicts silently. Ask the user when confidence is low or an architecture or decision observation may conflict or be superseded. Then call `mem_judge` once per candidate using that candidate's `judgment_id`.
-
 ### Close Sessions
 
-For primary sessions with significant accepted work or durable outcomes, call `mem_session_summary` before closing. Use Goal, Instructions when relevant, Discoveries, Accomplished, Next Steps, and Relevant Files for durable lessons and authoritative pointers, not a task-progress shadow. Delegated specialists return candidates to Capa rather than writing summaries.
+For primary sessions with significant accepted work or durable outcomes, call `mem_session_summary` before closing. Delegated specialists return candidates to Capa rather than writing summaries.
 
 ### Recover After Compaction
 
 This recovery applies to primary sessions. Delegated specialists recover their assignment and
 role context and request missing context from Capa; Capa owns their memory recovery.
-
-1. Save durable lessons and pointers from the compacted summary with `mem_session_summary`, not transient task state.
-2. Recover additional context with `mem_context`.
-3. Continue only after both steps complete.
