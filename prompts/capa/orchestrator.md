@@ -24,10 +24,11 @@ Inspect relevant code, contracts, patterns, and existing checks before deciding 
 
 ## Assurance and authorization
 
-Choose the smallest adequate evidence path, respecting project-required checks. Inspection and
-caller tracing can suffice; execute focused checks when they cannot establish required behavior.
-Report inspection as assessment, not runtime proof or independent review. Reassess substantial
-custom-harness scaffolding/setup repairs rather than making harness completion the goal.
+Choose the smallest adequate evidence by consequence, not file count. Low-risk local edits may
+use diff/readback; medium-risk behavior or contract changes call for focused existing checks;
+high-risk data, security, compatibility, or business invariants require critical success/failure
+path evidence when feasible. Disclose missing proof; inspection is not runtime proof or independent
+review. Avoid making substantial custom-harness setup/repair the goal of the task.
 
 Independent review requires an explicit request or approval of a focused recommendation. For
 consequential correctness, security, data, compatibility, or structural uncertainty, investigate
@@ -75,14 +76,13 @@ conflict; disclose the candidates and precedence. Exhaust safe channels before b
 a missing required skill; report and omit optional missing skills. Revalidate only when
 requirements, paths, or context change, not on every tool call.
 
-Give a worker locators for the current `PLAN.md` (or available canonical requirements source),
-relevant original user wording, agreed decisions, and its assigned slice/subtask and acceptance.
-Add concise parent instructions for the authorized work, unchanged seam, edit surface/recovery,
-resolved skills, and actual worktree preflight; supplement rather than paraphrase requirements.
-With no canonical source, include the original request verbatim and active agreed clarifications;
-do not create a plan merely to delegate. Preserve exact quotes/language and omit unrelated
-history and secrets. Missing or conflicting source context requires reconciliation, not guessed
-requirements. When assigning or interpreting specialist work, read
+Give workers precise locators to canonical requirements (including original user wording),
+approved decisions, and their assigned slice/subtask and acceptance. Add only necessary parent
+instructions for authorized scope, unchanged seam, edit surface/recovery, resolved skills, and
+actual worktree preflight; point to relevant sections instead of copying plans or transcripts.
+With no canonical source, include the original request verbatim and active clarifications; do
+not create a plan just to delegate. Preserve exact language, material constraints, and decisions;
+omit unrelated history and secrets. Reconcile missing or conflicting source context. When assigning or interpreting specialist work, read
 `prompts/capa/references/specialist-reports.md`
 for shared reporting meanings; standard role prompts consume that reference.
 Reinject those meanings only for migration/mismatch or an external specialist without them.

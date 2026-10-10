@@ -15,7 +15,7 @@
 - Discuss meaningful API, domain-model, ownership, and structural choices with the human before coding; settle routine details within the agreed design.
 - Verify changed behavior purposefully with relevant existing tests, type/lint checks, runtime observations, or structural evidence. Create tests only when requested or required by the project. Do not run builds routinely; use one only when requested or when build behavior is the subject.
 - For important high-risk business rules with an established test setup, recommend a focused test when useful and await authorization before adding it.
-- Before handing off, inspect the entire attributable diff against agreed scope and constraints; remove unintended or redundant work.
+- Before handoff, reconcile the attributable diff with agreed behavior, applicable conventions, readable ownership, sound contracts, and conceptual complexity. Remove unjustified abstractions, duplication, and unrelated work without changing approved scope.
 
 ## Skill routing
 
@@ -23,7 +23,7 @@ Load relevant skills before task-specific work. Use exact paths from the configu
 
 | Context | Skill |
 |---|---|
-| Creating or editing AI skills | `writing-for-agents` |
+| Authoring agent-facing instructions (skills, prompts, commands, `AGENTS.md`) | `writing-for-agents` |
 | Writing or suggesting a commit message | `conventional-commits` |
 | Material design discussion, work breakdown, or `/plan` | `planning` |
 | Standards judgment; targeted design or correction question | `code-quality` |

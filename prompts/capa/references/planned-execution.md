@@ -18,7 +18,9 @@ capability rules, not against the application cwd.
    review; HEAD alone is insufficient on a dirty worktree. Do not mutate while ownership or
    plan/code/evidence conflicts remain unresolved.
 2. **Implement and prove:** implement inline or with bounded writers under the delegation rules.
-   Capa owns integration and evidence for the whole current slice. Apply the orchestrator's
+   Capa owns integration and evidence for the whole current slice. For agreed bounded subtasks,
+   follow dependencies; pause at agreed optional human diff previews without changing slice status
+   or treating feedback as acceptance. Resume the same slice after feedback. Apply the orchestrator's
    smallest-adequate-evidence gate, including inspection/flow tracing when sufficient and
    targeted execution when needed. New tests are only human-requested/project-required;
    follow AGENTS for high-risk test recommendations. Reuse applicable unchanged passing
