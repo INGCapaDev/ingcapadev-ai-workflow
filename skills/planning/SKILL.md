@@ -48,6 +48,11 @@ Test **outcome separability** before grouping work. If capabilities can each del
 
 Use roughly 400 authored additions plus deletions as a review-sizing signal, not a target or cap. Assess **review breadth** alongside authored size: several independently meaningful outcomes or materially different acceptance surfaces are signals to reconsider grouping. When combining outcomes is necessary, explain the concrete dependency or invalid intermediate state.
 
+For a coherent slice too broad for natural human review, propose bounded subtasks and optional
+intermediate diff previews. Previews invite feedback on the current slice, not new statuses or
+separate acceptance gates. If an intermediate outcome is independently valid and warrants human
+acceptance, prefer a separate slice instead.
+
 Record only real dependencies: a preceding contract, capability, or valid-state requirement that the task needs. Show what remains for later tasks without manufacturing setup, cleanup, or verification phases for ordinary supporting work. Commit-sized grouping does not authorize a commit.
 
 Give each verification activity a purpose tied to an acceptance scenario or concrete evidence gap; implementation/diff inspection and flow tracing are valid evidence paths, not automatically commands. Prefer relevant existing checks and observable behavior; reuse valid unchanged passing evidence. New tests, TDD, and coverage requirements come only from the human or applicable project instructions. Follow the AGENTS test-recommendation boundary for high-risk business rules. Follow the orchestrator's verification-effort and review-approval gates: identify any consequential concern worth recommending for review, not mandatory reviewers for every slice. Execution reassesses the actual candidate. Add consequential edit boundaries or concrete recovery options when the work's ownership or risk calls for them, not as default filler.
