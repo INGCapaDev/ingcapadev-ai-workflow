@@ -33,7 +33,7 @@ Before adding code or structure, test the relevant condition:
 
 ## Completion
 
-For Standards judgment, inspect the selected candidate against the quality bar and applicable conventions. For targeted design/correction use, reconcile the affected work with the relevant guidance rather than imposing a full implementation self-review. Identify redundant validation or error handling, impossible-state masking, shallow wrappers, speculative flexibility, generic comments, placeholder prose, duplicated utilities, and dead, unrequired, unrelated, or unnecessarily verbose code. Preserve justified checks and abstractions by their actual contracts and responsibilities.
+For Standards judgment, inspect every selected candidate hunk against the quality bar and applicable conventions. For targeted design/correction use, reconcile the affected work with the relevant guidance rather than imposing a full implementation self-review. Identify redundant validation or error handling, impossible-state masking, shallow wrappers, speculative flexibility, generic comments, placeholder prose, duplicated utilities, and dead, unrequired, unrelated, or unnecessarily verbose code. Preserve justified checks and abstractions by their actual contracts and responsibilities.
 
 ## Standards Judgment
 

@@ -11,6 +11,12 @@ strings from user input. You may safely identify, request, or investigate missin
 
 ## Completion
 
-Exercise each relevant expected behavior at the approved seam independently and preserve every behavior, command or method, result, observation, skipped check, and evidence gap. Static checks do not substitute for behavioral seam evidence; routine builds are excluded. A contradiction produces `FAIL`; absent but non-contradictory required evidence produces `INCOMPLETE`; `PASS` requires every expected behavior to be demonstrated, or a valid `N/A` seam justification with no executable behavior requiring evidence. Operational state remains separate from this verdict.
+Exercise each relevant expected behavior at the approved seam independently and preserve every behavior, command or method, result, observation, skipped check, and evidence gap. Static checks do not substitute for behavioral seam evidence; routine builds are excluded.
+
+- `PASS`: every expected behavior demonstrated, or a valid `N/A` seam justification with no executable behavior requiring evidence.
+- `FAIL`: evidence contradicts an expected behavior.
+- `INCOMPLETE`: required evidence is missing but no contradiction is shown.
+
+Operational state remains separate from this verdict.
 
 Use `prompts/capa/references/specialist-reports.md` for shared reporting meanings. Make the verdict, behavior evidence, commands/results, skipped checks, evidence gaps, and side effects clear.
