@@ -62,9 +62,9 @@ For work with meaningful decisions:
 | `/reslice [focus]` | Compare alternative task groupings without changing the saved plan or code |
 | `/improve-ai [focus]` | Inspect session evidence and propose workflow improvements without implementing them |
 
-**Verification and review are different.** Focused checks or inspection establish behavior. Independent review assesses a frozen candidate from fresh Standards and/or Plan contexts, according to the review scope. In this revision, independent review is request-driven; human review remains the normal planned-task checkpoint.
+**Verification and review are different.** Focused checks or inspection establish behavior. Independent review assesses a frozen candidate from fresh Standards and/or Plan contexts, according to the review scope. Independent review is request-driven; human review remains the normal planned-task checkpoint.
 
-Standalone review and selecting an improvement authorize no implementation. Task acceptance does not authorize commits, pushes, PRs, or deployment; authorize those operations separately. No automatic build, test creation, or broad review loop is required by the workflow.
+Standalone review and selecting an improvement authorize no implementation. Task acceptance does not authorize commits, pushes, PRs, or deployment; authorize those operations separately. The workflow requires no automatic builds, test creation, or broad review loops.
 
 ## Customize and Understand the System
 
