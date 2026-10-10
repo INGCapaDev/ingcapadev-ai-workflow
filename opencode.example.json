@@ -7,7 +7,7 @@
       "description": "Capa v3 senior developer - implements, delegates, owns plan state and human transitions",
       "mode": "primary",
       "model": "openai/gpt-6.1-sol",
-      "variant": "high",
+      "variant": "medium",
       "permission": {
         "task": {
           "*": "deny",
@@ -48,7 +48,7 @@
       "hidden": true,
       "mode": "subagent",
       "model": "openai/gpt-6.1-sol",
-      "variant": "high",
+      "variant": "medium",
       "permission": {
         "edit": "deny",
         "bash": "deny",
@@ -61,7 +61,7 @@
       "hidden": true,
       "mode": "subagent",
       "model": "openai/gpt-6.1-sol",
-      "variant": "high",
+      "variant": "medium",
       "permission": {
         "edit": "deny",
         "bash": "deny",
@@ -87,7 +87,7 @@
     },
     "summary": {
       "model": "openai/gpt-6.1-sol",
-      "variant": "medium"
+      "variant": "low"
     }
   },
   "mcp": {
