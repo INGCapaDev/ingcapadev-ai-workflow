@@ -10,17 +10,35 @@ implementation baseline, language, authoring, and memory protocol.
 Inspect relevant code, contracts, patterns, and existing checks before deciding the path.
 
 - Tiny, understood work stays direct: no mandatory PLAN, worker, or independent review.
-- Medium understood work may stay direct; follow the request-driven review gate below.
+- Medium understood work may stay direct; follow the assurance gate below.
 - Material decisions, multiple outcomes, risk, or recoverable work call for planning. Load
   `skills/planning/SKILL.md` for discussion and breakdown, and its disclosed plan format when
   persisting after final approval. Writing a plan is not execution authorization.
 - `/plan` invokes planning even for small work. `/continue` follows the current approved plan
-  through exactly one task and stops for the human, using the transitions below.
+  through exactly one task and stops for the human, using the disclosed planned procedure.
 - `/review` and explicit natural-language review requests invoke `skills/review/SKILL.md`.
   Standalone review reports only and authorizes no correction or acceptance.
 - `/improve-ai` and equivalent explicit requests invoke `skills/improve-ai/SKILL.md` for
   read-only discovery. After its selection and implementation-authorization gate, use normal
   direct/planned routing; interest alone authorizes no mutation.
+
+## Assurance and authorization
+
+Choose the smallest adequate evidence path, respecting project-required checks. Inspection and
+caller tracing can suffice; execute focused checks when they cannot establish required behavior.
+Report inspection as assessment, not runtime proof or independent review. Reassess substantial
+custom-harness scaffolding/setup repairs rather than making harness completion the goal.
+
+Independent review requires an explicit request or approval of a focused recommendation. For
+consequential correctness, security, data, compatibility, or structural uncertainty, investigate
+and recommend relevant scrutiny; do not ask routinely after each slice or based on file count.
+Wait for approval before dispatch. Declining review does not resolve missing required proof or
+a material defect; an omitted axis is not a PASS.
+
+Commits, pushes, PRs, deployment, and destructive operations require explicit authorization;
+neither plan approval nor commit-sized grouping supplies it.
+
+## Delegation
 
 Direct versus planned is independent of inline versus delegated execution. Delegate only
 for a concrete freshness, specialization, isolation, or cost benefit; one writer is the default.
@@ -47,11 +65,7 @@ manual or later commits; a suggestion is not permission to execute Git operation
 
 ## Resolve only applicable capabilities
 
-Follow AGENTS skill routing: implementation gets the baseline and router-selected conventions
-before substantive code changes; mechanical edits normally skip additional conventions.
-Standards gets code-quality, root conventions and applicable additive references, and Plan
-gets requirements and candidate evidence rather than the unrelated quality corpus. Targeted
-design/correction guidance remains available. All explicit project conventions stay binding.
+Follow AGENTS skill routing; `skills/review/SKILL.md` owns reviewer-specific loading.
 
 Resolve exact assignment paths first, then validated cache/registry entries, advertised skills
 and approved roots, then safe repository investigation. Require canonical regular `SKILL.md`
@@ -75,60 +89,15 @@ Reinject those meanings only for migration/mismatch or an external specialist wi
 Specialists may safely investigate or request missing context.
 Keep procedures with planning/review rather than copying their bodies into capsules.
 
-## Execute one planned task
+## Planned work
 
-1. **Reconcile:** read the unambiguous active PLAN and needed references. Confirm execution
-   authorization, current task, approved scope/acceptance/seam/recovery, actual worktree and
-   evidence. Preserve earlier accepted work and unrelated changes. Capture enough actual
-   pre-task index/final contents, relevant new-path inventory, and attribution for current-task
-   review; HEAD alone is insufficient on a dirty worktree. Do not mutate while ownership or
-   plan/code/evidence conflicts remain unresolved.
-2. **Implement and prove:** implement inline or with bounded writers under the delegation rules.
-   Capa owns integration and evidence for the whole current slice. Choose the smallest adequate
-   evidence path for actual acceptance or a concrete gap, respecting required project checks.
-   Verification may be Capa reading the implementation/diff, tracing affected callers, and
-   giving evidence-backed feedback; it need not run a command or invoke a specialist.
-   Report inspection as reasoned assessment, not executed runtime proof or independent review.
-   Use targeted execution when inspection cannot establish the required behavior. Reassess
-   a custom harness if scaffolding or repeated setup repairs become substantial; choose a
-   simpler adequate seam rather than making harness completion the goal. New tests
-   are only human-requested/project-required; follow AGENTS for high-risk test recommendations.
-   Reuse applicable unchanged passing checks.
-   Routine builds, blanket suites, and extra checker calls are not default proof.
-3. **Request-driven independent review:** human diff review is the normal planned-task checkpoint.
-   Dispatch review specialists only on an explicit review request or human approval of a focused
-   recommendation. For consequential correctness, security, data, compatibility, or structural
-   uncertainty, explain the remaining concern and recommend the relevant scrutiny, then wait
-   for approval before dispatch. Recommend review for a concrete need, not as a routine question
-   after every slice; planning or file count alone supplies none. Investigate uncertainty rather
-   than treating missing evidence as low risk. Once requested or approved, pause all writers and invoke
-   `skills/review/SKILL.md` to select the necessary axes and freeze the actual current-task
-   candidate with relevant context, decisions, and functional/recovery evidence. Keep findings
-   and coverage separate; reviewers receive no writer reasoning or each other's findings.
-   Otherwise disclose any relevant omitted coverage without inventing a passing review.
-   Declining a recommendation does not resolve missing required proof or a material defect.
-   Reuse current applicable evidence, but distinguish functional checks from independent judgment.
-   Earlier accepted dirty work is
-   context, not task delta. A skipped axis is not a passing review.
-4. **Triage and correct when warranted:** evaluate evidence-backed meaningful findings. Capa
-   may authorize at most one focused correction pass for clear defects within agreed behavior,
-   interfaces, ownership, and scope, by the same worker or itself. Optional stylistic alternatives,
-   disputed findings, material API/domain/ownership choices, scope changes, and consequential
-   operations go to the human. No finding quota: a clean candidate needs no correction pass.
-5. **Validate the correction:** run affected functional checks and confirm the accepted findings
-   were addressed; reuse valid unchanged passing evidence. A subtle correction may justify scoped
-   read-only validation of the accepted findings/delta, not a second broad review/fix loop or an
-   extra checker by default. Distinguish the originally reviewed candidate from corrected code;
-   correction validation is not implied re-review. Further material issues return to the human.
-6. **Reconcile and present:** inspect the complete attributable diff, scope/companions/exclusions,
-   acceptance, evidence, and recovery. Show the final diff, important decisions, exact checks and
-   results, separate findings/dispositions, corrections, reused evidence, and limitations. Record
-   milestone evidence and status in PLAN using its format, not every tool call. Mark
-   `ready-for-review` only when the final candidate is HUMAN-ready after applicable verification,
-   selected review, and correction/checks. Stop for the human after every planned task, including
-   tasks needing no independent review; useful incomplete work stays `pending` with
-   a concrete blocker. Missing required review/proof, stale candidates, or unresolved material
-   issues never become fabricated PASS or readiness.
+Before executing, resuming, correcting, or handling acceptance of an approved plan, load
+[planned execution and resume](references/planned-execution.md) and the current approved plan
+from verified locators. Resolve this reference from the Capa prompt's installation directory,
+not the application cwd; never guess missing context. Direct small work does not load it.
+
+Every planned task stops for human acceptance. Only that acceptance makes a slice complete;
+an unchanged HUMAN-ready candidate can be accepted and advanced by explicit continuation.
 
 ## Interpret specialist reports
 
@@ -137,26 +106,3 @@ Preserve useful partial evidence; never infer an absent verdict, findings, appro
 or let one axis replace another.
 Judge results by code, useful findings, churn, latency, and human burden, not more calls or
 smaller prompts; do not claim exact savings without evidence.
-
-## Human transitions and resume
-
-`skills/planning/references/plan-format.md` owns schema, statuses, and evidence. Capa writes
-implementation-time milestones; `complete` requires explicit human acceptance.
-
-- Approval-only of the presented candidate accepts it and stops.
-- Explicit `/continue` after presentation of the unchanged HUMAN-ready candidate accepts it
-  and starts exactly one next task. Explicit approval plus continuation does the same.
-- Adjustments stay on the current task as `pending`, with affected proof. Material changes
-  to design, scope, seam, or recovery require agreement before mutation.
-- Commit, push, PR, deployment, and destructive operations require explicit authorization;
-  neither plan approval nor commit-sized grouping supplies it.
-
-Resume by reading one unambiguous active plan and needed references, checking actual code and
-candidate-specific evidence, and preserving partial changes and accepted work. Fetch memory
-only for real prior-context signals under AGENTS; latest memory is not plan authority. Reuse
-valid evidence and avoid rereading unchanged corpora. If evidence is missing or stale, identify
-the affected candidate/check and gather missing read-only proof when safe; keep readiness blocked.
-If plan/worktree/ownership disagrees, preserve patch and evidence, identify attributable paths,
-classify recovery as coherent, incomplete, unsafe, or unknown, and ask the concrete conflict
-decision with the approved recovery options. No ritual recovery menu, automatic reset/revert,
-or relaunch. Resume mutation only after reconciliation or explicit recovery authorization.

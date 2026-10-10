@@ -5,10 +5,17 @@ Keep exactly the five main headings below; detail scales with the work. The chan
 identifies the plan. Include repository/worktree, plan location, branch/base, or other locating
 context under Goal and scope when it prevents ambiguity.
 
+Follow an explicit project plan-location convention when present. Otherwise use the project's
+established documentation root (for example `docs/` or `documentation/`), defaulting to `docs/`,
+and create `<docs-root>/ai/<feature-or-plan-name>/PLAN.md`. Keep related working files,
+discoveries, or persisted context in that scope folder when useful, and reference them from
+the plan. They support the single scope/design/progress authority, not a second state mirror;
+do not create companion artifacts by default.
+
 The outline describes content, not mandatory field labels. Replace placeholders with
 change-specific information and omit empty, filler, or irrelevant fields in the persisted
 plan. Add slice blocks only for actual work. Keep workflow and quality rules with their
-owners rather than copying them into the plan or creating another state artifact.
+owners rather than copying them into the plan or its companions.
 
 ```markdown
 # <Change title>
@@ -61,7 +68,7 @@ authoritative material with a clear condition for reading it.
 Preserve source wording rather than substituting a planning summary for the requirements.
 Use the original request and Agreed design together: later approved changes refine the contract
 without erasing original intent. Delegation points to the relevant source, decisions, and slice
-acceptance rather than requiring unrelated history or another spec/handoff artifact.
+acceptance rather than requiring unrelated history or redundant spec/handoff artifacts.
 
 Each slice needs acceptance and verification: identify the observable scenario or boundary,
 which checks serve it, and what evidence would establish the expected result. Record

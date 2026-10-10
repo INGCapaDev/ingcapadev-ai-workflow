@@ -148,10 +148,10 @@ need no per-slice approval ritual, but answering a design question is not final 
 
 When preparing an approved plan for persistence, read
 [the plan format](references/plan-format.md) for its five-section structure, per-slice
-evidence contract, and progress meanings. Use the project's plan location convention;
-if none exists, agree a discoverable location with the human. Preserve useful identity,
-locating context, and the format's verbatim-requirement provenance without creating a second
-spec, ticket, handoff, or progress mirror.
+evidence contract, progress meanings, and scoped-folder/companion rules. Follow that location
+convention without a routine naming/location approval round. Preserve useful identity,
+locating context, and verbatim requirements; companion context must not become a competing
+scope or progress mirror.
 
 After final approval, the authorized plan writer persists the agreed change in one
 `PLAN.md`, with slices initially `pending` and one concrete next action. End planning by

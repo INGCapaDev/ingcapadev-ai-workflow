@@ -16,7 +16,7 @@ bun.lock
 WIP/
 
 # Local AI workflow handoffs
-docs/ai-workflow/
+docs/ai/
 
 # Personal skills (not part of the public workflow)
 skills/_shared/
