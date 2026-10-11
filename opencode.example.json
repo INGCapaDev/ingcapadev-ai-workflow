@@ -284,14 +284,4 @@
       "C:/path/to/opencode/**": "allow"
     }
   },
-  "provider": {
-    "google": {
-      "options": {
-        "projectId": "YOUR_GOOGLE_CLOUD_PROJECT_ID"
-      }
-    }
-  },
-  "plugin": [
-    "opencode-gemini-auth@latest"
-  ]
 }
