@@ -12,6 +12,8 @@ Replace the `YOUR_USERNAME` and `C:/path/to/opencode` permission-path placeholde
 
 ## Optional Integrations
 
+The [optional backlog](../README.md#optional-project-backlog) is a local Markdown capability, not an MCP integration. Install [`commands/todo.md`](../commands/todo.md) and the complete [`skills/task-backlog/`](../skills/task-backlog/) directory together under `~/.config/opencode`, with Capa prompts/references from the same revision. Preserve existing command/skill overrides and permissions; no provider, MCP, plugin, or backlog-specific configuration is needed. Backlog files belong to the consuming project, not the installation directory.
+
 - **Engram:** install it separately so the example's `engram mcp --tools=agent` command is available.
 - **Context7:** configure the remote MCP entry's API key.
 - **Google/Gemini:** the example's provider settings and `opencode-gemini-auth` plugin are provider-specific conveniences, not Capa requirements. Remove them if your provider setup does not use them.

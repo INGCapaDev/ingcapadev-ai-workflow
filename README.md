@@ -21,11 +21,13 @@ A human-in-the-loop development workflow for [OpenCode](https://opencode.ai). Ca
 2. **Back up and merge your OpenCode setup.** Install the following into `~/.config/opencode` (`%USERPROFILE%\.config\opencode` on Windows), preserving their relative paths:
 
    - [`AGENTS.md`](AGENTS.md): merge the baseline with your existing instructions.
-   - [`commands/`](commands/): the five development commands.
+   - The five core development commands in [`commands/`](commands/): `plan.md`, `continue.md`, `review.md`, `reslice.md`, and `improve-ai.md`.
    - [`prompts/capa/`](prompts/capa/): all role prompts and their references.
    - These complete skill directories: [`planning`](skills/planning/), [`review`](skills/review/), [`improve-ai`](skills/improve-ai/), [`code-quality`](skills/code-quality/), [`coding-conventions`](skills/coding-conventions/), [`conventional-commits`](skills/conventional-commits/), and [`writing-for-agents`](skills/writing-for-agents/).
 
    Copy each skill's references and companion files, not just `SKILL.md`. Preserve personal commands, skills, plugins, and credentials. The repository's `PLAN.md` is work state, not an installation file. Use prompts, skills, and configuration from the same revision.
+
+   **Optional backlog:** install [`skills/task-backlog/`](skills/task-backlog/) and [`commands/todo.md`](commands/todo.md) together, preserving those paths. No extra service, configuration entry, or project backlog file is required.
 
 3. **Configure Capa.** For a new setup, use [`opencode.example.json`](opencode.example.json) as `opencode.json`. Otherwise merge its agent definitions and permissions into your existing config.
 
@@ -65,6 +67,23 @@ For work with meaningful decisions:
 **Verification and review are different.** Focused checks or inspection establish behavior. Independent review assesses a frozen candidate from fresh Standards and/or Plan contexts, according to the review scope. Independent review is request-driven; human review remains the normal planned-task checkpoint.
 
 Standalone review and selecting an improvement authorize no implementation. Task acceptance does not authorize commits, pushes, PRs, or deployment; authorize those operations separately. The workflow requires no automatic builds, test creation, or broad review loops.
+
+### Optional Project Backlog
+
+Use `/todo` to read deferred work, or ask in natural language. If no backlog exists, reading creates nothing. Explicitly capture or maintain items with requests such as:
+
+```text
+/todo add Revisit the availability label: it is confusing after partial delivery.
+/todo update the availability label item with the affected screen reference
+/todo link the availability label item to docs/ai/availability-label/PLAN.md
+/todo done the availability label item
+```
+
+The link example assumes the plan already exists; linking does not approve it or authorize implementation. Small items stay inline in the project's `TODO.md`; extensive context may justify a linked note under `todos/`. Existing project formats, optional priorities/owners, and unrelated entries are preserved.
+
+`PLAN.md` remains the authority for planned work. After final human acceptance of a known linked plan, Capa reconciles its TODO scope: remaining work and shared context stay intact, and context-file deletion requires applicable explicit cleanup authorization. Useful out-of-scope discoveries are suggestions, not automatic captures. Projects that do not opt in keep their existing workflow.
+
+The [task-backlog skill](skills/task-backlog/SKILL.md) owns the full procedure. Companion website presentation guidance lives with the landing project at `docs/task-backlog-landing.md`.
 
 ## Customize and Understand the System
 
