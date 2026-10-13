@@ -21,7 +21,7 @@ A human-in-the-loop development workflow for [OpenCode](https://opencode.ai). Ca
 2. **Back up and merge your OpenCode setup.** Install the following into `~/.config/opencode` (`%USERPROFILE%\.config\opencode` on Windows), preserving their relative paths:
 
    - [`AGENTS.md`](AGENTS.md): merge the baseline with your existing instructions.
-   - The five core development commands in [`commands/`](commands/): `plan.md`, `continue.md`, `review.md`, `reslice.md`, and `improve-ai.md`.
+   - The five core development commands in [`commands/`](commands/): `plan.md`, `proceed.md`, `review.md`, `reslice.md`, and `improve-ai.md`.
    - [`prompts/capa/`](prompts/capa/): all role prompts and their references.
    - These complete skill directories: [`planning`](skills/planning/), [`review`](skills/review/), [`improve-ai`](skills/improve-ai/), [`code-quality`](skills/code-quality/), [`coding-conventions`](skills/coding-conventions/), [`conventional-commits`](skills/conventional-commits/), and [`writing-for-agents`](skills/writing-for-agents/).
 
@@ -53,13 +53,13 @@ For work with meaningful decisions:
 
 1. Use `/plan <request>` to investigate, discuss the design, and propose tasks.
 2. Approve the final plan before it is saved. Plan approval alone does not authorize implementation.
-3. Use `/continue` to execute one task. Capa presents the change, its evidence, and limitations, then stops.
-4. Inspect the candidate. Approval accepts it and stops; `/continue` accepts an unchanged ready candidate and starts one next task. Request adjustments when needed.
+3. Use `/proceed` to execute one task. Capa presents the change, its evidence, and limitations, then stops.
+4. Inspect the candidate. Approval accepts it and stops; `/proceed` accepts an unchanged ready candidate and starts one next task. Request adjustments when needed.
 
 | Command | Purpose |
 | --- | --- |
 | `/plan <request>` | Discuss design and propose an approval-gated plan |
-| `/continue` | Execute one planned task, then stop for your decision |
+| `/proceed` | Execute one planned task, then stop for your decision |
 | `/review [ref]` | Read-only independent review of current work, or committed changes since a Git ref |
 | `/reslice [focus]` | Compare alternative task groupings without changing the saved plan or code |
 | `/improve-ai [focus]` | Inspect session evidence and propose workflow improvements without implementing them |

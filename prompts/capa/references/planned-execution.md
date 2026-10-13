@@ -59,7 +59,7 @@ capability rules, not against the application cwd.
 implementation-time milestones; `complete` requires explicit human acceptance.
 
 - Approval-only of the presented candidate accepts it and stops.
-- Explicit `/continue` after presentation of the unchanged HUMAN-ready candidate accepts it
+- Explicit `/proceed` after presentation of the unchanged HUMAN-ready candidate accepts it
   and starts exactly one next task. Explicit approval plus continuation does the same.
 - Adjustments stay on the current task as `pending`, with affected proof. Material changes
   to design, scope, seam, or recovery require agreement before mutation.
