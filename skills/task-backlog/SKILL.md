@@ -1,6 +1,6 @@
 ---
 name: task-backlog
-description: "Optional project backlog: use for /todo or natural-language requests to read, capture, update, link, or resolve deferred work; reconcile known linked TODOs after final human acceptance of their plan."
+description: "Optional project backlog: use for /todo or natural-language requests to read, capture, update, link, resolve, or set up deferred work; reconcile known linked TODOs after final human acceptance of their plan."
 ---
 
 # Task Backlog
@@ -18,10 +18,11 @@ Work in the active project, not this skill's installation directory. Respect its
 | `update ...` | Edit the identified item or child. |
 | `link ...` | Associate the identified item with an existing plan. |
 | `done ...` | Resolve the identified item or child and reconcile its remaining scope. |
+| `setup` | Read [setup](references/setup.md) and follow it; it vendors the system into the project and is safe to rerun. |
 
 Read the relevant backlog and target context before editing. Match the target by wording, links, and current context; clarify material ambiguity and wait. Bare `/todo` is read-only. Reading, linking, and marking backlog work done do not authorize implementation, plan approval, or acceptance of a plan candidate.
 
-For add/update, check relevant existing entries and any known active plan for overlapping work. Reuse the existing item rather than duplicate it. If the work belongs in the active plan, explain that and use Capa's normal plan-update authorization instead of silently changing its scope. Follow normal planning rules when the human wants to plan an item; a backlog request alone does not create a `PLAN.md`.
+For add/update, check relevant existing entries and any known active plan for overlapping work. Reuse the existing item rather than duplicate it. If the work belongs in the active plan, explain that and use the project's normal plan-update authorization instead of silently changing its scope. Follow the project's normal planning rules when the human wants to plan an item; a backlog request alone does not create a `PLAN.md`.
 
 **Complete when:** intent, project, target, overlap, and permitted edit scope are established; a read-only request has been answered without writes.
 
@@ -45,7 +46,7 @@ Compare resolved scope with the item and related children. Remove a fully resolv
 
 Before deleting a detail file, establish that it is exclusively owned obsolete context and check references from other live items, plans, and project documents, including alternate relative locators. A reference shared with any live owner retains the file. Inspect affected paths and ownership; never follow a backlog link into deleting external, unrelated, or uncertain files. Remove only resulting empty, exclusively owned detail folders, not the backlog file or project documentation by default. If reference coverage or ownership cannot be established, retain the file and disclose why.
 
-Honor Capa's current destructive-operation authorization. Accepted completion permits scoped linked-item reconciliation, not blanket file deletion: delete context files/folders only with explicit applicable cleanup authorization; otherwise propose the exact cleanup and wait. Ask before destructive or ambiguous cleanup affecting unrelated files. This is a lightweight closure action, not another slice, workflow stage, synchronization engine, or completion archive; Git keeps history.
+Honor the current destructive-operation authorization of whatever workflow is running (ask when in doubt). Accepted completion permits scoped linked-item reconciliation, not blanket file deletion: delete context files/folders only with explicit applicable cleanup authorization; otherwise propose the exact cleanup and wait. Ask before destructive or ambiguous cleanup affecting unrelated files. This is a lightweight closure action, not another slice, workflow stage, synchronization engine, or completion archive; Git keeps history.
 
 **Complete when:** resolved scope is reconciled, unresolved/related work and shared context are preserved, and any authorized file cleanup is limited to proven obsolete exclusive paths.
 

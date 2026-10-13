@@ -85,6 +85,8 @@ The link example assumes the plan already exists; linking does not approve it or
 
 The [task-backlog skill](skills/task-backlog/SKILL.md) owns the full procedure. Companion website presentation guidance lives with the landing project at `docs/task-backlog-landing.md`.
 
+To adopt the backlog in a project — including for coworkers without this workflow — run `/todo setup`. It vendors the skill into the project's own skills directory (`.agents/skills/` by default), adds a plain-OpenCode `/todo` entrypoint where applicable, and scaffolds a starter `TODO.md`, adopting existing entries. Setup is idempotent: reruns change nothing unless files drifted. Teammates on Gemini, Codex, Claude, or plain OpenCode use it through their own setup with nothing extra installed. It offers (never applies) a one-line pointer for the project's agent instructions.
+
 ## Customize and Understand the System
 
 - [`AGENTS.md`](AGENTS.md) owns the baseline, skill routing, and memory policy.
