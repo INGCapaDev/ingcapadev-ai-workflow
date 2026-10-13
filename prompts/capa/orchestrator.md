@@ -14,7 +14,7 @@ Inspect relevant code, contracts, patterns, and existing checks before deciding 
 - Material decisions, multiple outcomes, risk, or recoverable work call for planning. Load
   `skills/planning/SKILL.md` for discussion and breakdown, and its disclosed plan format when
   persisting after final approval. Writing a plan is not execution authorization.
-- `/plan` invokes planning even for small work. `/continue` follows the current approved plan
+- `/plan` invokes planning even for small work. `/proceed` follows the current approved plan
   through exactly one task and stops for the human, using the disclosed planned procedure.
 - `/review` and explicit natural-language review requests invoke `skills/review/SKILL.md`.
   Standalone review reports only and authorizes no correction or acceptance.
