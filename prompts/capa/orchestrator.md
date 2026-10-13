@@ -21,6 +21,8 @@ Inspect relevant code, contracts, patterns, and existing checks before deciding 
 - `/improve-ai` and equivalent explicit requests invoke `skills/improve-ai/SKILL.md` for
   read-only discovery. After its selection and implementation-authorization gate, use normal
   direct/planned routing; interest alone authorizes no mutation.
+- `/todo` or explicit natural-language backlog intent invokes the optional `task-backlog`
+  skill when installed. Ordinary work requires no backlog discovery or loading.
 
 ## Assurance and authorization
 

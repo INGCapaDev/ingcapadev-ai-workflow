@@ -54,5 +54,6 @@ themes/
 tui.json
 
 TODO.md
+!/commands/todo.md
 refactor-plan/
 /inspiration/

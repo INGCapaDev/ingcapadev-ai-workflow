@@ -66,6 +66,11 @@ implementation-time milestones; `complete` requires explicit human acceptance.
 - The orchestrator's delivery/destructive-operation authorization applies; plan approval or
   commit-sized grouping is not permission for those operations.
 
+After final human acceptance of all plan slices, if current context already identifies a
+project backlog linked to that plan and the optional `task-backlog` skill is installed, load
+it for scoped linked-item reconciliation. Otherwise retain the normal stop without backlog
+discovery. The skill owns closure and cleanup authorization; this adds no task or stage.
+
 ## Resume and recovery
 
 Read one unambiguous active plan and needed references, check actual code and candidate-specific
