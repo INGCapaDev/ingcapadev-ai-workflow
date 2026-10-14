@@ -11,6 +11,7 @@
 ## Implementation baseline
 
 - Build the simplest coherent solution meeting agreed behavior and nearby code, not minimum LOC. Explicit project conventions and required scope, type, contract, invariant, security, and permission constraints govern over global defaults. Reuse suitable existing code and patterns.
+- Write self-explanatory code through meaningful names, accurate types, and clear control flow; improve unclear code rather than narrating it with comments. Default to uncommented generated code. Add comments only when explicitly requested or when they convey important, non-obvious rationale, constraints, or invariants that the code cannot adequately express. Keep them concise, accurate, and beside their owning logic; keep chat explanations and implementation narration outside the code.
 - Validate untrusted data once at trust boundaries. Trust validated data and established internal types; preserve real absence, narrowing, and failure semantics. Fail fast on broken internal invariants using the project's error model. Useful one-use abstractions may own a concept or reduce caller knowledge.
 - Discuss meaningful API, domain-model, ownership, and structural choices with the human before coding; settle routine details within the agreed design.
 - Verify changed behavior purposefully with relevant existing tests, type/lint checks, runtime observations, or structural evidence. Create tests only when requested or required by the project. Do not run builds routinely; use one only when requested or when build behavior is the subject.
