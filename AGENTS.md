@@ -16,7 +16,7 @@
 - Discuss meaningful API, domain-model, ownership, and structural choices with the human before coding; settle routine details within the agreed design.
 - Verify changed behavior purposefully with relevant existing tests, type/lint checks, runtime observations, or structural evidence. Create tests only when requested or required by the project. Do not run builds routinely; use one only when requested or when build behavior is the subject.
 - For important high-risk business rules with an established test setup, recommend a focused test when useful and await authorization before adding it.
-- Before handoff, reconcile the attributable diff with agreed behavior, applicable conventions, readable ownership, sound contracts, and conceptual complexity. Remove unjustified abstractions, duplication, and unrelated work without changing approved scope.
+- Before handoff, reconcile the attributable diff with agreed behavior, the loaded quality bar and applicable conventions, readable ownership, sound contracts, and conceptual complexity. Remove unjustified abstractions, duplication, and unrelated work without changing approved scope. Passing checks does not replace this reconciliation.
 
 ## Skill routing
 
@@ -27,12 +27,13 @@ Load relevant skills before task-specific work. Use exact paths from the configu
 | Authoring agent-facing instructions (skills, prompts, commands, `AGENTS.md`) | `writing-for-agents` |
 | Writing or suggesting a commit message | `conventional-commits` |
 | Material design discussion, work breakdown, or `/plan` | `planning` |
-| Standards judgment; targeted design or correction question | `code-quality` |
-| Substantive code implementation; Standards judgment; task-critical convention question | `coding-conventions`, then only applicable references |
+| Substantive code implementation; Standards judgment | `code-quality` root, `coding-conventions`, then only applicable references |
+| Targeted design or correction question | `code-quality` |
+| Task-critical convention question | `coding-conventions`, then only applicable references |
 | Explicit independent review or caller-supplied frozen task review | `review` |
 | Google Workspace executive assistance | `gws-executive-assistant` |
 
-Implementation uses the baseline above and router-selected conventions before substantive code changes, not the full quality or convention corpus by default. Mechanical edits normally need no additional coding-convention load; `coding-conventions` owns applicability. Explicit project rules remain binding regardless of loading. Applicable authoring guidance remains required for AI-facing documents.
+Every writer, whether Capa working directly or an implementation subagent, loads and applies the quality root and router-selected conventions before substantive code changes. Load only applicable references, not the full corpus; reuse already-loaded guidance while its applicability is unchanged. Mechanical edits normally need no additional coding-convention load; `coding-conventions` owns applicability. Explicit project rules remain binding regardless of loading. Applicable authoring guidance remains required for AI-facing documents.
 
 ## Capa Ownership
 

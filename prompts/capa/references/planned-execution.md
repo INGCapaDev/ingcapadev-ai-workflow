@@ -35,7 +35,8 @@ capability rules, not against the application cwd.
    Earlier accepted dirty work is context, not task delta; a skipped axis is not a PASS.
 4. **Triage and correct when warranted:** evaluate evidence-backed meaningful findings. Capa
    may authorize at most one focused correction pass for clear defects within agreed behavior,
-   interfaces, ownership, and scope, by the same worker or itself. Optional stylistic alternatives,
+   interfaces, ownership, and scope, directly or through a worker under the orchestrator's delegation
+   policy. Optional stylistic alternatives,
    disputed findings, material API/domain/ownership choices, scope changes, and consequential
    operations go to the human. No finding quota: a clean candidate needs no correction pass.
 5. **Validate the correction:** run affected functional checks and confirm the accepted findings
