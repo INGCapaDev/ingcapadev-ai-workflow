@@ -22,7 +22,6 @@
     },
     "capa-worker": {
       "description": "Bounded Capa implementation worker",
-      "hidden": true,
       "mode": "subagent",
       "model": "openai/gpt-6.1-sol",
       "variant": "medium",
