@@ -2,285 +2,987 @@
   "$schema": "https://opencode.ai/config.json",
   "default_agent": "ingcapa-dev-orchestrator",
   "shell": "C:/Program Files/Git/bin/bash.exe",
-  "agent": {
+  "agents": {
     "ingcapa-dev-orchestrator": {
       "description": "Capa v3 senior developer - implements, delegates, owns plan state and human transitions",
       "mode": "primary",
-      "model": "openai/gpt-6.1-sol",
-      "variant": "medium",
-      "permission": {
-        "task": {
-          "*": "deny",
-          "explore": "allow",
-          "capa-worker": "allow",
-          "sub-verify": "allow",
-          "sub-review-standards": "allow",
-          "sub-review-plan": "allow"
+      "model": "openai/gpt-6.1-sol#medium",
+      "system": "{file:./prompts/capa/orchestrator.md}",
+      "permissions": [
+        {
+          "action": "subagent",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "subagent",
+          "resource": "explore",
+          "effect": "allow"
+        },
+        {
+          "action": "subagent",
+          "resource": "capa-worker",
+          "effect": "allow"
+        },
+        {
+          "action": "subagent",
+          "resource": "sub-verify",
+          "effect": "allow"
+        },
+        {
+          "action": "subagent",
+          "resource": "sub-review-standards",
+          "effect": "allow"
+        },
+        {
+          "action": "subagent",
+          "resource": "sub-review-plan",
+          "effect": "allow"
         }
-      },
-      "prompt": "{file:./prompts/capa/orchestrator.md}"
+      ]
     },
     "capa-worker": {
       "description": "Bounded Capa implementation worker",
       "mode": "subagent",
-      "model": "openai/gpt-6.1-sol",
-      "variant": "medium",
-      "permission": {
-        "task": "deny"
-      },
-      "prompt": "{file:./prompts/capa/worker.md}"
+      "model": "openai/gpt-6.1-sol#medium",
+      "system": "{file:./prompts/capa/worker.md}",
+      "permissions": [
+        {
+          "action": "subagent",
+          "resource": "*",
+          "effect": "deny"
+        }
+      ]
     },
     "sub-verify": {
       "description": "Optional read-only Capa checker",
-      "hidden": true,
       "mode": "subagent",
-      "model": "openai/gpt-6.1-sol",
-      "variant": "medium",
-      "permission": {
-        "edit": "deny",
-        "task": "deny"
-      },
-      "prompt": "{file:./prompts/capa/checker.md}"
+      "model": "openai/gpt-6.1-sol#medium",
+      "system": "{file:./prompts/capa/checker.md}",
+      "permissions": [
+        {
+          "action": "edit",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "subagent",
+          "resource": "*",
+          "effect": "deny"
+        }
+      ]
     },
     "sub-review-standards": {
       "description": "Read-only Capa standards review axis",
-      "hidden": true,
       "mode": "subagent",
-      "model": "openai/gpt-6.1-sol",
-      "variant": "medium",
-      "permission": {
-        "edit": "deny",
-        "bash": "deny",
-        "task": "deny"
-      },
-      "prompt": "{file:./prompts/capa/review-standards.md}"
+      "model": "openai/gpt-6.1-sol#medium",
+      "system": "{file:./prompts/capa/review-standards.md}",
+      "permissions": [
+        {
+          "action": "edit",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "shell",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "subagent",
+          "resource": "*",
+          "effect": "deny"
+        }
+      ]
     },
     "sub-review-plan": {
       "description": "Read-only Capa plan-conformance review axis",
-      "hidden": true,
       "mode": "subagent",
-      "model": "openai/gpt-6.1-sol",
-      "variant": "medium",
-      "permission": {
-        "edit": "deny",
-        "bash": "deny",
-        "task": "deny"
-      },
-      "prompt": "{file:./prompts/capa/review-plan.md}"
+      "model": "openai/gpt-6.1-sol#medium",
+      "system": "{file:./prompts/capa/review-plan.md}",
+      "permissions": [
+        {
+          "action": "edit",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "shell",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "subagent",
+          "resource": "*",
+          "effect": "deny"
+        }
+      ]
     },
     "explore": {
-      "model": "openai/gpt-6-luna",
-      "variant": "xhigh",
-      "permission": {
-        "edit": "deny",
-        "task": "deny"
-      }
+      "model": "openai/gpt-6-luna#xhigh",
+      "permissions": [
+        {
+          "action": "edit",
+          "resource": "*",
+          "effect": "deny"
+        },
+        {
+          "action": "subagent",
+          "resource": "*",
+          "effect": "deny"
+        }
+      ]
     },
     "general": {
-      "model": "openai/gpt-6.1-sol",
-      "variant": "medium"
+      "model": "openai/gpt-6.1-sol#medium"
     },
     "title": {
-      "model": "openai/gpt-6-luna",
-      "variant": "medium"
+      "model": "openai/gpt-6-luna#medium"
     },
     "summary": {
-      "model": "openai/gpt-6.1-sol",
-      "variant": "low"
+      "model": "openai/gpt-6.1-sol#low"
     }
   },
   "mcp": {
-    "context7": {
-      "enabled": true,
-      "headers": {
-        "CONTEXT7_API_KEY": "YOUR_CONTEXT7_API_KEY_HERE"
+    "servers": {
+      "context7": {
+        "type": "remote",
+        "url": "https://mcp.context7.com/mcp",
+        "headers": {
+          "CONTEXT7_API_KEY": "{env:CONTEXT7_API_KEY}"
+        },
+        "oauth": false
       },
-      "type": "remote",
-      "url": "https://mcp.context7.com/mcp"
-    },
-    "engram": {
-      "command": [
-        "engram",
-        "mcp",
-        "--tools=agent"
-      ],
-      "type": "local"
+      "engram": {
+        "type": "local",
+        "command": [
+          "engram",
+          "mcp",
+          "--tools=agent"
+        ]
+      }
     }
   },
-  "permission": {
-    "bash": {
-      "*": "ask",
-      "git status": "allow",
-      "git status *": "allow",
-      "git branch": "allow",
-      "git branch --show-current": "allow",
-      "git branch --list": "allow",
-      "git branch -vv": "allow",
-      "git diff": "allow",
-      "git diff *": "allow",
-      "git log": "allow",
-      "git log *": "allow",
-      "git show": "allow",
-      "git show *": "allow",
-      "git rev-parse *": "allow",
-      "git ls-files": "allow",
-      "git ls-files *": "allow",
-      "git ls-tree *": "allow",
-      "git hash-object --no-filters -- *": "allow",
-      "git remote -v": "allow",
-      "git stash list": "allow",
-      "git stash list *": "allow",
-      "git merge-base *": "allow",
-      "git check-ignore *": "allow",
-      "git rev-list *": "allow",
-      "git ls-remote *": "allow",
-      "gh repo view --json *": "allow",
-      "gh pr list *": "allow",
-      "gh pr view *": "allow",
-      "gh pr checks *": "allow",
-      "gh issue list *": "allow",
-      "gh issue view *": "allow",
-      "opencode --version": "allow",
-      "pwd": "allow",
-      "test -e *": "allow",
-      "test -f *": "allow",
-      "ls": "allow",
-      "ls *": "allow",
-      "stat *": "allow",
-      "sha256sum *": "allow",
-      "wc *": "allow",
-      "file *": "allow",
-      "du *": "allow",
-      "df *": "allow",
-      "rg *": "allow",
-      "grep *": "allow",
-      "command -v *": "allow",
-      "Test-Path *": "allow",
-      "Get-ChildItem": "allow",
-      "Get-ChildItem *": "allow",
-      "Get-Item *": "allow",
-      "Get-Location": "allow",
-      "Select-String *": "allow",
-      "Get-FileHash *": "allow",
-      "powershell -NoProfile -NonInteractive -Command 'Test-Path *'": "allow",
-      "powershell -NoProfile -NonInteractive -Command 'Get-ChildItem *'": "allow",
-      "powershell -NoProfile -NonInteractive -Command 'Get-Item *'": "allow",
-      "powershell -NoProfile -NonInteractive -Command 'Get-Location'": "allow",
-      "powershell -NoProfile -NonInteractive -Command 'Select-String *'": "allow",
-      "powershell -NoProfile -NonInteractive -Command 'Get-FileHash *'": "allow",
-      "pwsh -NoProfile -NonInteractive -Command 'Test-Path *'": "allow",
-      "pwsh -NoProfile -NonInteractive -Command 'Get-ChildItem *'": "allow",
-      "pwsh -NoProfile -NonInteractive -Command 'Get-Item *'": "allow",
-      "pwsh -NoProfile -NonInteractive -Command 'Get-Location'": "allow",
-      "pwsh -NoProfile -NonInteractive -Command 'Select-String *'": "allow",
-      "pwsh -NoProfile -NonInteractive -Command 'Get-FileHash *'": "allow",
-      "pnpm lint*": "allow",
-      "pnpm run lint*": "allow",
-      "pnpm typecheck*": "allow",
-      "pnpm run typecheck*": "allow",
-      "pnpm type-check*": "allow",
-      "pnpm run type-check*": "allow",
-      "pnpm format*": "allow",
-      "pnpm run format*": "allow",
-      "pnpm test*": "allow",
-      "pnpm run test*": "allow",
-      "npm run lint*": "allow",
-      "npm run typecheck*": "allow",
-      "npm run type-check*": "allow",
-      "npm run format*": "allow",
-      "npm test*": "allow",
-      "npm run test*": "allow",
-      "yarn lint*": "allow",
-      "yarn run lint*": "allow",
-      "yarn typecheck*": "allow",
-      "yarn run typecheck*": "allow",
-      "yarn type-check*": "allow",
-      "yarn run type-check*": "allow",
-      "yarn format*": "allow",
-      "yarn run format*": "allow",
-      "yarn test*": "allow",
-      "yarn run test*": "allow",
-      "bun run lint*": "allow",
-      "bun run typecheck*": "allow",
-      "bun run type-check*": "allow",
-      "bun run format*": "allow",
-      "bun test*": "allow",
-      "bun run test*": "allow",
-      "pnpm exec tsc --noEmit*": "allow",
-      "pnpm exec eslint *": "allow",
-      "pnpm exec prettier *": "allow",
-      "pnpm exec biome check *": "allow",
-      "pnpm exec biome lint *": "allow",
-      "pnpm exec biome format *": "allow",
-      "npx --no-install tsc --noEmit*": "allow",
-      "npx --no-install eslint *": "allow",
-      "npx --no-install prettier *": "allow",
-      "tsc --noEmit*": "allow",
-      "eslint *": "allow",
-      "prettier *": "allow",
-      "go test *": "allow",
-      "go vet *": "allow",
-      "go fmt *": "allow",
-      "gofmt *": "allow",
-      "ruff check *": "allow",
-      "ruff format *": "allow",
-      "black *": "allow",
-      "mypy *": "allow",
-      "pytest": "allow",
-      "pytest *": "allow",
-      "pnpm *--update*": "ask",
-      "pnpm * -u*": "ask",
-      "pnpm * -U*": "ask",
-      "npm *--update*": "ask",
-      "npm * -u*": "ask",
-      "npm * -U*": "ask",
-      "yarn *--update*": "ask",
-      "yarn * -u*": "ask",
-      "yarn * -U*": "ask",
-      "bun *--update*": "ask",
-      "bun * -u*": "ask",
-      "bun * -U*": "ask",
-      "rg *--pre*": "ask",
-      "git *--output*": "ask",
-      "git *--ext-diff*": "ask",
-      "git *--textconv*": "ask",
-      "git *--upload-pack*": "ask",
-      "gh *--web*": "ask",
-      "git commit*": "ask",
-      "git push*": "ask",
-      "*;*": "ask",
-      "*&*": "ask",
-      "*|*": "ask",
-      "*>*": "ask",
-      "*<*": "ask",
-      "*$*": "ask",
-      "*`*": "ask",
-      "*(*": "ask",
-      "* {*": "ask",
-      "*\n*": "ask",
-      "*\r*": "ask"
+  "permissions": [
+    {
+      "action": "shell",
+      "resource": "*",
+      "effect": "ask"
     },
-    "edit": {
-      "*": "ask",
-      "C:/Users/YOUR_USERNAME/.config/opencode/**": "ask"
+    {
+      "action": "shell",
+      "resource": "git status",
+      "effect": "allow"
     },
-    "external_directory": {
-      "*": "ask",
-      "C:/Users/YOUR_USERNAME/.config/opencode/**": "allow",
-      "C:/path/to/opencode/**": "allow"
+    {
+      "action": "shell",
+      "resource": "git status *",
+      "effect": "allow"
     },
-    "list": {
-      "*": "ask",
-      "C:/Users/YOUR_USERNAME/.config/opencode/**": "allow",
-      "C:/path/to/opencode/**": "allow"
+    {
+      "action": "shell",
+      "resource": "git branch",
+      "effect": "allow"
     },
-    "read": {
-      "*": "allow",
-      "*.env": "deny",
-      "*.env.*": "deny",
-      "*.env.example": "allow",
-      "C:/Users/YOUR_USERNAME/.config/opencode/**": "allow",
-      "C:/path/to/opencode/**": "allow"
+    {
+      "action": "shell",
+      "resource": "git branch --show-current",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git branch --list",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git branch -vv",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git diff",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git diff *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git log",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git log *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git show",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git show *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git rev-parse *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git ls-files",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git ls-files *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git ls-tree *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git hash-object --no-filters -- *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git remote -v",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git stash list",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git stash list *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git merge-base *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git check-ignore *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git rev-list *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git ls-remote *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "gh repo view --json *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "gh pr list *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "gh pr view *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "gh pr checks *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "gh issue list *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "gh issue view *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "opencode --version",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "pwd",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "test -e *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "test -f *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "ls",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "ls *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "stat *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "sha256sum *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "wc *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "file *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "du *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "df *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "rg *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "grep *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "command -v *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "Test-Path *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "Get-ChildItem",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "Get-ChildItem *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "Get-Item *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "Get-Location",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "Select-String *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "Get-FileHash *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "powershell -NoProfile -NonInteractive -Command 'Test-Path *'",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "powershell -NoProfile -NonInteractive -Command 'Get-ChildItem *'",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "powershell -NoProfile -NonInteractive -Command 'Get-Item *'",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "powershell -NoProfile -NonInteractive -Command 'Get-Location'",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "powershell -NoProfile -NonInteractive -Command 'Select-String *'",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "powershell -NoProfile -NonInteractive -Command 'Get-FileHash *'",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "pwsh -NoProfile -NonInteractive -Command 'Test-Path *'",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "pwsh -NoProfile -NonInteractive -Command 'Get-ChildItem *'",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "pwsh -NoProfile -NonInteractive -Command 'Get-Item *'",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "pwsh -NoProfile -NonInteractive -Command 'Get-Location'",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "pwsh -NoProfile -NonInteractive -Command 'Select-String *'",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "pwsh -NoProfile -NonInteractive -Command 'Get-FileHash *'",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "pnpm lint*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "pnpm run lint*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "pnpm typecheck*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "pnpm run typecheck*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "pnpm type-check*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "pnpm run type-check*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "pnpm format*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "pnpm run format*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "pnpm test*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "pnpm run test*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "npm run lint*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "npm run typecheck*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "npm run type-check*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "npm run format*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "npm test*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "npm run test*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "yarn lint*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "yarn run lint*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "yarn typecheck*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "yarn run typecheck*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "yarn type-check*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "yarn run type-check*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "yarn format*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "yarn run format*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "yarn test*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "yarn run test*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "bun run lint*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "bun run typecheck*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "bun run type-check*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "bun run format*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "bun test*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "bun run test*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "pnpm exec tsc --noEmit*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "pnpm exec eslint *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "pnpm exec prettier *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "pnpm exec biome check *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "pnpm exec biome lint *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "pnpm exec biome format *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "npx --no-install tsc --noEmit*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "npx --no-install eslint *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "npx --no-install prettier *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "tsc --noEmit*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "eslint *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "prettier *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "go test *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "go vet *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "go fmt *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "gofmt *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "ruff check *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "ruff format *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "black *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "mypy *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "pytest",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "pytest *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "pnpm *--update*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "pnpm * -u*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "pnpm * -U*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "npm *--update*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "npm * -u*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "npm * -U*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "yarn *--update*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "yarn * -u*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "yarn * -U*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "bun *--update*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "bun * -u*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "bun * -U*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "rg *--pre*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "git *--output*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "git *--ext-diff*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "git *--textconv*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "git *--upload-pack*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "gh *--web*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "git commit*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "git push*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "*;*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "*&*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "*|*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "*>*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "*<*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "*$*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "*`*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "*(*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "* {*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "*\n*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "*\r*",
+      "effect": "ask"
+    },
+    {
+      "action": "edit",
+      "resource": "*",
+      "effect": "ask"
+    },
+    {
+      "action": "edit",
+      "resource": "C:/Users/YOUR_USERNAME/.config/opencode/**",
+      "effect": "ask"
+    },
+    {
+      "action": "external_directory",
+      "resource": "*",
+      "effect": "ask"
+    },
+    {
+      "action": "external_directory",
+      "resource": "C:/Users/YOUR_USERNAME/.config/opencode/**",
+      "effect": "allow"
+    },
+    {
+      "action": "external_directory",
+      "resource": "C:/path/to/opencode/**",
+      "effect": "allow"
+    },
+    {
+      "action": "list",
+      "resource": "*",
+      "effect": "ask"
+    },
+    {
+      "action": "list",
+      "resource": "C:/Users/YOUR_USERNAME/.config/opencode/**",
+      "effect": "allow"
+    },
+    {
+      "action": "list",
+      "resource": "C:/path/to/opencode/**",
+      "effect": "allow"
+    },
+    {
+      "action": "read",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "read",
+      "resource": "*.env",
+      "effect": "deny"
+    },
+    {
+      "action": "read",
+      "resource": "*.env.*",
+      "effect": "deny"
+    },
+    {
+      "action": "read",
+      "resource": "*.env.example",
+      "effect": "allow"
+    },
+    {
+      "action": "read",
+      "resource": "C:/Users/YOUR_USERNAME/.config/opencode/**",
+      "effect": "allow"
+    },
+    {
+      "action": "read",
+      "resource": "C:/path/to/opencode/**",
+      "effect": "allow"
     }
-  },
+  ]
 }
