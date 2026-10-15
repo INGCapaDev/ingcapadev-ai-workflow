@@ -5,6 +5,10 @@
 # Real config with API keys — use opencode.example.json instead
 opencode.json
 
+# Local secrets (see .env.example). The background service does not auto-load
+# .env files; register values with `opencode service set env NAME value`
+.env
+
 # Auto-generated
 .atl/
 node_modules/
