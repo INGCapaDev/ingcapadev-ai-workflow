@@ -2,6 +2,22 @@
   "$schema": "https://opencode.ai/config.json",
   "default_agent": "ingcapa-dev-orchestrator",
   "shell": "C:/Program Files/Git/bin/bash.exe",
+  "providers": {
+    "openai": {
+      "models": {
+        "gpt-6.1-sol": {
+          "limit": {
+            "context": 450000
+          }
+        },
+        "gpt-6-luna": {
+          "limit": {
+            "context": 450000
+          }
+        }
+      }
+    }
+  },
   "agents": {
     "ingcapa-dev-orchestrator": {
       "description": "Capa v3 senior developer - implements, delegates, owns plan state and human transitions",
