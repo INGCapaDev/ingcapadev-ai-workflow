@@ -17,6 +17,7 @@ The [optional backlog](../README.md#optional-project-backlog) is a local Markdow
 - **Engram:** install it separately so the example's `engram mcp --tools=agent` command is available.
 - **Context7:** configure the remote MCP entry's API key.
 - **Google/Gemini:** the example's provider settings and `opencode-gemini-auth` plugin are provider-specific conveniences, not Capa requirements. Remove them if your provider setup does not use them.
+- **Subagent statusline:** [`opencode-subagent-statusline`](https://github.com/Joaquinvesapa/sub-agent-statusline) is an optional terminal plugin that surfaces subagent session state. OpenCode 2 configures terminal plugins in `cli.json`, where `tui.json` plugin entries are not read; 2.x releases do not load on OpenCode 1, which needs `opencode-subagent-statusline@1.3.1` (or `@legacy`) in `tui.json`. It requires Node 22.13 or newer. Do not install it with `opencode plugin add`: that command registers a server plugin in `opencode.json`, where a terminal-only package fails. Restart OpenCode after editing the configuration.
 
 To disable unused MCP servers, merge the relevant overrides into your configuration:
 
