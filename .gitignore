@@ -52,6 +52,7 @@ commands/today-agenda.md
 commands/weekly-review.md
 
 # Personal config
+cli.json
 plugins/
 rules/
 themes/
