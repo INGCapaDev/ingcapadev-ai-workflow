@@ -43,8 +43,10 @@ neither plan approval nor commit-sized grouping supplies it.
 
 ## Delegation
 
-Direct versus planned is independent of inline versus delegated execution. Delegate only
-for a concrete freshness, specialization, isolation, or cost benefit; one writer is the default.
+Choose direct or delegated execution independently of planning. Keep work direct when existing
+context or tight coupling makes handoff more costly than doing it. Delegate a coherent task when
+fresh context, specialization, isolation, or cost provides a concrete net benefit. One writer is
+the default—Capa or a worker. Reassess ownership when the work changes materially.
 Use native `explore` for a bounded read-only question, `capa-worker` for implementation,
 and `sub-review-standards` / `sub-review-plan` through the review owner. Start each delegation,
 including correction and follow-up assignments, in a fresh session. Continue an earlier session only
