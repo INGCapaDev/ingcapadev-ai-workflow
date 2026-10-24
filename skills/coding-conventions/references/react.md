@@ -1,9 +1,9 @@
 # React
 
-- Declare components as `function ComponentName({ ... }: ComponentProps)` and give prop interfaces descriptive, context-specific names, that identify the component or role they describe.
-- Props describe a coherent component responsibility and accurately model related states. Loading, empty, error, and interaction states follow actual requirements.
+- Declare components as `function ComponentName({ ... }: ComponentProps)` and name prop types for their component or role.
+- Props describe one coherent component responsibility and accurately model related states, including loading, empty, error, and interaction states that actual requirements call for.
 - Do not use `React.FC`.
-- Use arrows for concise local handlers and callbacks. Do not add function expressions in JSX merely to avoid arrows.
+- Use arrows for concise local handlers and callbacks; use named functions where they read better.
 - Keep component logic together by default. Extract a component or custom hook when it owns a distinct responsibility, hides meaningful complexity, or materially clarifies orchestration; a useful one-use extraction is valid.
 - Derive values from current props or state during render instead of mirroring them in state or synchronizing them with an effect.
 - Compute ordinary derived values directly. `useMemo` caches calculation results; `useCallback` caches function identity. Introduce memoization for a concrete optimization benefit based on computation cost or consumer behavior, not callback-body length. Correctness remains independent of retaining the cache; account for React Compiler when the project uses it.
