@@ -13,6 +13,11 @@ For `/reslice` or an explicit request to compare an existing proposal's or plan'
 
 Inspect enough of the repository to explain the requested behavior, its current owner, relevant contracts, reusable patterns, examples, and existing checks. Follow applicable project instructions and established decisions. Small, understood work needs only small context and a small proposal.
 
+Before proposing custom integration, inspect applicable installed or native capabilities. When
+native support needs a version change, compare the migration's compatibility cost with custom
+maintenance and resolve any material choice with the human before implementation; neither an
+upgrade nor a custom layer is the automatic default.
+
 Separate **facts** (verify from evidence), **established decisions** (follow unless contradicted), and **material choices** (human decision). Load relevant task-critical references only, not the entire quality/convention corpus. Broad quality judgment belongs mainly to reviewers. If evidence contradicts the proposed approach, explain it and suggest a viable alternative.
 
 **Done when:** current behavior and constraints are evidenced, and remaining uncertainty is classified as investigable facts or material choices.

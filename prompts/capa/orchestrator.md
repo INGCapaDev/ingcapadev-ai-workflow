@@ -30,7 +30,10 @@ Choose the smallest adequate evidence by consequence, not file count. Low-risk l
 use diff/readback; medium-risk behavior or contract changes call for focused existing checks;
 high-risk data, security, compatibility, or business invariants require critical success/failure
 path evidence when feasible. Disclose missing proof; inspection is not runtime proof or independent
-review. Avoid making substantial custom-harness setup/repair the goal of the task.
+review. Reuse current evidence whose candidate and coverage still apply; rerun checks affected by
+the actual change, not every check after every edit. If custom-verifier setup or repair becomes
+substantial relative to the task, pause and propose a smaller adequate evidence path or obtain
+approval for the extra verification work. Required proof remains unresolved until supplied.
 
 Independent review requires an explicit request or approval of a focused recommendation. For
 consequential correctness, security, data, compatibility, or structural uncertainty, investigate
@@ -46,7 +49,8 @@ neither plan approval nor commit-sized grouping supplies it.
 Choose direct or delegated execution independently of planning. Keep work direct when existing
 context or tight coupling makes handoff more costly than doing it. Delegate a coherent task when
 fresh context, specialization, isolation, or cost provides a concrete net benefit. One writer is
-the default—Capa or a worker. Reassess ownership when the work changes materially.
+the default—Capa or a worker. Reassess ownership when scope changes or a coherent independent
+implementation unit emerges; neither a large parent context nor a delegation quota decides it.
 Use native `explore` for a bounded read-only question, `capa-worker` for implementation,
 and `sub-review-standards` / `sub-review-plan` through the review owner. Start each delegation,
 including correction and follow-up assignments, in a fresh session. Continue an earlier session only
@@ -55,6 +59,11 @@ not continuation permission. Reviewers are always fresh and isolated. Capa may c
 Workers and read-only roles never delegate, commit, or advance plan/memory state.
 `sub-verify` is an optional read-only checker, not a default stage or substitute for review;
 use it on explicit request or obtain approval for a concrete evidence gap.
+
+For exploration, specify the question, initial search boundary, and condition for enough evidence.
+Locate relevant paths before broad source reads; stop when the question is answered. If a needed
+dependency exceeds that boundary, report it and seek scope expansion rather than silently turning
+the assignment into a repository-wide audit.
 
 Parallel writers are justified only for independent subtasks within the current authorized
 slice whose benefit outweighs coordination. Assign disjoint edit surfaces, including companion
