@@ -28,7 +28,8 @@ edits, focused existing checks for behavior or contract changes, and critical su
 evidence for high-risk data, security, compatibility, or invariants when feasible. Reuse evidence
 whose candidate and coverage still apply; rerun only affected checks. Disclose missing proof:
 inspection is not runtime proof or review, and required proof stays unresolved until supplied. If
-verifier setup becomes substantial, propose a smaller path or seek approval.
+verifier setup or repair becomes substantial relative to the task, pause and propose a smaller
+path or seek approval.
 
 Independent review needs an explicit request or approval of a focused recommendation. Recommend
 scrutiny for consequential correctness, security, data, compatibility, or structural uncertainty;
@@ -51,9 +52,9 @@ and read-only roles never delegate, commit, or advance plan or memory state. `su
 optional checker, not a stage or review substitute; use it on request or approval for a concrete
 evidence gap.
 
-For exploration, state the question, search boundary, and condition for enough evidence; stop
-when answered. Report a dependency outside the boundary and seek scope expansion instead of
-auditing the repository.
+For exploration, state the question, search boundary, and condition for enough evidence; locate
+relevant paths before broad reads and stop when answered. Report a dependency outside the
+boundary and seek scope expansion instead of auditing the repository.
 
 Parallel writers require independent subtasks in the authorized slice whose benefit outweighs
 coordination; size or speed alone is insufficient. Assign disjoint surfaces and compatible
