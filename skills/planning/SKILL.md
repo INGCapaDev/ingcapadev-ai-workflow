@@ -5,71 +5,117 @@ description: "Planning for Capa v3: gather context, resolve material design choi
 
 # Planning
 
-Turn a request into an agreed design and a proportionate work breakdown. Planning-only input authorizes read-only investigation and a conversational proposal. Obtain explicit final plan approval before persisting `PLAN.md`. Implementation requires execution authorization; a planning request or permission to write the plan supplies none. Capa invokes this source for planning and owns subsequent execution.
+Turn a request into an agreed design and a proportionate work breakdown. Planning input
+authorizes read-only investigation and a proposal; persisting `PLAN.md` needs explicit final
+approval, and implementation needs separate execution authorization. Capa invokes this source and
+owns execution.
 
-For `/reslice` or an explicit request to compare an existing proposal's or plan's grouping, follow [read-only regrouping](references/reslice.md) instead of the plan-persistence path.
+For `/reslice` or an explicit comparison of an existing proposal's grouping, follow
+[read-only regrouping](references/reslice.md) instead of the persistence path.
 
 ## 1. Establish facts and constraints
 
-Inspect enough of the repository to explain the requested behavior, its current owner, relevant contracts, reusable patterns, examples, and existing checks. Follow applicable project instructions and established decisions. Small, understood work needs only small context and a small proposal.
+Inspect enough of the repository to explain the requested behavior, its owner, contracts,
+reusable patterns, examples, and checks. Follow project instructions and established decisions.
+Small, understood work needs small context and a small proposal.
 
-Before proposing custom integration, inspect applicable installed or native capabilities. When
-native support needs a version change, compare the migration's compatibility cost with custom
-maintenance and resolve any material choice with the human before implementation; neither an
-upgrade nor a custom layer is the automatic default.
+Before proposing custom integration, inspect installed or native capabilities. If native support
+needs a version change, compare migration cost with custom maintenance and resolve the choice
+with the human; neither upgrade nor custom layer is the default.
 
-Separate **facts** (verify from evidence), **established decisions** (follow unless contradicted), and **material choices** (human decision). Load relevant task-critical references only, not the entire quality/convention corpus. Broad quality judgment belongs mainly to reviewers. If evidence contradicts the proposed approach, explain it and suggest a viable alternative.
+Separate **facts** (verify from evidence), **established decisions** (follow unless
+contradicted), and **material choices** (human decision). Load only task-critical references;
+broad quality judgment belongs to reviewers. If evidence contradicts the approach, explain it
+and suggest an alternative.
 
-**Done when:** current behavior and constraints are evidenced, and remaining uncertainty is classified as investigable facts or material choices.
+**Done when:** current behavior and constraints are evidenced, and remaining uncertainty is
+classified as investigable facts or material choices.
 
 ## 2. Resolve the design frontier
 
-Use a **design tree** to track material choices and their prerequisites. The **frontier** contains only choices whose prerequisites are settled; dependent questions wait. Keep the tree conversational unless its complexity warrants a compact visible sketch.
+Use a **design tree** for material choices and their prerequisites. The **frontier** holds only
+choices whose prerequisites are settled; dependent questions wait. Keep the tree conversational
+unless complexity warrants a compact sketch.
 
-Before asking a question, test it:
+Before asking, test the question:
 
-1. Can evidence answer it? Investigate the fact.
-2. Is there an established project answer? Follow that decision.
-3. Would different reasonable answers materially change the solution? State the evidence, viable alternatives, consequential tradeoffs, and your recommendation, then pause for the human's answer.
-4. Otherwise, use engineering judgment within the agreed design.
+1. Can evidence answer it? Investigate.
+2. Is there an established project answer? Follow it.
+3. Would different reasonable answers materially change the solution? State evidence,
+   alternatives, tradeoffs, and your recommendation, then pause for the human.
+4. Otherwise use engineering judgment within the agreed design.
 
-Discuss meaningful APIs, including internal caller-facing contracts, domain models, ownership, and structural choices before coding. Discussion depth follows consequence and reversibility; include only reachable scenarios supported by the request or evidence. Routine naming, local helper shape, extraction, internal organization, and test-file layout remain engineering judgment unless they alter a consequential boundary.
+Discuss meaningful APIs, including internal caller-facing contracts, domain models, ownership,
+and structure before coding. Depth follows consequence and reversibility; include only reachable
+scenarios supported by the request or evidence. Routine naming, helper shape, extraction,
+organization, and test layout stay engineering judgment unless they alter a consequential
+boundary.
 
-A material unanswered choice stays visible and pauses planning; it is not an assumption to bury in tasks.
+A material unanswered choice stays visible and pauses planning; it is not an assumption buried
+in tasks.
 
-**Done when:** one coherent design is agreed, with no material unanswered choice hidden as a task assumption.
+**Done when:** one coherent design is agreed, with no material unanswered choice hidden as a
+task assumption.
 
 ## 3. State the agreed design
 
-Summarize the intended behavior, in/out scope, overall acceptance, material choices and their rationale, important interactions, contracts, and compatibility requirements. Explain how the design uses relevant existing owners and patterns. Reference authoritative context instead of copying guidance bodies. If synthesis exposes another material choice, return to the frontier.
+Summarize intended behavior, scope, overall acceptance, material choices and rationale,
+interactions, contracts, and compatibility. Explain how the design uses existing owners and
+patterns, referencing authoritative context instead of copying it. If synthesis exposes another
+material choice, return to the frontier.
 
-**Done when:** the human can see how the resolved choices fit together and what the proposed work will and will not deliver.
+**Done when:** the human can see how the choices fit together and what the work will and will not
+deliver.
 
 ## 4. Design tracer-bullet slices
 
-Plan **tracer bullets**: small developer tasks with demonstrable or verifiable results, grouped like sensible work-unit commits. A task may advance a feature without finishing it. Favor one clear purpose and logically coupled supporting changes over feature-sized bundles or file-by-file tasks.
+Plan **tracer bullets**: small tasks with demonstrable or verifiable results, grouped like
+work-unit commits. A task may advance a feature without finishing it. Favor one clear purpose and
+logically coupled supporting changes over feature-sized bundles or file-by-file tasks.
 
-Test **outcome separability** before grouping work. If capabilities can each deliver a useful, independently verifiable result while preserving supported behavior, prefer separate slices when that reduces review burden. Sharing a feature or eventual wiring is not sufficient reason to combine them. Split by demonstrable outcomes, not mechanically by folders, technical layers, or responsibilities.
+Test **outcome separability** before grouping. If capabilities can each deliver a useful,
+independently verifiable result while preserving supported behavior, prefer separate slices when
+that reduces review burden; shared features or eventual wiring do not justify combining them.
+Split by demonstrable outcomes, not folders, layers, or responsibilities.
 
-Use roughly 400 authored additions plus deletions as a review-sizing signal, not a target or cap. Assess **review breadth** alongside authored size: several independently meaningful outcomes or materially different acceptance surfaces are signals to reconsider grouping. When combining outcomes is necessary, explain the concrete dependency or invalid intermediate state.
+Use roughly 400 authored additions plus deletions as a review-sizing signal, not a target or cap.
+Assess **review breadth** alongside size: several independent outcomes or materially different
+acceptance surfaces suggest reconsidering the grouping. When combining is necessary, explain the
+concrete dependency or invalid intermediate state.
 
-For a coherent slice too broad for natural human review, propose bounded subtasks and optional
-intermediate diff previews. Previews invite feedback on the current slice, not new statuses or
-separate acceptance gates. If an intermediate outcome is independently valid and warrants human
-acceptance, prefer a separate slice instead.
+For a slice too broad for natural review, propose bounded subtasks and optional intermediate diff
+previews. Previews invite feedback, not new statuses or acceptance gates. If an intermediate
+outcome is independently valid and warrants acceptance, prefer a separate slice.
 
-Record only real dependencies: a preceding contract, capability, or valid-state requirement that the task needs. Show what remains for later tasks without manufacturing setup, cleanup, or verification phases for ordinary supporting work. Commit-sized grouping does not authorize a commit.
+Record only real dependencies: a preceding contract, capability, or valid-state requirement.
+Show what remains for later tasks without manufacturing setup, cleanup, or verification phases.
+Commit-sized grouping does not authorize a commit.
 
-Give each verification activity a purpose tied to an acceptance scenario or concrete evidence gap; implementation/diff inspection and flow tracing are valid evidence paths, not automatically commands. Prefer relevant existing checks and observable behavior; reuse valid unchanged passing evidence. New tests, TDD, and coverage requirements come only from the human or applicable project instructions. Follow the AGENTS test-recommendation boundary for high-risk business rules. Follow the orchestrator's verification-effort and review-approval gates: identify any consequential concern worth recommending for review, not mandatory reviewers for every slice. Execution reassesses the actual candidate. Add consequential edit boundaries or concrete recovery options when the work's ownership or risk calls for them, not as default filler.
+Give each verification activity a purpose tied to an acceptance scenario or evidence gap;
+inspection and flow tracing are valid evidence paths, not automatically commands. Prefer existing
+checks and observable behavior, and reuse valid unchanged evidence. New tests, TDD, and coverage
+come only from the human or project instructions; follow the AGENTS boundary for high-risk rules
+and the orchestrator's review gate. Add edit boundaries or recovery options only when ownership or
+risk calls for them.
 
-Compare a small number of genuinely viable decompositions only when boundaries are materially debatable; a simple coherent task needs no alternatives table. Present a concise grouping rationale: why supporting changes belong together, why the boundaries help, and what remains valid at each checkpoint.
+Compare genuinely viable decompositions only when boundaries are materially debatable; a simple
+coherent task needs no alternatives table. Present a concise rationale: why supporting changes
+belong together, why the boundaries help, and what remains valid at each checkpoint.
 
-**Done when:** every slice has a clear outcome, coherent supporting changes, a valid checkpoint, and verifiable acceptance, with dependencies and material risks accounted for.
+**Done when:** every slice has a clear outcome, coherent supporting changes, a valid checkpoint,
+and verifiable acceptance, with dependencies and material risks accounted for.
 
 ## 5. Obtain final approval, then persist
 
-Present the agreed design and proposed tasks conversationally so the human can correct misunderstandings. Ask for explicit final approval of the plan and stop. Answering a design question is not final plan approval.
+Present the design and proposed tasks conversationally so the human can correct
+misunderstandings. Ask for explicit final approval and stop; answering a design question is not
+approval.
 
-When preparing an approved plan for persistence, read [the plan format](references/plan-format.md) for its five-section structure, per-slice evidence contract, progress meanings, and scoped-folder/companion rules. Preserve useful identity, locating context, and verbatim requirements; companion context must not become a competing scope or progress mirror.
+When preparing an approved plan, read [the plan format](references/plan-format.md) for its
+structure, evidence contract, progress meanings, and scoped-folder rules. Preserve identity,
+locating context, and verbatim requirements; companions must not become competing scope or a
+progress mirror.
 
-After final approval, the authorized plan writer persists the agreed change in one `PLAN.md`, with slices initially `pending` and one concrete next action. End planning by returning the approved plan's location and next action to the execution owner. Execution authorization and later review, acceptance, delivery, and memory orchestration remain outside this skill.
+After approval, the authorized writer persists one `PLAN.md`, with slices `pending` and one next
+action, then returns its location and next action to the execution owner. Execution and later
+review, acceptance, delivery, and memory orchestration remain outside this skill.

@@ -15,3 +15,4 @@
 - Preserve documented package or feature public entrypoints. Otherwise prefer direct imports within the ownership boundary, and do not create new barrel files unless explicitly requested.
 - Chained array operations may add traversals and allocations. Keep the clearest semantics for small or bounded collections; consolidate only when realistic frequency, cardinality, allocation, or hot-path evidence makes the cost material.
 - **Model seams accurately:** Trust established internal contracts while preserving genuine narrowing and absence checks. Resolve type problems through accurate modeling rather than `any`, casts, or non-null assertions that conceal a wrong contract. Localize justified assertions where a real invariant or integration constraint is established but TypeScript cannot express it.
+- Write decimal integer literals with contiguous digits, for example `20000`.
