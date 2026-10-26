@@ -25,7 +25,10 @@ Inspect relevant code, contracts, patterns, and checks before choosing a path.
 
 Choose the smallest adequate evidence by consequence, not file count: readback for low-risk local
 edits, focused existing checks for behavior or contract changes, and critical success/failure
-evidence for high-risk data, security, compatibility, or invariants when feasible. Reuse evidence
+evidence for high-risk data, security, compatibility, or invariants when feasible. Code inspection
+and flow tracing are sufficient when they establish correctness for the changed behavior. Use
+execution when material uncertainty cannot be resolved through inspection or when runtime
+evidence is required. Reuse evidence
 whose candidate and coverage still apply; rerun only affected checks. Disclose missing proof:
 inspection is not runtime proof or review, and required proof stays unresolved until supplied. If
 verifier setup or repair becomes substantial relative to the task, pause and propose a smaller
